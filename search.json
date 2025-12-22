@@ -1,0 +1,1103 @@
+[
+  {
+    "objectID": "content/zh/notes/mini-batch-SGD.html",
+    "href": "content/zh/notes/mini-batch-SGD.html",
+    "title": "随机梯度下降初步",
+    "section": "",
+    "text": "本文主要初步介绍随机梯度下降（Stochastic Gradient Descent, SGD）算法及其 mini-batch 变种的基本原理、假设与数学性质。",
+    "crumbs": [
+      "Notes",
+      "数学",
+      "随机梯度下降初步"
+    ]
+  },
+  {
+    "objectID": "content/zh/notes/mini-batch-SGD.html#mini-batch-sgd有放回抽样情形",
+    "href": "content/zh/notes/mini-batch-SGD.html#mini-batch-sgd有放回抽样情形",
+    "title": "随机梯度下降初步",
+    "section": "2.1 Mini-batch SGD：有放回抽样情形",
+    "text": "2.1 Mini-batch SGD：有放回抽样情形\n经典的单样本 SGD 每次仅使用一个样本计算梯度，虽然计算成本低，但引入的噪声可能较大（方差 \\(\\sigma^2\\) 较大），容易导致迭代轨迹剧烈震荡，且难以利用现代硬件的并行计算能力。小批量随机梯度下降（Mini-batch SGD）通过每次迭代使用 \\(M\\) 个样本来计算梯度，是单样本 SGD 的自然推广。\n设第 \\(t\\) 次迭代中，有放回地独立采样得到 \\(M\\) 个样本 \\[\n\\mathcal{B}_t = \\{z_{t,1}, \\ldots, z_{t,M}\\},\n\\] 其中 \\(z_{t,1},\\dots,z_{t,M} \\overset{\\text{i.i.d.}}{\\sim} \\mathcal{D}\\)。 将梯度估计量定义为这批样本梯度的均值： \\[\ng^{(M)}(\\theta_t)\n= \\frac{1}{M} \\sum_{i=1}^M \\nabla_\\theta \\ell(z_{t,i}; \\theta_t).\n\\]\n我们可以证明：若单样本梯度满足前述的无偏性与方差有界性假设，那么 Mini-batch 梯度估计量 \\(g^{(M)}(\\theta_t)\\) 必然满足同样的无偏性假设，且其方差上界更小。 为简化记号，在下面的推导中，不失一般性，我们固定某个迭代步 \\(t\\) 和参数 \\(\\theta_t\\)，记单样本梯度以及全量梯度为： \\[\ng(z) \\triangleq \\nabla_\\theta \\ell(z;\\theta_t),\\qquad\n\\nabla F \\triangleq \\nabla F(\\theta_t).\n\\] 这样 \\[\ng^{(M)}(\\theta_t) = \\frac{1}{M}\\sum_{i=1}^M g(z_{t,i}).\n\\]\n\n2.1.1 无偏性的保持\n设单样本梯度是无偏的，即 \\[\n\\mathbb{E}_{z\\sim\\mathcal{D}}[g(z)] = \\nabla F.\n\\] 由于期望是线性的，且样本 \\(z_{t,1},\\dots,z_{t,M}\\) 相互独立、服从分布 \\(\\mathcal{D}\\)，我们有： \\[\n\\begin{aligned}\n\\mathbb{E}[g^{(M)}(\\theta_t)]\n&= \\mathbb{E}\\left[ \\frac{1}{M} \\sum_{i=1}^M g(z_{t,i}) \\right] \\\\\n&= \\frac{1}{M} \\sum_{i=1}^M \\mathbb{E}[g(z_{t,i})] \\\\\n&= \\frac{1}{M} \\cdot M \\cdot \\nabla F \\\\\n&= \\nabla F.\n\\end{aligned}\n\\]\n这表明 Mini-batch 梯度继承了无偏性，依然是真实梯度的正确估计： \\[\n\\boxed{\\mathbb{E}[g_t^{(M)}(\\theta_t)] = \\nabla F(\\theta_t).}\n\\]\n\n\n2.1.2 方差的有界性\n假设单样本梯度的噪声方差有界，即存在常数 \\(\\sigma^2\\) 使得 \\[\n\\mathbb{E}\\bigl[\\|g(z) - \\nabla F(\\theta_t)\\|^2\\bigr] \\leq \\sigma^2.\n\\]\n定义第 \\(i\\) 个样本的梯度噪声为 \\[\nX_i \\triangleq g(z_{t,i}) - \\nabla F(\\theta_t).\n\\] 则有 \\(\\mathbb{E}[X_i]=0\\)，且 \\(X_1,\\dots,X_M\\) 相互独立、同分布。此时 \\[\ng_t^{(M)}(\\theta_t) - \\nabla F(\\theta_t)\n= \\frac1M \\sum_{i=1}^M X_i.\n\\]\n我们关心的是\n\\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla F\\|^2\\bigr]\n= \\mathbb{E}\\left\\|\\frac1M \\sum_{i=1}^M X_i\\right\\|^2.\n\\]\n注意到有恒等式 \\[\n\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n= \\sum_{i=1}^M \\|X_i\\|^2 + 2\\sum_{i&lt;j} \\langle X_i,X_j\\rangle.\n\\]\n两边取期望： \\[\n\\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n= \\sum_{i=1}^M \\mathbb{E}\\|X_i\\|^2\n+ 2\\sum_{i&lt;j} \\mathbb{E}\\langle X_i,X_j\\rangle.\n\\]\n由于 \\(X_i\\) 与 \\(X_j\\) 独立，且 \\(\\mathbb{E}[X_i]=0\\)，有 \\[\n\\mathbb{E}\\langle X_i,X_j\\rangle\n= \\mathbb{E}\\bigl[X_i^\\top X_j\\bigr]\n= \\mathbb{E}\\bigl[X_i^\\top \\mathbb{E}(X_j\\mid X_i)\\bigr]\n= \\mathbb{E}\\bigl[X_i^\\top \\mathbb{E}(X_j)\\bigr]\n= \\mathbb{E}\\bigl[X_i^\\top 0\\bigr] = 0.\n\\] 因此所有交叉项的期望为 \\(0\\)，于是 \\[\n\\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n= \\sum_{i=1}^M \\mathbb{E}\\|X_i\\|^2.\n\\]\n由于各 \\(X_i\\) 同分布， \\[\n\\mathbb{E}\\|X_i\\|^2 = \\mathbb{E}\\|X_1\\|^2\n= \\mathbb{E}\\|g(z)-\\nabla F(\\theta_t)\\|^2 \\le \\sigma^2.\n\\] 于是 \\[\n\\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n\\le M \\sigma^2.\n\\]\n回到我们要算的量： \\[\n\\begin{aligned}\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla F(\\theta_t)\\|^2\\bigr]\n&= \\mathbb{E}\\left\\|\\frac1M \\sum_{i=1}^M X_i\\right\\|^2 \\\\\n&= \\frac{1}{M^2} \\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2 \\\\\n&\\le \\frac{1}{M^2}\\cdot M \\sigma^2 \\\\\n&= \\frac{\\sigma^2}{M}.\n\\end{aligned}\n\\]\n因此，在有放回抽样下，若单样本梯度噪声满足 \\[\n\\mathbb{E}\\bigl[\\|g(z)- \\nabla F(\\theta_t)\\|^2\\bigr] \\le \\sigma^2,\n\\] 则对应的 mini-batch 梯度估计量满足 \\[\n\\boxed{\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla F(\\theta_t)\\|^2 \\mid \\theta_t\\bigr]\n\\le \\frac{\\sigma^2}{M}.\n}\n\\]\n由于 \\(M \\ge 1\\)，显然 \\(\\frac{\\sigma^2}{M} \\le \\sigma^2\\)。这说明 Mini-batch SGD 不仅满足方差有界假设，而且将梯度估计的方差显著降低了 \\(M\\) 倍。这意味着在相同的迭代步数下，Mini-batch 算法能提供更稳定的梯度方向，从而支持使用更大的步长 \\(\\eta_t\\) 并加速收敛。",
+    "crumbs": [
+      "Notes",
+      "数学",
+      "随机梯度下降初步"
+    ]
+  },
+  {
+    "objectID": "content/zh/notes/mini-batch-SGD.html#无放回抽样与有限总体校正-finite-population-correction",
+    "href": "content/zh/notes/mini-batch-SGD.html#无放回抽样与有限总体校正-finite-population-correction",
+    "title": "随机梯度下降初步",
+    "section": "2.2 无放回抽样与有限总体校正 (Finite Population Correction)",
+    "text": "2.2 无放回抽样与有限总体校正 (Finite Population Correction)\n上面的 \\(\\frac{\\sigma^2}{M}\\) 方差界在理论分析中被广泛使用，但它隐式地依赖于有放回抽样（sampling with replacement）假设，即每次抽取的样本之间是相互独立的。\n我们提到过在实际情况中，数据通常是以有限数据集 \\(\\mathcal{D} = \\{z_i\\}_{i=1}^N\\) 的形式给出（但是规模很大），此时我们通常考虑经验风险： \\[\nF(\\theta) \\approx \\hat{F}(\\theta) = \\frac{1}{N} \\sum_{i=1}^N \\ell(z_i; \\theta)\n\\] 在主流深度学习框架（如 PyTorch, TensorFlow）的工程实现中，通常采用无放回抽样（sampling without replacement）策略：即在每个 epoch 开始时打乱数据集（shuffle），然后将数据切分为若干个不重叠的小批量。\n这就引出了一个这么一件事情：\n\n如果严格套用 \\(\\frac{\\sigma^2}{M}\\) 的公式，当批次大小 \\(M\\) 等于数据集大小 \\(N\\) 时，梯度估计的方差为 \\(\\frac{\\sigma^2}{N}\\)。由于 \\(\\sigma^2 &gt; 0\\)，这意味着全量梯度（full batch gradient）的方差上界仍然大于零。 但事实上，全量梯度 \\[\n\\nabla \\hat F(\\theta) = \\frac{1}{N}\\sum_{i=1}^N \\nabla \\ell(z_i;\\theta)\n\\] 是一个确定性的向量，其方差应为 0。\n\n这实际上是因为无放回抽样下，抽样得到的样本并不独立。为了更准确地描述 Mini-batch SGD 在实际工程中的行为，我们需要引入统计学中的有限总体校正（Finite Population Correction, FPC）。\n\n2.2.1 数学设定\n考虑一个有限数据集 \\[\n\\mathcal{D} = \\{z_1,\\dots,z_N\\}.\n\\] 对于固定的参数 \\(\\theta\\)，所有样本的梯度构成了一个有限总体： \\[\n\\mathcal{G} = \\{g_1,\\dots,g_N\\}, \\qquad g_i \\triangleq \\nabla \\ell(z_i;\\theta).\n\\]\n定义样本平均（即经验风险的全量梯度）为 \\[\n\\nabla \\hat F(\\theta) = \\frac{1}{N}\\sum_{i=1}^N g_i,\n\\] 并定义样本方差为（这里使用的是无偏方差）： \\[\n\\sigma^2(\\theta) \\triangleq \\frac{1}{N-1}\\sum_{i=1}^N \\|g_i - \\nabla \\hat F(\\theta)\\|^2.\n\\]\n下面我们关心的是：从 \\(\\{1,\\dots,N\\}\\) 中无放回抽取一个大小为 \\(M\\) 的子集 \\(S\\)，定义 mini-batch 梯度 \\[\ng_t^{(M)} = \\frac{1}{M}\\sum_{i\\in S} g_i,\n\\] 那么 \\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n\\] 的精确形式是什么。\n\n\n2.2.2 标量情形的有限总体校正\n由于样本梯度往往是以向量形式存在的（\\(d&gt;1\\))。为了把思路讲清楚，我们先看一维标量情况。设有固定的样本（标量）： \\[\nx_1,\\dots,x_N,\n\\] 定义样本均值 \\[\n\\bar{x} = \\frac{1}{N}\\sum_{i=1}^N x_i,\n\\] 以及样本（无偏）方差 \\[\nS^2 = \\frac{1}{N-1}\\sum_{i=1}^N (x_i - \\bar{x})^2.\n\\]\n从中无放回抽取 \\(M\\) 个索引构成子集 \\(S\\)，样本均值为 \\[\n\\bar X = \\frac{1}{M}\\sum_{i\\in S} x_i.\n\\]\n引入指示变量 \\[\n\\xi_i \\triangleq\n\\begin{cases}\n1, & i\\in S,\\\\\n0, & i\\notin S,\n\\end{cases}\n\\qquad i=1,\\dots,N.\n\\] 则 \\[\n\\bar X = \\frac{1}{M}\\sum_{i=1}^N \\xi_i x_i.\n\\]\n注意 \\[\n\\mathbb{E}[\\xi_i] = \\Pr(i\\in S) = \\frac{M}{N}.\n\\] 一个简单的计算可以验证无偏性： \\[\n\\mathbb{E}[\\bar X]\n= \\frac{1}{M}\\sum_{i=1}^N x_i\\,\\mathbb{E}[\\xi_i]\n= \\frac{1}{M}\\cdot\\frac{M}{N}\\sum_{i=1}^N x_i\n= \\bar{x}.\n\\]\n现在我们计算 \\(\\mathbb{E}[(\\bar X - \\bar{x})^2]\\)。令 \\[\ny_i \\triangleq x_i - \\bar{x},\\qquad \\sum_{i=1}^N y_i = 0,\n\\] 则 \\[\n\\bar X - \\bar{x}\n= \\frac{1}{M}\\sum_{i=1}^N \\xi_i y_i.\n\\]\n于是 \\[\n(\\bar X - \\bar{x})^2\n= \\frac{1}{M^2}\\left(\\sum_{i=1}^N \\xi_i y_i\\right)^2\n= \\frac{1}{M^2}\\left(\n  \\sum_{i=1}^N \\xi_i y_i^2\n+ 2\\sum_{1\\le i&lt;j\\le N} \\xi_i\\xi_j y_i y_j\n\\right).\n\\]\n对上式取期望： \\[\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n= \\frac{1}{M^2}\\left(\n  \\sum_{i=1}^N \\mathbb{E}[\\xi_i] y_i^2\n+ 2\\sum_{i&lt;j} \\mathbb{E}[\\xi_i\\xi_j] y_i y_j\n\\right).\n\\]\n我们已经知道 \\(\\mathbb{E}[\\xi_i]=\\frac{M}{N}\\)。对于 \\(i\\neq j\\)，\\(\\xi_i\\xi_j=1\\) 当且仅当 \\(i\\) 和 \\(j\\) 都被选中。注意到无放回等概率抽样下，任意指定两个元素同时被选中的概率为 \\[\n\\Pr(i\\in S,\\;j\\in S)\n= \\frac{\\binom{N-2}{M-2}}{\\binom{N}{M}}\n= \\frac{M(M-1)}{N(N-1)},\n\\] 因此 \\[\n\\mathbb{E}[\\xi_i\\xi_j]= \\mathbb{E}[\\mathbb{1}_{\\{i\\in S,j\\in S\\}}] =  \\Pr(i\\in S,\\;j\\in S) = \\frac{M(M-1)}{N(N-1)},\\qquad i\\neq j.\n\\]\n代入得到 \\[\n\\begin{aligned}\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n&= \\frac{1}{M^2}\\left(\n  \\frac{M}{N}\\sum_{i=1}^N y_i^2\n+ 2\\cdot\\frac{M(M-1)}{N(N-1)}\\sum_{i&lt;j} y_i y_j\n\\right).\n\\end{aligned}\n\\]\n利用恒等式 \\[\n\\left(\\sum_{i=1}^N y_i\\right)^2\n= \\sum_{i=1}^N y_i^2 + 2\\sum_{i&lt;j} y_i y_j\n= 0,\n\\] 可得 \\[\n\\sum_{i&lt;j} y_i y_j = -\\frac12\\sum_{i=1}^N y_i^2.\n\\]\n代回： \\[\n\\begin{aligned}\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n&= \\frac{1}{M^2}\\left(\n  \\frac{M}{N}\\sum_i y_i^2\n+ 2\\cdot\\frac{M(M-1)}{N(N-1)}\\cdot\\left(-\\frac12\\sum_i y_i^2\\right)\n\\right) \\\\\n&= \\frac{1}{M^2}\\left[\n  \\frac{M}{N} - \\frac{M(M-1)}{N(N-1)}\n\\right]\\sum_i y_i^2 \\\\\n&= \\frac{1}{M^2}\\cdot\\frac{M}{N}\\cdot\\frac{N-M}{N-1}\\sum_i y_i^2 \\\\\n&= \\frac{1}{M}\\cdot\\frac{N-M}{N}\\cdot\\frac{1}{N-1}\\sum_i y_i^2.\n\\end{aligned}\n\\]\n注意到 \\[\nS^2 = \\frac{1}{N-1}\\sum_{i=1}^N (x_i - \\bar{x})^2 = \\frac{1}{N-1}\\sum_i y_i^2,\n\\] 于是得到著名的有限总体校正公式： \\[\n\\boxed{\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\,S^2.\n}\n\\]\n与有放回抽样的 \\(\\frac{S^2}{M}\\) 相比，这里多了一个 \\[\n1 - \\frac{M}{N} \\in (0,1]\n\\] 的校正因子。当 \\(M\\ll N\\) 时，该因子接近 \\(1\\)，无放回与有放回几乎没有区别；当 \\(M\\to N\\) 时，该因子趋近 \\(0\\)，方差也趋于 \\(0\\)，与“全批次梯度是确定性的”这一事实完全吻合。\n\n\n2.2.3 向量梯度情形的有限总体校正\n回到向量梯度的情形。注意到我们定义了 \\[\ng_i \\triangleq \\nabla \\ell(z_i;\\theta),\\qquad\n\\nabla \\hat F(\\theta) = \\frac{1}{N}\\sum_{i=1}^N g_i.\n\\] 设无放回抽取样本量大小为 \\(M\\) 的样本集合 \\(S\\)，则mini-batch 梯度为 \\[\ng_t^{(M)} = \\frac{1}{M}\\sum_{i\\in S} g_i.\n\\]\n我们关心的是 \\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n\\] 是什么样的形式。\n注意到 \\[\n\\|g_t^{(M)} - \\nabla \\hat F\\|^2\n= \\sum_{k=1}^d \\bigl((g_t^{(M)})_k - \\nabla \\hat F_k\\bigr)^2,\n\\] 其中下标 \\(k\\) 表示向量的第 \\(k\\) 个坐标。因此 \\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F\\|^2\\bigr]\n= \\sum_{k=1}^d \\mathbb{E}\\bigl[((g_t^{(M)})_k - \\nabla \\hat F_k)^2\\bigr].\n\\]\n不失一般性，考虑第 \\(k\\) 个坐标分量，我们令 \\[\nx_i = (g_i)_{k},\\qquad \\bar{x}_k = \\frac{1}{N}\\sum_{i=1}^N x_i = \\nabla \\hat F_k,\n\\] 应用上一节的一维结果，得到 \\[\n\\mathbb{E}\\bigl[((g_t^{(M)})_k - \\nabla \\hat F_k)^2\\bigr]\n= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right) S_k^2,\n\\] 其中 \\[\nS_k^2 = \\frac{1}{N-1}\\sum_{i=1}^N (g_i^{(k)} - \\nabla \\hat F_k)^2.\n\\]\n因此 \\[\n\\begin{aligned}\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F\\|^2\\bigr]\n&= \\sum_{k=1}^d \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right) S_k^2 \\\\\n&= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\sum_{k=1}^d S_k^2.\n\\end{aligned}\n\\]\n而 \\[\n\\sum_{k=1}^d S_k^2\n= \\sum_{k=1}^d \\frac{1}{N-1}\\sum_{i=1}^N (g_i^{(k)} - \\nabla \\hat F_k)^2\n= \\frac{1}{N-1}\\sum_{i=1}^N \\sum_{k=1}^d (g_i^{(k)} - \\nabla \\hat F_k)^2\n= \\frac{1}{N-1}\\sum_{i=1}^N \\|g_i - \\nabla \\hat F\\|^2.\n\\]\n因此我们得到向量版的有限总体校正公式： \\[\n\\boxed{\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\n   \\cdot \\frac{1}{N-1}\\sum_{i=1}^N \\|g_i - \\nabla \\hat F(\\theta)\\|^2.\n}\n\\]\n如果我们假设样本总体梯度的方差有统一上界，即存在常数 \\(\\sigma^2\\) 使得对所有 \\(\\theta\\) 都有 \\[\n\\frac{1}{N-1}\\sum_{i=1}^N \\|\\nabla \\ell(z_i;\\theta) - \\nabla \\hat F(\\theta)\\|^2 \\le \\sigma^2,\n\\] 那么无放回 mini-batch 梯度满足 \\[\n\\boxed{\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n\\le \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\sigma^2.\n}\n\\]\n与有放回采样的 \\(\\frac{\\sigma^2}{M}\\) 相比，无放回多了一个 \\[\n\\left(1 - \\frac{M}{N}\\right)\n\\] 的有限总体校正因子。它有三个直接的含义：\n\n当 \\(M=1\\) 时，校正因子为 \\(1\\)，退化为单样本 SGD 的方差 \\(\\sigma^2\\)；\n当 \\(M\\ll N\\) 时，\\(\\frac{M}{N}\\) 很小，校正因子接近 \\(1\\)，无放回与有放回几乎没有区别，这也是大数据场景下常见的近似；\n当 \\(M=N\\) 时，校正因子为 \\(0\\)，从而 \\(\\mathbb{E}\\|g_t^{(N)} - \\nabla \\hat F(\\theta)\\|^2 = 0\\)，即 full-batch 梯度是确定的，没有随机性，更准确地描述了 Mini-batch SGD 在实际工程中的行为。\n\n综上所述，我们可以把 mini-batch SGD 在有限样本情形下的无偏性与方差假设统一写成：\n\n有放回抽样时： \\[\n\\mathbb{E}[g_t^{(M)}(\\theta_t)] = \\nabla \\hat F(\\theta_t), \\qquad\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla \\hat F(\\theta_t)\\|^2\\bigr] \\le \\frac{\\sigma^2}{M};\n\\]\n无放回抽样时： \\[\n\\mathbb{E}[g_t^{(M)}(\\theta_t)] = \\nabla \\hat F(\\theta_t), \\qquad\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla \\hat F(\\theta_t)\\|^2\\bigr]\n\\le \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\sigma^2.\n\\]",
+    "crumbs": [
+      "Notes",
+      "数学",
+      "随机梯度下降初步"
+    ]
+  },
+  {
+    "objectID": "content/zh/notes/calculus.html",
+    "href": "content/zh/notes/calculus.html",
+    "title": "微积分回顾",
+    "section": "",
+    "text": "1 极限\n\\[\n\\lim_{x \\to a} f(x) = L\n\\]\n直观理解：当 \\(x\\) 无限接近 \\(a\\) 时，\\(f(x)\\) 无限接近 \\(L\\)。\n\n\n2 导数\n导数的定义：\n\\[\nf'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}\n\\]\n\n\n3 微积分基本定理\n如果 \\(f\\) 在 \\([a, b]\\) 上连续，且 \\(F\\) 是 \\(f\\) 的原函数，则：\n\\[\n\\int_a^b f(x) dx = F(b) - F(a)\n\\]",
+    "crumbs": [
+      "Notes",
+      "数学",
+      "微积分回顾"
+    ]
+  },
+  {
+    "objectID": "content/zh/notes/linear-algebra.html",
+    "href": "content/zh/notes/linear-algebra.html",
+    "title": "线性代数笔记",
+    "section": "",
+    "text": "定义：一个向量空间 \\(V\\) 是一个集合，配备了加法和标量乘法…\n\n\n如果 \\(W \\subseteq V\\) 且 \\(W\\) 也是一个向量空间，则称 \\(W\\) 为 \\(V\\) 的子空间。",
+    "crumbs": [
+      "Notes",
+      "数学",
+      "线性代数笔记"
+    ]
+  },
+  {
+    "objectID": "content/zh/notes/linear-algebra.html#子空间",
+    "href": "content/zh/notes/linear-algebra.html#子空间",
+    "title": "线性代数笔记",
+    "section": "",
+    "text": "如果 \\(W \\subseteq V\\) 且 \\(W\\) 也是一个向量空间，则称 \\(W\\) 为 \\(V\\) 的子空间。",
+    "crumbs": [
+      "Notes",
+      "数学",
+      "线性代数笔记"
+    ]
+  },
+  {
+    "objectID": "content/zh/notes/linear-algebra.html#特征方程",
+    "href": "content/zh/notes/linear-algebra.html#特征方程",
+    "title": "线性代数笔记",
+    "section": "2.1 特征方程",
+    "text": "2.1 特征方程\n特征值可以通过求解特征方程得到：\n\\[\n\\det(A - \\lambda I) = 0\n\\]",
+    "crumbs": [
+      "Notes",
+      "数学",
+      "线性代数笔记"
+    ]
+  },
+  {
+    "objectID": "content/zh/publications/paper2.html",
+    "href": "content/zh/publications/paper2.html",
+    "title": "（示例）基于深度学习的图像识别研究",
+    "section": "",
+    "text": "我们提出了一种基于 ResNet 的新型架构…\n\n\n我们的模型使用了…\n\n\n\n我们在 MNIST 数据集上达到了 99.9% 的准确率。"
+  },
+  {
+    "objectID": "content/zh/publications/paper2.html#方法论",
+    "href": "content/zh/publications/paper2.html#方法论",
+    "title": "（示例）基于深度学习的图像识别研究",
+    "section": "",
+    "text": "我们的模型使用了…"
+  },
+  {
+    "objectID": "content/zh/publications/paper2.html#结果",
+    "href": "content/zh/publications/paper2.html#结果",
+    "title": "（示例）基于深度学习的图像识别研究",
+    "section": "",
+    "text": "我们在 MNIST 数据集上达到了 99.9% 的准确率。"
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html",
+    "href": "content/zh/blog/setup-guide.html",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "",
+    "text": "这是一个基于 Quarto 构建的学术个人网站模板，旨在帮助科研工作者快速搭建个人网站，分享笔记和博客文章。它具有以下特点：\n\n上手简单：只需跟随本教程，结合现代 AI 工具答疑，不需要什么前置知识即可轻松完成网站部署。\n学术友好：支持 LaTeX 风格的数学公式、公式引用及参考文献管理，适合发布学术内容。\n轻量简洁：尽量使用 Quarto 原生功能，减少自定义 CSS/HTML，便于理解和二次开发。\nAI 自动翻译：内置 Python 脚本，利用 DeepSeek API 实现中英文内容自动同步。\n自动化部署：集成 GitHub Actions，自动免费构建和发布，无需手动操作，无需配置个人服务器。\n响应式设计：界面简洁美观，适配桌面与移动设备。\n\n\n\n在正式开始配置前，我们需要先了解一下项目的文件夹结构和各部分功能，便于理解后续的操作。\nusername.github.io/              # 你的个人网站项目根目录\n├─ _quarto.yml                   # Quarto 网站全局配置文件\n├─ index.qmd                     # 网站首页（源语言版本。默认为中文，翻译脚本自动生成另一语言版本，详见后文）\n├─ requirements.txt              # Python 依赖列表\n├─ README.md                     # 仓库说明文档\n├─ references.bib                # 全局参考文献数据库\n├─ .gitignore                    # Git 忽略文件列表\n├─ .github/                      # GitHub 配置文件夹\n│  └─ workflows/\n│     └─ publish.yml             # GitHub Actions 自动化工作流，详见后文\n├─ content/                      # 主要内容文件夹，平时需要进行编辑的地方\n│  ├─ en/                        # 英文内容\n│  │  ├─ _metadata.yml           # 英文文件夹元数据\n│  │  ├─ index.qmd               # 英文首页（若源语言为中文，本文件由翻译脚本自动生成）\n│  │  ├─ cv.qmd                  # 英文简历\n│  │  ├─ blog/                   # 英文博客\n│  │  ├─ notes/                  # 英文笔记\n│  │  │  ├─ _metadata.yml        # 笔记文件夹元数据\n│  │  │  └─ ...\n│  │  └─ publications/           # 英文论文\n│  └─ zh/                        # 中文内容\n│     ├─ _metadata.yml           # 中文文件夹元数据\n│     ├─ cv.qmd                  # 中文简历\n│     ├─ blog/                   # 中文博客\n│     ├─ notes/                  # 中文笔记\n│     └─ publications/           # 中文论文\n├─ assets/                       # 静态资源\n│  ├─ css/\n│  │  └─ custom.css              # 自定义样式\n│  ├─ images/\n│  │  └─ avatar.jpg              # 头像等图片\n│  └─ html/\n│     ├─ footer.html             # 自定义页脚\n│     └─ include_lang_switch.html # 语言切换器\n├─ scripts/                      # 自动化脚本文件夹\n│  ├─ README.md                  # 脚本说明文档\n│  ├─ sync_deepseek.py           # 自动翻译脚本\n│  └─ tex2qmd.py                 # LaTeX 转 Quarto 脚本\n└─ _site/                        # 生成的静态网站（自动生成，勿手动编辑）\n\n\n\n根目录 index.qmd：网站首页的源文件。默认以中文撰写（lang: zh），翻译脚本会自动生成英文版到 content/en/index.qmd。若你习惯用英文写作，可将 lang 改为 en，脚本则会反向生成中文版到 content/zh/index.qmd。\n_metadata.yml：可放置于任意内容子文件夹中（如 blog/、notes/），用于定义该文件夹下所有文档的默认元数据。详见后文”配置层级与优先级”。\n_site/：Quarto 构建后生成的静态网站，勿手动编辑。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#项目文件夹结构与功能说明",
+    "href": "content/zh/blog/setup-guide.html#项目文件夹结构与功能说明",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "",
+    "text": "在正式开始配置前，我们需要先了解一下项目的文件夹结构和各部分功能，便于理解后续的操作。\nusername.github.io/              # 你的个人网站项目根目录\n├─ _quarto.yml                   # Quarto 网站全局配置文件\n├─ index.qmd                     # 网站首页（源语言版本。默认为中文，翻译脚本自动生成另一语言版本，详见后文）\n├─ requirements.txt              # Python 依赖列表\n├─ README.md                     # 仓库说明文档\n├─ references.bib                # 全局参考文献数据库\n├─ .gitignore                    # Git 忽略文件列表\n├─ .github/                      # GitHub 配置文件夹\n│  └─ workflows/\n│     └─ publish.yml             # GitHub Actions 自动化工作流，详见后文\n├─ content/                      # 主要内容文件夹，平时需要进行编辑的地方\n│  ├─ en/                        # 英文内容\n│  │  ├─ _metadata.yml           # 英文文件夹元数据\n│  │  ├─ index.qmd               # 英文首页（若源语言为中文，本文件由翻译脚本自动生成）\n│  │  ├─ cv.qmd                  # 英文简历\n│  │  ├─ blog/                   # 英文博客\n│  │  ├─ notes/                  # 英文笔记\n│  │  │  ├─ _metadata.yml        # 笔记文件夹元数据\n│  │  │  └─ ...\n│  │  └─ publications/           # 英文论文\n│  └─ zh/                        # 中文内容\n│     ├─ _metadata.yml           # 中文文件夹元数据\n│     ├─ cv.qmd                  # 中文简历\n│     ├─ blog/                   # 中文博客\n│     ├─ notes/                  # 中文笔记\n│     └─ publications/           # 中文论文\n├─ assets/                       # 静态资源\n│  ├─ css/\n│  │  └─ custom.css              # 自定义样式\n│  ├─ images/\n│  │  └─ avatar.jpg              # 头像等图片\n│  └─ html/\n│     ├─ footer.html             # 自定义页脚\n│     └─ include_lang_switch.html # 语言切换器\n├─ scripts/                      # 自动化脚本文件夹\n│  ├─ README.md                  # 脚本说明文档\n│  ├─ sync_deepseek.py           # 自动翻译脚本\n│  └─ tex2qmd.py                 # LaTeX 转 Quarto 脚本\n└─ _site/                        # 生成的静态网站（自动生成，勿手动编辑）\n\n\n\n根目录 index.qmd：网站首页的源文件。默认以中文撰写（lang: zh），翻译脚本会自动生成英文版到 content/en/index.qmd。若你习惯用英文写作，可将 lang 改为 en，脚本则会反向生成中文版到 content/zh/index.qmd。\n_metadata.yml：可放置于任意内容子文件夹中（如 blog/、notes/），用于定义该文件夹下所有文档的默认元数据。详见后文”配置层级与优先级”。\n_site/：Quarto 构建后生成的静态网站，勿手动编辑。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#核心工具",
+    "href": "content/zh/blog/setup-guide.html#核心工具",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "2.1 核心工具",
+    "text": "2.1 核心工具\n本项目需要下载安装以下工具：\n\nVS Code：一个强大的文本编辑器，我们用它来写代码、写文章、管理项目、操作 Git。\nQuarto CLI：将你的 Markdown 文章转化为网页的引擎。\nGit：版本控制工具，用于将修改同步到 GitHub。\nPython (可选)：用于本地运行翻译脚本。安装时请勾选 “Add Python to PATH”。\n\n相关工具的安装和配置请自行搜索，这里不再赘述。\n\n2.1.1 关于 VS Code\nVS Code 本质上是一个文本编辑器，但它有丰富的插件生态——这些插件能让 VS Code “认识”各种语言（语法高亮、错误提示、自动补全），或”变身”成各种工具（Git 客户端、Quarto 编辑器等）。它被称为”集成开发环境”（IDE）。\n不过，VS Code 和插件只负责编辑，真正执行代码的是你电脑上安装的外部工具（如 Python 解释器、TeX 编译器）。\n举个例子：想用 VS Code 写 Python，你需要同时安装：\n\nPython 插件：让编辑器认识 .py 文件，提供智能提示\nPython 解释器：真正运行代码的程序\n\n本教程聚焦于 Quarto 网站配置，上述工具的详细使用方法篇幅太长，不在本文讨论范围内，如有需要建议自行搜索或问 AI。考虑到 Git 对本项目配置的重要作用，以及非计算机专业的同学可能比较陌生，下文会简要介绍它的价值和学习建议。\n\n\n2.1.2 关于 Git 和 GitHub：值得投入的技能\n这里主要想特别说明：Git 是一项非常值得学习的技能。\nGit 和 GitHub 是什么关系？\n\nGit：安装在你电脑上的版本控制工具，负责记录文件的每一次修改历史。\nGitHub：云端代码托管平台，可以把你本地的 Git 仓库同步到网上，实现备份、协作和自动化部署。\n\n简单理解：Git 管理本地历史，GitHub 负责云端同步。两者配合使用，你的代码既有完整的版本记录，又有云端备份。\n为什么值得学？\n\n版本历史：每次”提交”(commit) 都会保存一个快照，随时可以回到过去的任何版本。\n云端备份：推送到 GitHub 后，即使电脑坏了，代码也不会丢失。\n多设备同步：在实验室电脑上推送，回宿舍拉取，无缝继续工作。\n协作与自动化：GitHub 支持多人协作、自动化构建（如本项目的自动翻译和部署）。\n\n好消息：VS Code 让 Git 变得简单\n你不需要记住复杂的命令行。VS Code 内置了图形化的 Git 界面——左侧边栏的”源代码管理”面板可以完成 90% 的日常操作：查看修改、提交、推送、拉取，全部点点鼠标就能搞定。\n学习建议：\n\n遇到不懂的概念，直接问 AI：“请用简单的语言解释 Git 的 commit 是什么意思？”\n搜索有关教学视频或文章，学习基本操作流程即可。\n\n\nGit 和 GitHub 是现代科研的基础设施。无论你将来是写代码、做数据分析，还是管理实验记录，这项技能都会让你受益终身。花几个小时学习，换来的是长期的效率提升。VS Code 同样值得投入，它能极大提升你的写作和编程效率。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#推荐插件",
+    "href": "content/zh/blog/setup-guide.html#推荐插件",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "2.2 推荐插件",
+    "text": "2.2 推荐插件\n打开 VS Code 左侧的扩展商店 (Extensions)，搜索并安装：\n\nQuarto：提供 .qmd 文件（本项目网页文章的文件格式）的语法高亮、实时预览功能。本项目必装。\nGitHub Copilot（推荐）：AI 编程助手，支持教育认证免费。能大幅提升写代码和文档的效率。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#验证安装",
+    "href": "content/zh/blog/setup-guide.html#验证安装",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "2.3 验证安装",
+    "text": "2.3 验证安装\n在确保上述工具安装完成后，请验证 Quarto 是否正确安装。 打开 VS Code，在顶部菜单栏选择 终端 (Terminal) -&gt; 新建终端 (New Terminal)，输入以下命令并回车：\nquarto --version\n如果显示版本号（如 1.8.xx），说明安装成功。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#fork-项目",
+    "href": "content/zh/blog/setup-guide.html#fork-项目",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "3.1 Fork 项目",
+    "text": "3.1 Fork 项目\n首先，你需要将本项目模板 Fork 到你自己的 GitHub 账号下：\n\n打开本项目的 GitHub 页面。\n点击右上角的 Fork 按钮。\n重要：将仓库名称改为 你的用户名.github.io（例如 zhangsan.github.io），这样才能启用 GitHub Pages 的默认域名。\n(推荐) 取消勾选 “Copy the main branch only”，以便复制 gh-pages 分支（如果模板仓库中存在）。\n点击 Create fork。\n\nFork 完成后，你就拥有了自己的独立副本，可以自由修改和配置。\n克隆到本地：打开终端，运行以下命令（将 你的用户名 替换为你的 GitHub 用户名）：\ngit clone https://github.com/你的用户名/你的用户名.github.io.git\ncd 你的用户名.github.io\n克隆完成后，用 VS Code 打开该文件夹即可开始编辑。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#配置-ai-翻译-deepseek",
+    "href": "content/zh/blog/setup-guide.html#配置-ai-翻译-deepseek",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "3.2 配置 AI 翻译 (DeepSeek)",
+    "text": "3.2 配置 AI 翻译 (DeepSeek)\n本模板使用 DeepSeek API 进行自动翻译。你需要配置 API Key 才能使用此功能。\n\n获取 Key：去 DeepSeek 开放平台 注册并申请 API Key（格式为 sk-xxxxx）。新用户通常有免费额度。\n配置 GitHub Secrets：\n\n\n进入你的 GitHub 仓库页面。\n点击 Settings -&gt; Secrets and variables -&gt; Actions。\n点击 New repository secret。\nName: DEEPSEEK_API_KEY\nSecret: 粘贴你的 Key。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#关键初始化步骤",
+    "href": "content/zh/blog/setup-guide.html#关键初始化步骤",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "3.3 关键初始化步骤",
+    "text": "3.3 关键初始化步骤\n在执行第一次推送之前，请务必完成以下初始化配置，否则自动化脚本可能会报错。\n\n重要提示：以下所有命令都必须在项目的根目录下运行。 如果你在 VS Code 中打开了本项目的文件夹，那么直接打开终端（Terminal -&gt; New Terminal）即可，默认就是项目根目录。\n\n\n3.3.1 确保目录结构完整\nGit 有一个特性：它不会跟踪空的文件夹。\n这意味着，如果你新建了一个文件夹但还没放文件，或者把某个文件夹里的文件全删了，这个文件夹在推送到 GitHub 时就会消失。\n这会导致自动化脚本（如翻译脚本）在云端运行时，因为找不到预期的目录结构（例如 content/en）而报错失败。\n如果你直接Fork本项目后没有删减文件，那么应该是没问题的，这一步可以直接跳过。\n解决方案： 请确保本项目的 content/zh 和 content/en 及其子目录（如 blog, notes）中至少有一个文件。如果其中没有内容，请手动新建一个名为 .gitkeep 的空文件作为占位符，可以使用命令行操作：\n# macOS / Linux / Git Bash:\ntouch content/en/.gitkeep\n\n# Windows PowerShell:\nNew-Item -Path content/en/.gitkeep -ItemType File -Force\n\n\n3.3.2 初始化发布分支 (gh-pages)\n项目自动化脚本会把编译好的 HTML 网页文件推送到 gh-pages 分支。如果没有这个分支，第一次部署会失败。\n请在终端运行以下命令检查并创建：\n# 1. 检查是否已存在 gh-pages 分支\ngit branch -a\n\n# 如果输出中已包含 \"remotes/origin/gh-pages\"，可以跳过后续步骤。\n# 否则，继续执行以下命令创建分支：\n\n# 2. 创建一个空的孤立分支\ngit checkout --orphan gh-pages\n\n# 3. 清空暂存区（此时 VS Code 文件列表会变空，别慌）\ngit rm -rf .\n\n# 4. 创建一个空提交\ngit commit --allow-empty -m \"Initial gh-pages\"\n\n# 5. 推送到远程\ngit push origin gh-pages\n\n# 6. 切回主分支\ngit checkout main\n\n小贴士：执行第 3 步后，VS Code 左侧文件列表会瞬间清空，这是正常的——你只是切换到了空分支。执行第 6 步切回 main 后，所有文件会恢复。\n\n\n\n3.3.3 开启 GitHub 权限\n新仓库默认只有读权限，无法写回翻译结果（即 GitHub Actions 无法把翻译好的英文文件推送到你的仓库）。\n\n进入你本项目的 GitHub 仓库页面 -&gt; Settings -&gt; Actions -&gt; General。\n滚动到底部 Workflow permissions。\n选中 Read and write permissions。\n点击 Save 保存。\n\n\n\n3.3.4 配置 GitHub Pages 分支\n为了让网站正确显示，你需要告诉 GitHub 从哪个分支发布网页。\n\n打开你本项目的 GitHub 仓库页面 -&gt; Settings -&gt; Pages。\n在 Build and deployment 下：\n\nSource: 选择 Deploy from a branch。\nBranch: 选择 gh-pages 分支，文件夹保持 / (root)。\n\n点击 Save 保存。\n\n配置完成后，稍等几分钟，你的网站就可以通过 https://你的用户名.github.io 访问了！🎉\n\n提示：如果网站没有正常显示，可以去 GitHub 仓库的 Actions 标签页查看部署状态。点击最近一次运行记录，如果有红色叉号，点进去查看具体报错信息，根据提示排查问题尝试解决。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#配置评论系统-giscus-可选",
+    "href": "content/zh/blog/setup-guide.html#配置评论系统-giscus-可选",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "3.4 配置评论系统 Giscus (可选)",
+    "text": "3.4 配置评论系统 Giscus (可选)\n本模板集成了 Giscus 评论系统。如果你不需要评论功能，请按照下面教程禁用后直接跳过此步。\n\n如何彻底禁用评论？ 打开 _quarto.yml 文件，找到 comments 部分，将这部分代码删除或注释掉即可。\n\n若要配置评论，请按以下步骤操作：\n\n开启 Discussions：\n\n进入你本项目的 GitHub 仓库页面 -&gt; Settings -&gt; General。\n向下滚动到 Features 区域。\n勾选 Discussions。\n\n安装 Giscus App：\n\n访问 Giscus App。\n点击 Install，选择你的这个仓库进行授权。\n\n获取配置信息：\n\n访问 giscus.app。\n输入你的仓库地址（例如 username/username.github.io）。\n在 Discussion Category 中选择 General。\n滚动到底部，你会看到生成的配置代码。\n\n更新配置文件：\n\n打开项目根目录下的 _quarto.yml 文件。\n找到 comments -&gt; giscus 部分。\n将你在上一步获取到的 data-repo-id 和 data-category-id 填入对应位置：\n\ncomments:\n  giscus:\n    repo: username/username.github.io  # 你的仓库名\n    repo-id: R_kgDO...                 # 填入 data-repo-id\n    category: General\n    category-id: DIC_kwDO...           # 填入 data-category-id\n个性化设置：\n\n如果你想在某些页面（如主页）关闭评论，只需在该页面的顶部 YAML 中添加 comments: false。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#个性化定制",
+    "href": "content/zh/blog/setup-guide.html#个性化定制",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "3.5 个性化定制",
+    "text": "3.5 个性化定制\n你需要修改以下文件，把这个网站上的信息变成你自己的：\n\n3.5.1 修改基本信息 (_quarto.yml)\n打开根目录下的 _quarto.yml 文件，修改网站标题、描述和 URL：\nwebsite:\n  title: \"你的名字\"              # 网站左上角显示的标题\n  site-url: \"https://你的用户名.github.io\" # 你的网站地址\n  description: \"你的个人介绍\"\n\n\n3.5.2 修改个人主页 (index.qmd)\n打开根目录下的 index.qmd，这是你的网站入口页（Landing Page）。修改 title、头像路径和联系方式：\n---\ntitle: \"你的名字\"\nlang: zh  # 源语言：zh 表示中文，en 表示英文\nimage: assets/images/avatar.jpg  # 替换为你的头像\nabout:\n  template: trestles  # 模板样式，可选 jolla, trestles, solana, marquee, broadside\n  links:\n    - icon: github\n      text: GitHub\n      href: https://github.com/你的用户名\n    - icon: envelope\n      text: Email\n      href: mailto:你的邮箱@example.com\n---\n关于 lang 字段：\n\nlang: zh（默认）：表示你用中文写这个文件，翻译脚本会自动生成英文版到 content/en/index.qmd。\nlang: en：如果你想用英文写首页，把 lang 改为 en，脚本会自动生成中文版到 content/zh/index.qmd。\n\n\n注意：本模板默认 lang: zh，所以 content/en/index.qmd 是自动生成的。如果你想改用英文写首页（lang: en），建议先删除 content/en/index.qmd，避免造成混乱。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#自动翻译方案是如何工作的",
+    "href": "content/zh/blog/setup-guide.html#自动翻译方案是如何工作的",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "4.1 自动翻译方案是如何工作的？",
+    "text": "4.1 自动翻译方案是如何工作的？\n传统的双语网站通常需要复杂的 i18n 配置或维护两套完全独立的代码。本模板通过一个 Python 脚本 (scripts/sync_deepseek.py) 实现了自动化镜像：\n\n镜像结构：content/zh 和 content/en 中的 .qmd 文件一一对应并自动翻译。只有 .qmd 文件参与同步，其他文件（如图片、PDF、_metadata.yml 配置文件等）均不会被处理。\n\n特例：语言根目录下的首页（content/zh/index.qmd 或 content/en/index.qmd）也不会参与同步，因为它是由根目录 index.qmd 根据 lang 字段单向生成的。\n\n\n注意：脚本不会主动创建空文件夹。只有当源语言文件夹（如 content/zh/blog）中存在 .qmd 文件时，脚本才会在目标语言文件夹（如 content/en/blog）中创建对应的翻译文件及文件夹结构。\n\n自动补全：\n\n当你写了 content/zh/blog/post1.qmd，脚本会自动生成对应的 content/en/blog/post1.qmd。\n反之亦然。\n\n脚本标记：脚本自动生成的文件，在其代码末端会有&lt;!-- Auto-generated ... --&gt;标记，配合自动化流程的实现。\n自动翻译：你只需要关注一种语言的写作，另一种语言的内容由 AI 自动生成并填充。\n独立与统一：虽然内容是自动生成的，但生成后的文件是独立的。如果你对 AI 的翻译不满意，可以直接修改生成后的文件，脚本会尊重你的修改（除非你删除了它）。\n\n这种设计使得网站维护变得极其简单：像写单一语言博客一样写双语网站。\n\n4.1.1 脚本是如何知道哪些文件需要翻译的？\n你可能会好奇，脚本怎么知道我修改了哪个文件？它是通过以下逻辑判断的：\n\n文件不存在：如果 content/en 里没有对应的文件，说明是新文章，翻译它。\n人工文件保护：如果目标文件存在，脚本会先检查是否有 &lt;!-- Auto-generated ... --&gt; 标记。没有标记 = 人工创建/维护的文件，脚本会跳过它，防止覆盖你的心血。\nHash 校验：对于有标记的文件（即脚本生成的），脚本会计算源文件的内容 Hash，并与目标文件中记录的 Hash 对比。如果不一致，说明源文件有更新，重新翻译它。如果目标文件没有 Hash 记录，也会重新翻译。\n\n\n\n4.1.2 警告：如何保护你的修改？\n场景：你修改了英文版（修正了 AI 的错误），随后又更新了中文版。\n\n情况 A（危险）：你只修改了英文正文，但保留了文件末尾的 &lt;!-- Auto-generated ... --&gt; 标记。\n\n结果：当源文件内容变化（Hash 不一致）时，脚本会认为需要更新，于是强制覆盖它。你的英文修改将丢失！\n\n情况 B（安全）：你修改英文正文时，删除了文件末尾的自动生成标记。\n\n结果：脚本检测不到标记，认为这是”人工维护文件”，于是跳过翻译。你的修改得以保存。\n\n\n\n注意：一旦你决定手动介入修改某篇翻译稿，请务必第一时间删除文件末尾的自动生成标记！这篇文档的自动化翻译同步就此停止，以后你可以手动维护双语版本。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#列表页面原理-listings",
+    "href": "content/zh/blog/setup-guide.html#列表页面原理-listings",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "4.2 列表页面原理 (Listings)",
+    "text": "4.2 列表页面原理 (Listings)\n本模板中的“博客”、“笔记”和“论文”页面首页的列表都是通过 Quarto 的 Listing 功能自动生成的。你不需要手动维护文章列表，只需要配置好对应文件夹的 index.qmd 即可。\n\n4.2.1 如何创建一个新的列表页？\n假设你想创建一个新的板块叫“项目 (Projects)”，步骤如下：\n\n创建文件夹：在 content/zh/ 下新建文件夹 projects。\n创建索引文件：在里面新建 index.qmd，并写入以下配置：\n\n---\ntitle: \"我的项目\"\nlisting:\n  contents: \"*.qmd\"        # 抓取当前目录下所有的 .qmd 文件\n  sort: \"date desc\"        # 按日期降序排列\n  type: default            # 显示样式：default (列表), grid (网格), table (表格)\n  categories: true         # 显示分类标签\n  sort-ui: true            # 显示排序按钮\n  filter-ui: true          # 显示搜索框\npage-layout: full\n---\n\n这里展示我的所有项目。\n\n添加内容：在 projects 文件夹下创建具体的项目介绍文件（如 project-a.qmd），它们就会自动出现在列表中。\n\n\n\n4.2.2 常用列表样式 (type)\n\ndefault: 经典的博客列表视图，显示缩略图、标题、摘要和元数据。适合博客。\ngrid: 卡片网格视图，视觉效果好。适合展示作品集或图片为主的内容。\ntable: 紧凑的表格视图。适合展示大量论文列表或数据。\n\n你可以随时修改 index.qmd 中的 type 字段来切换样式。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#配置层级与优先级",
+    "href": "content/zh/blog/setup-guide.html#配置层级与优先级",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "4.3 配置层级与优先级",
+    "text": "4.3 配置层级与优先级\nQuarto 网站就像一个简装的房子。虽然默认样式已经比较简约美观，但我们都希望能有更多的选择空间：比如更改某个或者某些网页的布局、展示选项等样式。这些需求可以通过YAML (.yml)配置文件来实现。\n\n4.3.1 什么是 YAML (.yml) 文件？\n在本项目中，你会频繁看到后缀为 .yml 的文件，例如 _quarto.yml 和 _metadata.yml。这些都是 YAML 格式的配置文件。\nYAML (YAML Ain’t Markup Language) 是一种专门用来写配置文件的格式，特点是极其易读——写它就像写大纲一样，用缩进表示层级关系。\n\n关于文件名：YAML 本身只是一种数据格式，文件名可以任意取（如 config.yml、settings.yaml）。但 Quarto 规定了特定的文件名：_quarto.yml 用于全局配置，_metadata.yml 用于目录级配置。只有使用这些约定名称，Quarto 才会自动识别并应用配置。\n\n语法核心规则：\n\n缩进表示层级：就像 Python 一样，缩进非常重要。\n冒号后要空格：key: value 是标准格式，冒号后面必须跟一个空格。\n\n特别提示：文档头部的 YAML (Front Matter)\n除了独立的 .yml 配置文件，你会发现每个 .qmd 文档的开头都有一段被三个短横线 --- 包裹的内容。这也是 YAML，它被称为 Front Matter，专门用来描述这篇文章的属性（如标题、作者、日期、标签等）。两种 YAML 的语法是一样的。YAML (.yml) 文件和 Front Matter 的区别在于前者是独立的配置文件，后者是嵌入在文档中的，前者不需要 --- 包裹。\nQuarto 的配置系统非常灵活，它遵循“层叠（Cascading）”原则。理解这一点对于自定义网站至关重要。\nQuarto 支持三种层级的配置文件，每种层级的配置作用域和优先级不同，它们分别是：\n\n\n4.3.2 1. 全局配置 (_quarto.yml)\n\n位置：项目根目录。\n作用域：整个网站。\n用途：定义网站的主题、导航栏、语言、以及所有页面的默认设置。\n示例：在这里设置 author: \"Perry\"，那么全站所有文章默认作者都是 Perry。\n\n\n\n4.3.3 2. 目录级配置 (_metadata.yml)\n\n位置：任意子文件夹内（如 content/zh/blog/）。\n作用域：该文件夹及其子文件夹下的所有文档。\n用途：为特定板块定制样式，覆盖全局设置或补充新属性。\n示例：全局没有开启灯箱效果，但你希望博客板块的图片可以点击放大，就在 blog/_metadata.yml 里设置 lightbox: true。\n\n\n\n4.3.4 3. 文档级配置 (YAML Front Matter)\n\n位置：具体 .qmd 文件的顶部（--- 之间）。\n作用域：仅当前这一篇文档。\n用途：定义文章特有的属性，如标题、发布日期、标签、或覆盖上层设置。\n示例：某篇博客是转载的，你在该文件的头部写上 author: \"Guest\"。\n\n\n\n4.3.5 优先级规则：就近原则\n当多个层级的配置出现冲突时，规则非常简单：越靠近文档，优先级越高。\n\n4.3.5.1 关于嵌套文件夹 (Nested Folders)\n如果你的目录结构有多层嵌套（例如 content/zh/notes/math/），每一层都可以放置一个 _metadata.yml。配置规则遵循“继承与覆盖”机制：\n\n继承 (Inheritance)：子文件夹会自动继承父文件夹的配置。例如，math/ 下的文档会自动应用 notes/_metadata.yml 中的通用设置。\n覆盖 (Override)：如果在子文件夹中重新定义了某个属性，它将覆盖父文件夹的同名属性。例如，你可以在 math/_metadata.yml 中为数学笔记单独设置关闭目录。\n\n最终优先级链条（由高到低）： **文档级 (YAML) &gt; 文档所在文件夹 (_metadata.yml) &gt; 父文件夹 (_metadata.yml) &gt; 全局 (_quarto.yml)**\n\n\n4.3.5.2 示例（假设场景）\n以下是一个假设性示例，用于说明配置优先级的工作原理（并非本模板的实际配置）：\n\n_quarto.yml (全局):\nauthor: \"站长\"\ntoc: false # 默认全站关闭目录\nblog/_metadata.yml (目录):\n# 没写 author，继承全局\ntoc: true  # 博客板块开启目录 (覆盖全局)\nlightbox: true  # 开启图片点击放大\nblog/post-1.qmd (文档):\ntitle: \"我的第一篇博客\"\n# 没写 author，继承全局 -&gt; \"站长\"\n# 没写 toc，继承上一级 -&gt; true\nblog/guest-post.qmd (文档):\ntitle: \"客座文章\"\nauthor: \"特邀嘉宾\"  # &lt;--- 覆盖全局！\ntoc: false     # &lt;--- 覆盖目录！(本篇关闭目录)\n\n最终结果：\n\nPost 1: 作者是“站长”，开启了目录，开启了灯箱效果。\nGuest Post: 作者是“特邀嘉宾”，关闭了目录，开启了灯箱效果。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#侧边栏配置-sidebar",
+    "href": "content/zh/blog/setup-guide.html#侧边栏配置-sidebar",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "4.4 侧边栏配置 (Sidebar)",
+    "text": "4.4 侧边栏配置 (Sidebar)\n侧边栏是笔记类网站的灵魂。Quarto支持灵活的侧边栏配置，你可以为不同的板块（如 Notes, Blog）设置独立的侧边栏。\n\n4.4.1 定义侧边栏 (_quarto.yml)\n在 _quarto.yml 中，你可以定义多个侧边栏，每个侧边栏都有一个唯一的 id。你可以在同一个侧边栏下创建多个 section（分组）。contents中涉及到的页面将会显示侧边栏。\nsidebar:\n  # --- 中文笔记侧边栏 ---\n  - id: \"notes-zh\"    # 唯一标识符（本模板中英文分开定义）\n    title: \"笔记\"\n    contents:\n      - content/zh/notes/index.qmd\n      - section: \"数学\"   # 分组\n        contents:\n          - content/zh/notes/calculus.qmd\n          - content/zh/notes/linear-algebra.qmd\n\n  # --- 英文笔记侧边栏 ---\n  - id: \"notes-en\"\n    title: \"Notes\"\n    contents:\n      - content/en/notes/index.qmd\n      - section: \"Mathematics\"\n        contents:\n          - content/en/notes/calculus.qmd\n          - content/en/notes/linear-algebra.qmd\n\n\n4.4.2 激活侧边栏\n定义好侧边栏后，你还可以告诉 Quarto 哪些页面应该显示这个侧边栏。这通常在文件夹的 _metadata.yml 中设置。\n例如，在 content/en/notes/_metadata.yml 中：\n# 该文件夹下的所有文章都使用 id 为 \"notes-en\" 的侧边栏\nsidebar: notes-en\n这样，当你访问 content/en/notes/ 下的任何文章时，左侧都会显示你在 _quarto.yml 中定义的 notes-en 侧边栏。\n\n本模板的实际情况：侧边栏内容直接在 _quarto.yml 的 contents 中列出，被列出的页面会自动显示对应侧边栏，因此本模板并未在每个子文件夹下都创建 _metadata.yml。\n\n你也可以在单个页面的 YAML Front Matter 中设置 sidebar 字段来覆盖默认行为：\n\nsidebar: notes-zh — 让该页显示指定 ID 的侧边栏\nsidebar: false — 关闭该页的侧边栏\n\n\n\n4.4.3 自动抓取文件\n设置侧边栏时， contents 支持自动抓取根目录，但有关“抓取某个子文件夹生成侧边栏”这种功能，我还没有找到很好的实现方式。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#什么是-.qmd-文件",
+    "href": "content/zh/blog/setup-guide.html#什么是-.qmd-文件",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "5.1 什么是 .qmd 文件？",
+    "text": "5.1 什么是 .qmd 文件？\n.qmd (Quarto Markdown) 是本网站使用的核心文件格式。\n为什么使用它？\n\n简单易学：它基于 Markdown，这是一种极简的标记语言。你不需要像 Word 那样调整排版，只需要用简单的符号（如 # 表示标题）就能写出结构清晰的文章。\n功能强大：它原生支持 LaTeX 数学公式（例如 $E=mc^2$）和 代码块，非常适合学术写作和数据展示。\n自动网页化：你写的文本会被自动渲染成漂亮的 HTML 网页。\n\nMarkdown 极速入门示例：\n# 这是一级标题\n## 这是二级标题\n\n这是一段普通文本，可以**加粗**，也可以*倾斜*。\n\n- 这是一个列表\n- 支持数学公式：$f(x) = \\int x dx$\n- 支持插入图片：`![](image.jpg)`",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#公式引用",
+    "href": "content/zh/blog/setup-guide.html#公式引用",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "5.2 公式引用",
+    "text": "5.2 公式引用\nQuarto 支持对数学公式进行编号和引用，非常适合学术写作。\n定义带编号的公式：\n$$\nE = mc^2\n$$ {#eq-einstein}\n引用公式：\n根据爱因斯坦的质能方程 @eq-einstein，我们可以得出...\n渲染后，公式会自动编号（如 “(1)”），引用处会显示为可点击的链接（如 “公式 1”）。\n\n提示：公式标签必须以 #eq- 开头，后面跟一个自定义的标识符（如 einstein）。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#文献引用",
+    "href": "content/zh/blog/setup-guide.html#文献引用",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "5.3 文献引用",
+    "text": "5.3 文献引用\n本模板已配置好参考文献管理功能，你只需要：\n\n添加文献条目：在项目根目录的 references.bib 文件中添加 BibTeX 格式的文献条目。例如：\n@article{Shannon1948,\n    author = {Claude E. Shannon},\n    title = {A Mathematical Theory of Communication},\n    journal = {Bell System Technical Journal},\n    year = {1948}\n}\n在正文中引用：使用 @ 符号加上文献的 key 进行引用。\n信息论由 Shannon 奠基 [@Shannon1948]。\n\n正如 @Shannon1948 所指出的...\n\n[@Shannon1948] 渲染为：(Shannon 1948)\n@Shannon1948 渲染为：Shannon (1948)\n\n参考文献列表：Quarto 会自动在文章末尾生成参考文献列表，无需额外配置。如果你想自定义参考文献的位置（比如放在文章中间或某个特定章节下），可以在希望出现的位置添加：\n## 参考文献\n\n::: {#refs}\n:::\n\n\n提示：\n\n你可以使用 Google Scholar、Zotero 等工具导出 BibTeX 格式的文献条目，直接粘贴到 references.bib 中即可。\n在 VS Code 中输入 @ 时，Quarto 插件会自动弹出 references.bib 中的文献列表供你选择。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#发布流程",
+    "href": "content/zh/blog/setup-guide.html#发布流程",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "5.4 发布流程",
+    "text": "5.4 发布流程\n写完文章后，只需三步即可发布：\n\n创建文章：在 content/zh/ 或 content/en/ 下对应的子目录（如 blog/, notes/）新建 .qmd 文件，用你习惯的语言（中文或英文）撰写内容。\n提交更改：你可以选择以下任意一种方式。\n方式 A：使用 VS Code Git（推荐）\n在 VS Code 左侧源代码管理面板中，输入提交信息，点击 “Commit”，然后点击 “Sync Changes”。\n\n注意：这种方式不会在本地运行翻译，翻译将在推送到 GitHub 后由云端自动完成。\n\n方式 B：使用命令行\n如果你习惯使用终端，可以运行标准的 Git 命令：\ngit add .\ngit commit -m \"提交信息\"\ngit push\n等待部署：推送后，GitHub Actions 会自动完成翻译、构建和发布。几分钟后刷新网站即可看到更新。\n\n\n5.4.1 本地翻译（可选）\n如果你希望在本地预览翻译结果，而不是等云端自动翻译，可以按以下步骤操作。\n\n以下命令均在 VS Code 终端（Terminal -&gt; New Terminal）中运行，确保当前目录是项目根目录。\n\n第一步：安装依赖（只需执行一次）\npip install -r requirements.txt\n第二步：设置环境变量\nWindows PowerShell:\n$env:DEEPSEEK_API_KEY = \"sk-你的key\"\nmacOS / Linux:\nexport DEEPSEEK_API_KEY=\"sk-你的key\"\n第三步：运行翻译脚本\npython scripts/sync_deepseek.py\n\n注意：环境变量在终端关闭后会失效，下次需要重新设置。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#自动化流程",
+    "href": "content/zh/blog/setup-guide.html#自动化流程",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "5.5 自动化流程",
+    "text": "5.5 自动化流程\n当你推送代码后，GitHub Actions 会自动接管后续工作：\n\n检测变动：识别你新增或修改了哪些 .qmd 文件。\nAI 翻译：\n\n如果你写了中文，它会自动翻译成英文。\n如果你写了英文，它会自动翻译成中文。\n翻译结果会自动提交回你的仓库（你会看到一个来自 DeepSeek Bot 的新 Commit）。\n\n构建网站：运行 quarto render 生成静态网页。\n发布上线：将网页推送到 gh-pages 分支，几分钟后你的网站就会更新。\n\n你可以在 GitHub 仓库的 Actions 标签页查看整个过程的实时日志。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#本地预览",
+    "href": "content/zh/blog/setup-guide.html#本地预览",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "5.6 本地预览",
+    "text": "5.6 本地预览\n在 VS Code 终端中运行以下命令，可以实时预览网站效果：\nquarto preview --render html\n这会启动一个本地服务器，浏览器会自动打开预览页面。修改文件后保存，页面会自动刷新。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#为什么我的翻译没有生效",
+    "href": "content/zh/blog/setup-guide.html#为什么我的翻译没有生效",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "6.1 为什么我的翻译没有生效？",
+    "text": "6.1 为什么我的翻译没有生效？\n\n检查 GitHub Actions 的日志：在仓库页面点击 “Actions”，查看最近一次运行的详情。\n检查 API Key：确保你在 Secrets 中正确配置了 DEEPSEEK_API_KEY，并且该 Key 还有余额。\n本地调试：如果你在本地运行脚本而翻译没有生效，确保设置了环境变量。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#部署后访问出现-404",
+    "href": "content/zh/blog/setup-guide.html#部署后访问出现-404",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "6.2 部署后访问出现 404？",
+    "text": "6.2 部署后访问出现 404？\n请检查 Settings -&gt; Pages 中的设置，确保 Source 分支选的是 gh-pages，而不是 main。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/setup-guide.html#我只想用单语言例如只用中文不想用双语功能怎么办",
+    "href": "content/zh/blog/setup-guide.html#我只想用单语言例如只用中文不想用双语功能怎么办",
+    "title": "如何配置本网站模板 (Setup Guide)",
+    "section": "6.3 我只想用单语言（例如只用中文），不想用双语功能怎么办？",
+    "text": "6.3 我只想用单语言（例如只用中文），不想用双语功能怎么办？\n本模板设计灵活，可以切换到单语言模式。\n步骤如下：\n\n禁用翻译功能：\n\n进入 GitHub 仓库 -&gt; Settings -&gt; Secrets and variables -&gt; Actions，删除 DEEPSEEK_API_KEY。\n脚本检测不到 API Key 时会自动跳过翻译，不影响部署。\n\n清理多余文件：\n\n删除你不需要的语言文件夹（例如 content/en）。\n同时检查 _quarto.yml，删除所有指向该文件夹的链接（如导航栏、侧边栏中的 content/en/... 路径）。\n\n移除语言切换器：\n\n打开 _quarto.yml，找到 include-after-body 部分，删除 assets/html/include_lang_switch.html 这一行。\n在 navbar 设置中，删除 icon: translate 相关的导航项。\n\n验证配置：\n\n本地运行 quarto preview 确认没有报错。\n推送后检查 GitHub Actions 是否成功。\n\n\n这样，你的网站就变成单语言网站了。",
+    "crumbs": [
+      "Blog",
+      "教程",
+      "如何配置本网站模板 (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/zh/blog/index.html",
+    "href": "content/zh/blog/index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "这里是我的一些博客内容。\n\n\n\n\n\n\n   \n    \n    \n      排序方式\n      默认\n      \n        标题\n      \n      \n        日期 - 日期升序\n      \n      \n        日期 - 日期降序\n      \n      \n        作者\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\n你好，世界\n\n\n\n\n\n\n\n\n2025年12月22日\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\n如何配置本网站模板 (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\nGitHub Actions\n\n\n\n一份详细的指南，教你如何根据这个项目模板配置你自己的个人学术网站。\n\n\n\n\n\n2025年12月22日\n\n\nPerry\n\n\n\n\n\n无匹配项",
+    "crumbs": [
+      "Blog"
+    ]
+  },
+  {
+    "objectID": "content/en/notes/mini-batch-SGD.html",
+    "href": "content/en/notes/mini-batch-SGD.html",
+    "title": "Introduction to Stochastic Gradient Descent",
+    "section": "",
+    "text": "This article provides a preliminary introduction to the Stochastic Gradient Descent (SGD) algorithm and its mini-batch variant, covering their basic principles, assumptions, and mathematical properties.",
+    "crumbs": [
+      "Mathematics",
+      "Introduction to Stochastic Gradient Descent"
+    ]
+  },
+  {
+    "objectID": "content/en/notes/mini-batch-SGD.html#mini-batch-sgd-the-case-of-sampling-with-replacement",
+    "href": "content/en/notes/mini-batch-SGD.html#mini-batch-sgd-the-case-of-sampling-with-replacement",
+    "title": "Introduction to Stochastic Gradient Descent",
+    "section": "2.1 Mini-batch SGD: The Case of Sampling with Replacement",
+    "text": "2.1 Mini-batch SGD: The Case of Sampling with Replacement\nClassical single-sample SGD uses only one sample per iteration to compute the gradient. While the computational cost is low, the introduced noise can be large (the variance \\(\\sigma^2\\) is large), which can easily cause the iterative trajectory to oscillate violently and makes it difficult to leverage the parallel computing capabilities of modern hardware. Mini-batch Stochastic Gradient Descent (Mini-batch SGD) is a natural generalization of single-sample SGD, using \\(M\\) samples per iteration to compute the gradient.\nSuppose at the \\(t\\)-th iteration, \\(M\\) samples are independently drawn with replacement: \\[\n\\mathcal{B}_t = \\{z_{t,1}, \\ldots, z_{t,M}\\},\n\\] where \\(z_{t,1},\\dots,z_{t,M} \\overset{\\text{i.i.d.}}{\\sim} \\mathcal{D}\\). Define the gradient estimator as the average of the gradients of this batch of samples: \\[\ng^{(M)}(\\theta_t)\n= \\frac{1}{M} \\sum_{i=1}^M \\nabla_\\theta \\ell(z_{t,i}; \\theta_t).\n\\]\nWe can prove: If the single-sample gradient satisfies the aforementioned unbiasedness and bounded variance assumptions, then the Mini-batch gradient estimator \\(g^{(M)}(\\theta_t)\\) must satisfy the same unbiasedness assumption, and its variance upper bound is smaller. To simplify notation, in the following derivation, without loss of generality, we fix a certain iteration step \\(t\\) and parameter \\(\\theta_t\\), and denote the single-sample gradient and the full gradient as: \\[\ng(z) \\triangleq \\nabla_\\theta \\ell(z;\\theta_t),\\qquad\n\\nabla F \\triangleq \\nabla F(\\theta_t).\n\\] Thus, \\[\ng^{(M)}(\\theta_t) = \\frac{1}{M}\\sum_{i=1}^M g(z_{t,i}).\n\\]\n\n2.1.1 Preservation of Unbiasedness\nAssume the single-sample gradient is unbiased, i.e., \\[\n\\mathbb{E}_{z\\sim\\mathcal{D}}[g(z)] = \\nabla F.\n\\] Since expectation is linear and the samples \\(z_{t,1},\\dots,z_{t,M}\\) are independent and identically distributed according to \\(\\mathcal{D}\\), we have: \\[\n\\begin{aligned}\n\\mathbb{E}[g^{(M)}(\\theta_t)]\n&= \\mathbb{E}\\left[ \\frac{1}{M} \\sum_{i=1}^M g(z_{t,i}) \\right] \\\\\n&= \\frac{1}{M} \\sum_{i=1}^M \\mathbb{E}[g(z_{t,i})] \\\\\n&= \\frac{1}{M} \\cdot M \\cdot \\nabla F \\\\\n&= \\nabla F.\n\\end{aligned}\n\\]\nThis shows that the Mini-batch gradient inherits unbiasedness and remains a correct estimator of the true gradient: \\[\n\\boxed{\\mathbb{E}[g_t^{(M)}(\\theta_t)] = \\nabla F(\\theta_t).}\n\\]\n\n\n2.1.2 Boundedness of Variance\nAssume the noise variance of the single-sample gradient is bounded, i.e., there exists a constant \\(\\sigma^2\\) such that \\[\n\\mathbb{E}\\bigl[\\|g(z) - \\nabla F(\\theta_t)\\|^2\\bigr] \\leq \\sigma^2.\n\\]\nDefine the gradient noise of the \\(i\\)-th sample as \\[\nX_i \\triangleq g(z_{t,i}) - \\nabla F(\\theta_t).\n\\] Then \\(\\mathbb{E}[X_i]=0\\), and \\(X_1,\\dots,X_M\\) are independent and identically distributed. In this case, \\[\ng_t^{(M)}(\\theta_t) - \\nabla F(\\theta_t)\n= \\frac1M \\sum_{i=1}^M X_i.\n\\]\nWe are concerned with\n\\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla F\\|^2\\bigr]\n= \\mathbb{E}\\left\\|\\frac1M \\sum_{i=1}^M X_i\\right\\|^2.\n\\]\nNote the identity \\[\n\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n= \\sum_{i=1}^M \\|X_i\\|^2 + 2\\sum_{i&lt;j} \\langle X_i,X_j\\rangle.\n\\]\nTaking expectation on both sides: \\[\n\\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n= \\sum_{i=1}^M \\mathbb{E}\\|X_i\\|^2\n+ 2\\sum_{i&lt;j} \\mathbb{E}\\langle X_i,X_j\\rangle.\n\\]\nSince \\(X_i\\) and \\(X_j\\) are independent and \\(\\mathbb{E}[X_i]=0\\), we have \\[\n\\mathbb{E}\\langle X_i,X_j\\rangle\n= \\mathbb{E}\\bigl[X_i^\\top X_j\\bigr]\n= \\mathbb{E}\\bigl[X_i^\\top \\mathbb{E}(X_j\\mid X_i)\\bigr]\n= \\mathbb{E}\\bigl[X_i^\\top \\mathbb{E}(X_j)\\bigr]\n= \\mathbb{E}\\bigl[X_i^\\top 0\\bigr] = 0.\n\\] Thus, the expectations of all cross terms are \\(0\\), and hence \\[\n\\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n= \\sum_{i=1}^M \\mathbb{E}\\|X_i\\|^2.\n\\]\nSince all \\(X_i\\) are identically distributed, \\[\n\\mathbb{E}\\|X_i\\|^2 = \\mathbb{E}\\|X_1\\|^2\n= \\mathbb{E}\\|g(z)-\\nabla F(\\theta_t)\\|^2 \\le \\sigma^2.\n\\] Therefore, \\[\n\\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n\\le M \\sigma^2.\n\\]\nReturning to the quantity we want to compute: \\[\n\\begin{aligned}\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla F(\\theta_t)\\|^2\\bigr]\n&= \\mathbb{E}\\left\\|\\frac1M \\sum_{i=1}^M X_i\\right\\|^2 \\\\\n&= \\frac{1}{M^2} \\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2 \\\\\n&\\le \\frac{1}{M^2}\\cdot M \\sigma^2 \\\\\n&= \\frac{\\sigma^2}{M}.\n\\end{aligned}\n\\]\nThus, under sampling with replacement, if the single-sample gradient noise satisfies \\[\n\\mathbb{E}\\bigl[\\|g(z)- \\nabla F(\\theta_t)\\|^2\\bigr] \\le \\sigma^2,\n\\] then the corresponding mini-batch gradient estimator satisfies \\[\n\\boxed{\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla F(\\theta_t)\\|^2 \\mid \\theta_t\\bigr]\n\\le \\frac{\\sigma^2}{M}.\n}\n\\]\nSince \\(M \\ge 1\\), clearly \\(\\frac{\\sigma^2}{M} \\le \\sigma^2\\). This shows that Mini-batch SGD not only satisfies the bounded variance assumption but also reduces the variance of the gradient estimate by a factor of \\(M\\). This implies that, for the same number of iterations, the Mini-batch algorithm can provide a more stable gradient direction, thereby allowing the use of larger step sizes \\(\\eta_t\\) and accelerating convergence.",
+    "crumbs": [
+      "Mathematics",
+      "Introduction to Stochastic Gradient Descent"
+    ]
+  },
+  {
+    "objectID": "content/en/notes/mini-batch-SGD.html#sampling-without-replacement-and-finite-population-correction-fpc",
+    "href": "content/en/notes/mini-batch-SGD.html#sampling-without-replacement-and-finite-population-correction-fpc",
+    "title": "Introduction to Stochastic Gradient Descent",
+    "section": "2.2 Sampling Without Replacement and Finite Population Correction (FPC)",
+    "text": "2.2 Sampling Without Replacement and Finite Population Correction (FPC)\nThe variance bound \\(\\frac{\\sigma^2}{M}\\) above is widely used in theoretical analysis, but it implicitly relies on the assumption of sampling with replacement, meaning that each sampled data point is independent of the others.\nAs mentioned earlier, in practical scenarios, data is usually given as a finite dataset \\(\\mathcal{D} = \\{z_i\\}_{i=1}^N\\) (but of large scale). In this case, we typically consider the empirical risk: \\[\nF(\\theta) \\approx \\hat{F}(\\theta) = \\frac{1}{N} \\sum_{i=1}^N \\ell(z_i; \\theta)\n\\] In the engineering implementations of mainstream deep learning frameworks (such as PyTorch and TensorFlow), a sampling without replacement strategy is usually adopted: the dataset is shuffled at the beginning of each epoch and then partitioned into several non-overlapping mini-batches.\nThis leads to the following observation:\n\nIf we strictly apply the formula \\(\\frac{\\sigma^2}{M}\\), when the batch size \\(M\\) equals the dataset size \\(N\\), the variance bound for the gradient estimate becomes \\(\\frac{\\sigma^2}{N}\\). Since \\(\\sigma^2 &gt; 0\\), this implies that the variance upper bound for the full batch gradient is still greater than zero. However, in fact, the full batch gradient \\[\n\\nabla \\hat F(\\theta) = \\frac{1}{N}\\sum_{i=1}^N \\nabla \\ell(z_i;\\theta)\n\\] is a deterministic vector, and its variance should be 0.\n\nThis discrepancy arises because, under sampling without replacement, the sampled data points are not independent. To more accurately describe the behavior of Mini-batch SGD in practical engineering, we need to introduce the statistical concept of Finite Population Correction (FPC).\n\n2.2.1 Mathematical Setup\nConsider a finite dataset \\[\n\\mathcal{D} = \\{z_1,\\dots,z_N\\}.\n\\] For fixed parameters \\(\\theta\\), the gradients of all samples constitute a finite population: \\[\n\\mathcal{G} = \\{g_1,\\dots,g_N\\}, \\qquad g_i \\triangleq \\nabla \\ell(z_i;\\theta).\n\\]\nDefine the sample mean (i.e., the full batch gradient of the empirical risk) as \\[\n\\nabla \\hat F(\\theta) = \\frac{1}{N}\\sum_{i=1}^N g_i,\n\\] and define the sample variance as (here using the unbiased variance): \\[\n\\sigma^2(\\theta) \\triangleq \\frac{1}{N-1}\\sum_{i=1}^N \\|g_i - \\nabla \\hat F(\\theta)\\|^2.\n\\]\nWe are now interested in: from \\(\\{1,\\dots,N\\}\\), we without replacement draw a subset \\(S\\) of size \\(M\\), and define the mini-batch gradient as \\[\ng_t^{(M)} = \\frac{1}{M}\\sum_{i\\in S} g_i,\n\\] then what is the exact form of \\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n\\]\n\n\n2.2.2 Finite Population Correction in the Scalar Case\nSince sample gradients often exist in vector form (\\(d&gt;1\\)), to clarify the reasoning, we first examine the one-dimensional scalar case. Suppose we have fixed samples (scalars): \\[\nx_1,\\dots,x_N,\n\\] Define the sample mean \\[\n\\bar{x} = \\frac{1}{N}\\sum_{i=1}^N x_i,\n\\] and the sample (unbiased) variance \\[\nS^2 = \\frac{1}{N-1}\\sum_{i=1}^N (x_i - \\bar{x})^2.\n\\]\nFrom this set, we draw without replacement \\(M\\) indices to form a subset \\(S\\). The sample mean is \\[\n\\bar X = \\frac{1}{M}\\sum_{i\\in S} x_i.\n\\]\nIntroduce indicator variables \\[\n\\xi_i \\triangleq\n\\begin{cases}\n1, & i\\in S,\\\\\n0, & i\\notin S,\n\\end{cases}\n\\qquad i=1,\\dots,N.\n\\] Then \\[\n\\bar X = \\frac{1}{M}\\sum_{i=1}^N \\xi_i x_i.\n\\]\nNote that \\[\n\\mathbb{E}[\\xi_i] = \\Pr(i\\in S) = \\frac{M}{N}.\n\\] A simple calculation verifies unbiasedness: \\[\n\\mathbb{E}[\\bar X]\n= \\frac{1}{M}\\sum_{i=1}^N x_i\\,\\mathbb{E}[\\xi_i]\n= \\frac{1}{M}\\cdot\\frac{M}{N}\\sum_{i=1}^N x_i\n= \\bar{x}.\n\\]\nNow we compute \\(\\mathbb{E}[(\\bar X - \\bar{x})^2]\\). Let \\[\ny_i \\triangleq x_i - \\bar{x},\\qquad \\sum_{i=1}^N y_i = 0,\n\\] then \\[\n\\bar X - \\bar{x}\n= \\frac{1}{M}\\sum_{i=1}^N \\xi_i y_i.\n\\]\nThus, \\[\n(\\bar X - \\bar{x})^2\n= \\frac{1}{M^2}\\left(\\sum_{i=1}^N \\xi_i y_i\\right)^2\n= \\frac{1}{M^2}\\left(\n  \\sum_{i=1}^N \\xi_i y_i^2\n+ 2\\sum_{1\\le i&lt;j\\le N} \\xi_i\\xi_j y_i y_j\n\\right).\n\\]\nTaking the expectation of the above: \\[\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n= \\frac{1}{M^2}\\left(\n  \\sum_{i=1}^N \\mathbb{E}[\\xi_i] y_i^2\n+ 2\\sum_{i&lt;j} \\mathbb{E}[\\xi_i\\xi_j] y_i y_j\n\\right).\n\\]\nWe already know \\(\\mathbb{E}[\\xi_i]=\\frac{M}{N}\\). For \\(i\\neq j\\), \\(\\xi_i\\xi_j=1\\) if and only if both \\(i\\) and \\(j\\) are selected. Note that under equal-probability sampling without replacement, the probability that any two specified elements are both selected is \\[\n\\Pr(i\\in S,\\;j\\in S)\n= \\frac{\\binom{N-2}{M-2}}{\\binom{N}{M}}\n= \\frac{M(M-1)}{N(N-1)},\n\\] Therefore, \\[\n\\mathbb{E}[\\xi_i\\xi_j]= \\mathbb{E}[\\mathbb{1}_{\\{i\\in S,j\\in S\\}}] =  \\Pr(i\\in S,\\;j\\in S) = \\frac{M(M-1)}{N(N-1)},\\qquad i\\neq j.\n\\]\nSubstituting, we get \\[\n\\begin{aligned}\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n&= \\frac{1}{M^2}\\left(\n  \\frac{M}{N}\\sum_{i=1}^N y_i^2\n+ 2\\cdot\\frac{M(M-1)}{N(N-1)}\\sum_{i&lt;j} y_i y_j\n\\right).\n\\end{aligned}\n\\]\nUsing the identity \\[\n\\left(\\sum_{i=1}^N y_i\\right)^2\n= \\sum_{i=1}^N y_i^2 + 2\\sum_{i&lt;j} y_i y_j\n= 0,\n\\] we obtain \\[\n\\sum_{i&lt;j} y_i y_j = -\\frac12\\sum_{i=1}^N y_i^2.\n\\]\nSubstituting back: \\[\n\\begin{aligned}\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n&= \\frac{1}{M^2}\\left(\n  \\frac{M}{N}\\sum_i y_i^2\n+ 2\\cdot\\frac{M(M-1)}{N(N-1)}\\cdot\\left(-\\frac12\\sum_i y_i^2\\right)\n\\right) \\\\\n&= \\frac{1}{M^2}\\left[\n  \\frac{M}{N} - \\frac{M(M-1)}{N(N-1)}\n\\right]\\sum_i y_i^2 \\\\\n&= \\frac{1}{M^2}\\cdot\\frac{M}{N}\\cdot\\frac{N-M}{N-1}\\sum_i y_i^2 \\\\\n&= \\frac{1}{M}\\cdot\\frac{N-M}{N}\\cdot\\frac{1}{N-1}\\sum_i y_i^2.\n\\end{aligned}\n\\]\nNote that\n\\[\nS^2 = \\frac{1}{N-1}\\sum_{i=1}^N (x_i - \\bar{x})^2 = \\frac{1}{N-1}\\sum_i y_i^2,\n\\] thus we obtain the well-known finite population correction formula: \\[\n\\boxed{\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\,S^2.\n}\n\\]\nCompared with the \\(\\frac{S^2}{M}\\) from sampling with replacement, here there is an additional correction factor \\[\n1 - \\frac{M}{N} \\in (0,1].\n\\] When \\(M\\ll N\\), this factor is close to \\(1\\), and sampling without replacement is almost indistinguishable from sampling with replacement; when \\(M\\to N\\), the factor approaches \\(0\\), and the variance also tends to \\(0\\), which is fully consistent with the fact that “the full-batch gradient is deterministic.”\n\n\n2.2.3 Finite Population Correction for the Vector Gradient Case\nReturning to the vector gradient case. Recall that we defined \\[\ng_i \\triangleq \\nabla \\ell(z_i;\\theta),\\qquad\n\\nabla \\hat F(\\theta) = \\frac{1}{N}\\sum_{i=1}^N g_i.\n\\] Let \\(S\\) be a sample set of size \\(M\\) drawn without replacement. Then the mini-batch gradient is \\[\ng_t^{(M)} = \\frac{1}{M}\\sum_{i\\in S} g_i.\n\\]\nWe are interested in the form of \\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr].\n\\]\nNote that \\[\n\\|g_t^{(M)} - \\nabla \\hat F\\|^2\n= \\sum_{k=1}^d \\bigl((g_t^{(M)})_k - \\nabla \\hat F_k\\bigr)^2,\n\\] where the subscript \\(k\\) denotes the \\(k\\)-th coordinate of the vector. Therefore, \\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F\\|^2\\bigr]\n= \\sum_{k=1}^d \\mathbb{E}\\bigl[((g_t^{(M)})_k - \\nabla \\hat F_k)^2\\bigr].\n\\]\nWithout loss of generality, consider the \\(k\\)-th coordinate component. Let \\[\nx_i = (g_i)_{k},\\qquad \\bar{x}_k = \\frac{1}{N}\\sum_{i=1}^N x_i = \\nabla \\hat F_k,\n\\] and apply the one-dimensional result from the previous section to obtain \\[\n\\mathbb{E}\\bigl[((g_t^{(M)})_k - \\nabla \\hat F_k)^2\\bigr]\n= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right) S_k^2,\n\\] where \\[\nS_k^2 = \\frac{1}{N-1}\\sum_{i=1}^N (g_i^{(k)} - \\nabla \\hat F_k)^2.\n\\]\nThus, \\[\n\\begin{aligned}\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F\\|^2\\bigr]\n&= \\sum_{k=1}^d \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right) S_k^2 \\\\\n&= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\sum_{k=1}^d S_k^2.\n\\end{aligned}\n\\]\nNow, \\[\n\\sum_{k=1}^d S_k^2\n= \\sum_{k=1}^d \\frac{1}{N-1}\\sum_{i=1}^N (g_i^{(k)} - \\nabla \\hat F_k)^2\n= \\frac{1}{N-1}\\sum_{i=1}^N \\sum_{k=1}^d (g_i^{(k)} - \\nabla \\hat F_k)^2\n= \\frac{1}{N-1}\\sum_{i=1}^N \\|g_i - \\nabla \\hat F\\|^2.\n\\]\nTherefore, we obtain the vector version of the finite population correction formula: \\[\n\\boxed{\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\n   \\cdot \\frac{1}{N-1}\\sum_{i=1}^N \\|g_i - \\nabla \\hat F(\\theta)\\|^2.\n}\n\\]\nIf we assume that the variance of the sample population gradients has a uniform upper bound, i.e., there exists a constant \\(\\sigma^2\\) such that for all \\(\\theta\\), \\[\n\\frac{1}{N-1}\\sum_{i=1}^N \\|\\nabla \\ell(z_i;\\theta) - \\nabla \\hat F(\\theta)\\|^2 \\le \\sigma^2,\n\\] then the mini-batch gradient without replacement satisfies \\[\n\\boxed{\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n\\le \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\sigma^2.\n}\n\\]\nCompared with the \\(\\frac{\\sigma^2}{M}\\) from sampling with replacement, sampling without replacement has an additional finite population correction factor \\[\n\\left(1 - \\frac{M}{N}\\right).\n\\] It has three direct implications:\n\nWhen \\(M=1\\), the correction factor is \\(1\\), reducing to the variance \\(\\sigma^2\\) of single-sample SGD;\nWhen \\(M\\ll N\\), \\(\\frac{M}{N}\\) is small, the correction factor is close to \\(1\\), and sampling without replacement is almost indistinguishable from sampling with replacement, which is a common approximation in big-data scenarios;\nWhen \\(M=N\\), the correction factor is \\(0\\), so \\(\\mathbb{E}\\|g_t^{(N)} - \\nabla \\hat F(\\theta)\\|^2 = 0\\), meaning the full-batch gradient is deterministic with no randomness, which more accurately describes the behavior of Mini-batch SGD in practical engineering.\n\nIn summary, we can unify the unbiasedness and variance assumptions of mini-batch SGD in the finite sample case as follows:\n\nFor sampling with replacement: \\[\n\\mathbb{E}[g_t^{(M)}(\\theta_t)] = \\nabla \\hat F(\\theta_t), \\qquad\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla \\hat F(\\theta_t)\\|^2\\bigr] \\le \\frac{\\sigma^2}{M};\n\\]\nFor sampling without replacement: \\[\n\\mathbb{E}[g_t^{(M)}(\\theta_t)] = \\nabla \\hat F(\\theta_t), \\qquad\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla \\hat F(\\theta_t)\\|^2\\bigr]\n\\le \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\sigma^2.\n\\]",
+    "crumbs": [
+      "Mathematics",
+      "Introduction to Stochastic Gradient Descent"
+    ]
+  },
+  {
+    "objectID": "content/en/notes/calculus.html",
+    "href": "content/en/notes/calculus.html",
+    "title": "Calculus Review",
+    "section": "",
+    "text": "1 Limits\n\\[\n\\lim_{x \\to a} f(x) = L\n\\]\nIntuitive understanding: As \\(x\\) approaches \\(a\\) infinitely, \\(f(x)\\) approaches \\(L\\) infinitely.\n\n\n2 Derivatives\nDefinition of the derivative:\n\\[\nf'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}\n\\]\n\n\n3 Fundamental Theorem of Calculus\nIf \\(f\\) is continuous on \\([a, b]\\) and \\(F\\) is an antiderivative of \\(f\\), then:\n\\[\n\\int_a^b f(x) dx = F(b) - F(a)\n\\]",
+    "crumbs": [
+      "Mathematics",
+      "Calculus Review"
+    ]
+  },
+  {
+    "objectID": "content/en/notes/linear-algebra.html",
+    "href": "content/en/notes/linear-algebra.html",
+    "title": "Linear Algebra Notes",
+    "section": "",
+    "text": "Definition: A vector space \\(V\\) is a set equipped with addition and scalar multiplication…\n\n\nIf \\(W \\subseteq V\\) and \\(W\\) is also a vector space, then \\(W\\) is called a subspace of \\(V\\).",
+    "crumbs": [
+      "Mathematics",
+      "Linear Algebra Notes"
+    ]
+  },
+  {
+    "objectID": "content/en/notes/linear-algebra.html#subspaces",
+    "href": "content/en/notes/linear-algebra.html#subspaces",
+    "title": "Linear Algebra Notes",
+    "section": "",
+    "text": "If \\(W \\subseteq V\\) and \\(W\\) is also a vector space, then \\(W\\) is called a subspace of \\(V\\).",
+    "crumbs": [
+      "Mathematics",
+      "Linear Algebra Notes"
+    ]
+  },
+  {
+    "objectID": "content/en/notes/linear-algebra.html#characteristic-equation",
+    "href": "content/en/notes/linear-algebra.html#characteristic-equation",
+    "title": "Linear Algebra Notes",
+    "section": "2.1 Characteristic Equation",
+    "text": "2.1 Characteristic Equation\nEigenvalues can be found by solving the characteristic equation:\n\\[\n\\det(A - \\lambda I) = 0\n\\]",
+    "crumbs": [
+      "Mathematics",
+      "Linear Algebra Notes"
+    ]
+  },
+  {
+    "objectID": "content/en/publications/paper2.html",
+    "href": "content/en/publications/paper2.html",
+    "title": "(Example) Research on Image Recognition Based on Deep Learning",
+    "section": "",
+    "text": "We propose a novel architecture based on ResNet…\n\n\nOur model uses…\n\n\n\nWe achieved an accuracy of 99.9% on the MNIST dataset."
+  },
+  {
+    "objectID": "content/en/publications/paper2.html#methodology",
+    "href": "content/en/publications/paper2.html#methodology",
+    "title": "(Example) Research on Image Recognition Based on Deep Learning",
+    "section": "",
+    "text": "Our model uses…"
+  },
+  {
+    "objectID": "content/en/publications/paper2.html#results",
+    "href": "content/en/publications/paper2.html#results",
+    "title": "(Example) Research on Image Recognition Based on Deep Learning",
+    "section": "",
+    "text": "We achieved an accuracy of 99.9% on the MNIST dataset."
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html",
+    "href": "content/en/blog/setup-guide.html",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "",
+    "text": "This is an academic personal website template built with Quarto, designed to help researchers quickly set up a personal website to share notes and blog posts. It has the following features:\n\nEasy to Get Started: Just follow this tutorial and use modern AI tools for troubleshooting. No prior knowledge is required to easily complete website deployment.\nAcademic-Friendly: Supports LaTeX-style mathematical formulas, formula citations, and bibliography management, suitable for publishing academic content.\nLightweight and Clean: Primarily uses Quarto’s native features, minimizing custom CSS/HTML for easier understanding and secondary development.\nAI Auto-Translation: Built-in Python scripts utilize the DeepSeek API to achieve automatic synchronization of Chinese and English content.\nAutomated Deployment: Integrated with GitHub Actions for automatic, free building and publishing. No manual operations or personal server configuration required.\nResponsive Design: Clean and aesthetically pleasing interface, adapted for both desktop and mobile devices.\n\n\n\nBefore starting the configuration, we need to understand the project’s folder structure and the functions of each part to facilitate understanding of subsequent operations.\nusername.github.io/              # Your personal website project root directory\n├─ _quarto.yml                   # Quarto website global configuration file\n├─ index.qmd                     # Website homepage (source language version. Default is Chinese; the translation script automatically generates the other language version, see details later)\n├─ requirements.txt              # Python dependency list\n├─ README.md                     # Repository documentation\n├─ references.bib                # Global bibliography database\n├─ .gitignore                    # Git ignore file list\n├─ .github/                      # GitHub configuration folder\n│  └─ workflows/\n│     └─ publish.yml             # GitHub Actions automation workflow, see details later\n├─ content/                      # Main content folder, where you usually need to edit\n│  ├─ en/                        # English content\n│  │  ├─ _metadata.yml           # English folder metadata\n│  │  ├─ index.qmd               # English homepage (if the source language is Chinese, this file is automatically generated by the translation script)\n│  │  ├─ cv.qmd                  # English CV\n│  │  ├─ blog/                   # English blog\n│  │  ├─ notes/                  # English notes\n│  │  │  ├─ _metadata.yml        # Notes folder metadata\n│  │  │  └─ ...\n│  │  └─ publications/           # English publications\n│  └─ zh/                        # Chinese content\n│     ├─ _metadata.yml           # Chinese folder metadata\n│     ├─ cv.qmd                  # Chinese CV\n│     ├─ blog/                   # Chinese blog\n│     ├─ notes/                  # Chinese notes\n│     └─ publications/           # Chinese publications\n├─ assets/                       # Static resources\n│  ├─ css/\n│  │  └─ custom.css              # Custom styles\n│  ├─ images/\n│  │  └─ avatar.jpg              # Avatar and other images\n│  └─ html/\n│     ├─ footer.html             # Custom footer\n│     └─ include_lang_switch.html # Language switcher\n├─ scripts/                      # Automation scripts folder\n│  ├─ README.md                  # Script documentation\n│  ├─ sync_deepseek.py           # Auto-translation script\n│  └─ tex2qmd.py                 # LaTeX to Quarto script\n└─ _site/                        # Generated static website (automatically generated, do not edit manually)\n\n\n\nRoot directory index.qmd: The source file for the website’s homepage. It is written in Chinese by default (lang: zh). The translation script will automatically generate the English version to content/en/index.qmd. If you prefer writing in English, you can change the lang to en, and the script will generate the Chinese version to content/zh/index.qmd.\n_metadata.yml: Can be placed in any content subfolder (e.g., blog/, notes/) to define default metadata for all documents within that folder. See the later section “Configuration Hierarchy and Priority” for details.\n_site/: The static website generated by Quarto after building. Do not edit manually.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#project-folder-structure-and-function-explanation",
+    "href": "content/en/blog/setup-guide.html#project-folder-structure-and-function-explanation",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "",
+    "text": "Before starting the configuration, we need to understand the project’s folder structure and the functions of each part to facilitate understanding of subsequent operations.\nusername.github.io/              # Your personal website project root directory\n├─ _quarto.yml                   # Quarto website global configuration file\n├─ index.qmd                     # Website homepage (source language version. Default is Chinese; the translation script automatically generates the other language version, see details later)\n├─ requirements.txt              # Python dependency list\n├─ README.md                     # Repository documentation\n├─ references.bib                # Global bibliography database\n├─ .gitignore                    # Git ignore file list\n├─ .github/                      # GitHub configuration folder\n│  └─ workflows/\n│     └─ publish.yml             # GitHub Actions automation workflow, see details later\n├─ content/                      # Main content folder, where you usually need to edit\n│  ├─ en/                        # English content\n│  │  ├─ _metadata.yml           # English folder metadata\n│  │  ├─ index.qmd               # English homepage (if the source language is Chinese, this file is automatically generated by the translation script)\n│  │  ├─ cv.qmd                  # English CV\n│  │  ├─ blog/                   # English blog\n│  │  ├─ notes/                  # English notes\n│  │  │  ├─ _metadata.yml        # Notes folder metadata\n│  │  │  └─ ...\n│  │  └─ publications/           # English publications\n│  └─ zh/                        # Chinese content\n│     ├─ _metadata.yml           # Chinese folder metadata\n│     ├─ cv.qmd                  # Chinese CV\n│     ├─ blog/                   # Chinese blog\n│     ├─ notes/                  # Chinese notes\n│     └─ publications/           # Chinese publications\n├─ assets/                       # Static resources\n│  ├─ css/\n│  │  └─ custom.css              # Custom styles\n│  ├─ images/\n│  │  └─ avatar.jpg              # Avatar and other images\n│  └─ html/\n│     ├─ footer.html             # Custom footer\n│     └─ include_lang_switch.html # Language switcher\n├─ scripts/                      # Automation scripts folder\n│  ├─ README.md                  # Script documentation\n│  ├─ sync_deepseek.py           # Auto-translation script\n│  └─ tex2qmd.py                 # LaTeX to Quarto script\n└─ _site/                        # Generated static website (automatically generated, do not edit manually)\n\n\n\nRoot directory index.qmd: The source file for the website’s homepage. It is written in Chinese by default (lang: zh). The translation script will automatically generate the English version to content/en/index.qmd. If you prefer writing in English, you can change the lang to en, and the script will generate the Chinese version to content/zh/index.qmd.\n_metadata.yml: Can be placed in any content subfolder (e.g., blog/, notes/) to define default metadata for all documents within that folder. See the later section “Configuration Hierarchy and Priority” for details.\n_site/: The static website generated by Quarto after building. Do not edit manually.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#core-tools",
+    "href": "content/en/blog/setup-guide.html#core-tools",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "2.1 Core Tools",
+    "text": "2.1 Core Tools\nThis project requires downloading and installing the following tools:\n\nVS Code: A powerful text editor. We will use it to write code, write articles, manage the project, and operate Git.\nQuarto CLI: The engine that converts your Markdown articles into web pages.\nGit: A version control tool used to synchronize changes to GitHub.\nPython (Optional): Used to run the translation script locally. Please check “Add Python to PATH” during installation.\n\nPlease search for installation and configuration guides for the relevant tools yourself; they will not be detailed here.\n\n2.1.1 About VS Code\nVS Code is essentially a text editor, but it has a rich plugin ecosystem—these plugins enable VS Code to “understand” various languages (syntax highlighting, error checking, auto-completion) or “transform” into various tools (Git client, Quarto editor, etc.). It is called an “Integrated Development Environment” (IDE).\nHowever, VS Code and its plugins are only responsible for editing. The execution of code is handled by external tools installed on your computer (such as the Python interpreter, TeX compiler).\nFor example: To write Python in VS Code, you need to install both: - Python plugin: Makes the editor recognize .py files and provides intelligent suggestions. - Python interpreter: The program that actually runs the code.\nThis tutorial focuses on Quarto website configuration. Detailed usage of the aforementioned tools is too lengthy to cover here. If needed, it is recommended to search for information yourself or ask an AI. Considering the important role Git plays in this project’s configuration and that it might be unfamiliar to non-computer science students, its value and learning suggestions will be briefly introduced below.\n\n\n2.1.2 About Git and GitHub: A Skill Worth Investing In\nThe main point here is to emphasize: Git is a skill very much worth learning.\nWhat is the relationship between Git and GitHub?\n\nGit: A version control tool installed on your computer, responsible for recording the history of every change to your files.\nGitHub: A cloud-based code hosting platform that can synchronize your local Git repository online, enabling backup, collaboration, and automated deployment.\n\nSimply put: Git manages local history, GitHub handles cloud synchronization. Used together, your code has a complete version history and cloud backup.\nWhy is it worth learning?\n\nVersion History: Every “commit” saves a snapshot, allowing you to revert to any past version at any time.\nCloud Backup: After pushing to GitHub, your code won’t be lost even if your computer breaks.\nMulti-device Synchronization: Push from your lab computer, pull at your dorm, and continue working seamlessly.\nCollaboration and Automation: GitHub supports multi-person collaboration and automated builds (like the automatic translation and deployment in this project).\n\nGood News: VS Code Makes Git Simple\nYou do not need to remember complex command lines. VS Code has a built-in graphical Git interface—the “Source Control” panel in the left sidebar can handle 90% of daily operations: viewing changes, committing, pushing, pulling, all achievable with just a few clicks.\nLearning Suggestions:\n\nWhen you encounter an unfamiliar concept, ask an AI directly: “Please explain in simple terms what a Git commit means?”\nSearch for tutorial videos or articles to learn the basic workflow.\n\n\nGit and GitHub are foundational infrastructure for modern research. Whether you will be writing code, performing data analysis, or managing lab records in the future, this skill will benefit you for a lifetime. Investing a few hours to learn it yields long-term efficiency gains. VS Code is also worth the investment, as it can significantly improve your writing and programming efficiency.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#recommended-extensions",
+    "href": "content/en/blog/setup-guide.html#recommended-extensions",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "2.2 Recommended Extensions",
+    "text": "2.2 Recommended Extensions\nOpen the Extensions store on the left sidebar of VS Code, search for and install:\n\nQuarto: Provides syntax highlighting and live preview for .qmd files (the file format for the web articles in this project). Essential for this project.\nGitHub Copilot (Recommended): An AI programming assistant, available for free with educational verification. Can significantly improve efficiency in writing code and documentation.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#verify-installation",
+    "href": "content/en/blog/setup-guide.html#verify-installation",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "2.3 Verify Installation",
+    "text": "2.3 Verify Installation\nAfter ensuring the above tools are installed, please verify that Quarto is correctly installed. Open VS Code, select Terminal -&gt; New Terminal from the top menu bar, enter the following command, and press Enter:\nquarto --version\nIf a version number (e.g., 1.8.xx) is displayed, the installation is successful.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#fork-the-project",
+    "href": "content/en/blog/setup-guide.html#fork-the-project",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "3.1 Fork the Project",
+    "text": "3.1 Fork the Project\nFirst, you need to Fork this project template to your own GitHub account:\n\nOpen the GitHub page of this project.\nClick the Fork button in the top right corner.\nImportant: Change the repository name to your-username.github.io (e.g., zhangsan.github.io). This is necessary to enable the default GitHub Pages domain.\n(Recommended) Uncheck “Copy the main branch only” to copy the gh-pages branch (if it exists in the template repository).\nClick Create fork.\n\nAfter forking, you will have your own independent copy that you can freely modify and configure.\nClone to Local: Open a terminal and run the following command (replace your-username with your GitHub username):\ngit clone https://github.com/your-username/your-username.github.io.git\ncd your-username.github.io\nAfter cloning, open the folder with VS Code to start editing.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#configure-ai-translation-deepseek",
+    "href": "content/en/blog/setup-guide.html#configure-ai-translation-deepseek",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "3.2 Configure AI Translation (DeepSeek)",
+    "text": "3.2 Configure AI Translation (DeepSeek)\nThis template uses the DeepSeek API for automatic translation. You need to configure an API Key to use this feature.\n\nObtain a Key: Go to the DeepSeek Platform to register and apply for an API Key (format: sk-xxxxx). New users typically have free credits.\nConfigure GitHub Secrets:\n\n\nGo to your GitHub repository page.\nClick Settings -&gt; Secrets and variables -&gt; Actions.\nClick New repository secret.\nName: DEEPSEEK_API_KEY\nSecret: Paste your Key.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#key-initialization-steps",
+    "href": "content/en/blog/setup-guide.html#key-initialization-steps",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "3.3 Key Initialization Steps",
+    "text": "3.3 Key Initialization Steps\nBefore performing the first push, you must complete the following initialization configuration. Otherwise, the automation scripts may fail with errors.\n\nImportant Note: All the following commands must be run in the project’s root directory. If you have opened this project’s folder in VS Code, simply open the terminal (Terminal -&gt; New Terminal); it will default to the project root directory.\n\n\n3.3.1 Ensure Complete Directory Structure\nGit has a characteristic: it does not track empty folders.\nThis means that if you create a new folder but haven’t placed any files in it, or if you delete all files from a folder, that folder will disappear when pushed to GitHub.\nThis can cause automation scripts (such as the translation script) to fail with errors when running in the cloud because they cannot find the expected directory structure (e.g., content/en).\nIf you forked this project directly without deleting any files, then this should not be an issue, and you can skip this step.\nSolution: Please ensure that the content/zh and content/en directories and their subdirectories (e.g., blog, notes) in this project contain at least one file. If any of them are empty, manually create an empty file named .gitkeep as a placeholder. You can use command-line operations:\n# macOS / Linux / Git Bash:\ntouch content/en/.gitkeep\n\n# Windows PowerShell:\nNew-Item -Path content/en/.gitkeep -ItemType File -Force\n\n\n3.3.2 Initialize the Publishing Branch (gh-pages)\nThe project’s automation scripts will push the compiled HTML webpage files to the gh-pages branch. If this branch does not exist, the first deployment will fail.\nPlease run the following commands in the terminal to check and create it:\n# 1. Check if the gh-pages branch already exists\ngit branch -a\n\n# If the output already includes \"remotes/origin/gh-pages\", you can skip the following steps.\n# Otherwise, continue executing the commands below to create the branch:\n\n# 2. Create an empty orphan branch\ngit checkout --orphan gh-pages\n\n# 3. Clear the staging area (the VS Code file list will become empty at this point—don't panic)\ngit rm -rf .\n\n# 4. Create an empty commit\ngit commit --allow-empty -m \"Initial gh-pages\"\n\n# 5. Push to the remote\ngit push origin gh-pages\n\n# 6. Switch back to the main branch\ngit checkout main\n\nTip: After executing step 3, the file list on the left side of VS Code will momentarily clear—this is normal. You have simply switched to an empty branch. After executing step 6 to switch back to main, all files will be restored.\n\n\n\n3.3.3 Enable GitHub Permissions\nNew repositories have read-only permissions by default, which prevents writing back translation results (i.e., GitHub Actions cannot push the translated English files to your repository).\n\nGo to your project’s GitHub repository page -&gt; Settings -&gt; Actions -&gt; General.\nScroll to the bottom to Workflow permissions.\nSelect Read and write permissions.\nClick Save.\n\n\n\n3.3.4 Configure the GitHub Pages Branch\nTo ensure the website displays correctly, you need to tell GitHub which branch to deploy the pages from.\n\nOpen your project’s GitHub repository page -&gt; Settings -&gt; Pages.\nUnder Build and deployment:\n\nSource: Select Deploy from a branch.\nBranch: Select the gh-pages branch, keeping the folder as / (root).\n\nClick Save.\n\nAfter configuration, wait a few minutes, and your website will be accessible at https://your-username.github.io! 🎉\n\nNote: If the website does not display normally, you can go to the Actions tab of your GitHub repository to check the deployment status. Click on the most recent run record. If there is a red cross, click into it to view specific error messages and troubleshoot accordingly.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#configure-the-comment-system-giscus-optional",
+    "href": "content/en/blog/setup-guide.html#configure-the-comment-system-giscus-optional",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "3.4 Configure the Comment System Giscus (Optional)",
+    "text": "3.4 Configure the Comment System Giscus (Optional)\nThis template integrates the Giscus comment system. If you do not need comment functionality, please disable it following the tutorial below and skip this step directly.\n\nHow to completely disable comments? Open the _quarto.yml file, find the comments section, and delete or comment out that part of the code.\n\nTo configure comments, follow these steps:\n\nEnable Discussions:\n\nGo to your project’s GitHub repository page -&gt; Settings -&gt; General.\nScroll down to the Features section.\nCheck the box for Discussions.\n\nInstall the Giscus App:\n\nVisit Giscus App.\nClick Install and authorize it for your repository.\n\nObtain Configuration Information:\n\nVisit giscus.app.\nEnter your repository address (e.g., username/username.github.io).\nUnder Discussion Category, select General.\nScroll to the bottom, where you will see the generated configuration code.\n\nUpdate the Configuration File:\n\nOpen the _quarto.yml file in the project root directory.\nFind the comments -&gt; giscus section.\nFill in the data-repo-id and data-category-id you obtained in the previous step into the corresponding positions:\n\ncomments:\n  giscus:\n    repo: username/username.github.io  # Your repository name\n    repo-id: R_kgDO...                 # Fill in data-repo-id\n    category: General\n    category-id: DIC_kwDO...           # Fill in data-category-id\nPersonalization Settings:\n\nIf you want to disable comments on certain pages (e.g., the homepage), simply add comments: false to the top YAML of that page.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#personalization",
+    "href": "content/en/blog/setup-guide.html#personalization",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "3.5 Personalization",
+    "text": "3.5 Personalization\nYou need to modify the following files to change the information on this website to your own:\n\n3.5.1 Modify Basic Information (_quarto.yml)\nOpen the _quarto.yml file in the root directory and modify the website title, description, and URL:\nwebsite:\n  title: \"Your Name\"              # Title displayed in the top-left corner of the website\n  site-url: \"https://yourusername.github.io\" # Your website address\n  description: \"Your personal introduction\"\n\n\n3.5.2 Modify the Homepage (index.qmd)\nOpen index.qmd in the root directory. This is your website’s landing page. Modify the title, avatar path, and contact information:\n---\ntitle: \"Your Name\"\nlang: zh  # Source language: zh for Chinese, en for English\nimage: assets/images/avatar.jpg  # Replace with your avatar\nabout:\n  template: trestles  # Template style, options: jolla, trestles, solana, marquee, broadside\n  links:\n    - icon: github\n      text: GitHub\n      href: https://github.com/yourusername\n    - icon: envelope\n      text: Email\n      href: mailto:youremail@example.com\n---\nAbout the lang field:\n\nlang: zh (default): Indicates you are writing this file in Chinese. The translation script will automatically generate an English version at content/en/index.qmd.\nlang: en: If you want to write the homepage in English, change lang to en. The script will automatically generate a Chinese version at content/zh/index.qmd.\n\n\nNote: This template defaults to lang: zh, so content/en/index.qmd is auto-generated. If you want to switch to writing the homepage in English (lang: en), it is recommended to first delete content/en/index.qmd to avoid confusion.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#how-does-the-automatic-translation-scheme-work",
+    "href": "content/en/blog/setup-guide.html#how-does-the-automatic-translation-scheme-work",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "4.1 How Does the Automatic Translation Scheme Work?",
+    "text": "4.1 How Does the Automatic Translation Scheme Work?\nTraditional bilingual websites often require complex i18n configuration or maintaining two completely separate sets of code. This template implements automated mirroring through a Python script (scripts/sync_deepseek.py):\n\nMirror Structure: The .qmd files in content/zh and content/en correspond one-to-one and are automatically translated. Only .qmd files participate in synchronization; other files (such as images, PDFs, _metadata.yml configuration files, etc.) are not processed.\n\nException: The homepage in the language root directory (content/zh/index.qmd or content/en/index.qmd) also does not participate in synchronization because it is unidirectionally generated from the root index.qmd based on the lang field.\n\n\nNote: The script does not actively create empty folders. It only creates corresponding translated files and folder structures in the target language folder (e.g., content/en/blog) when .qmd files exist in the source language folder (e.g., content/zh/blog).\n\nAutomatic Completion:\n\nWhen you write content/zh/blog/post1.qmd, the script automatically generates the corresponding content/en/blog/post1.qmd.\nAnd vice versa.\n\nScript Markers: Files automatically generated by the script will have an &lt;!-- Auto-generated ... --&gt; marker at the end of their code, which is part of the automated workflow implementation.\nAutomatic Translation: You only need to focus on writing in one language; the content in the other language is automatically generated and filled by AI.\nIndependence and Unification: Although the content is auto-generated, the generated files are independent. If you are dissatisfied with the AI’s translation, you can directly modify the generated file, and the script will respect your changes (unless you delete it).\n\nThis design makes website maintenance extremely simple: Write a bilingual website as if you were writing a single-language blog.\n\n4.1.1 How Does the Script Know Which Files Need Translation?\nYou might wonder, how does the script know which file I modified? It determines this through the following logic:\n\nFile Does Not Exist: If there is no corresponding file in content/en, it means it’s a new article, translate it.\nManual File Protection: If the target file exists, the script first checks for the &lt;!-- Auto-generated ... --&gt; marker. No marker = a manually created/maintained file. The script will skip it to prevent overwriting your hard work.\nHash Verification: For files with the marker (i.e., those generated by the script), the script calculates the content Hash of the source file and compares it with the Hash recorded in the target file. If they don’t match, it means the source file has been updated, re-translate it. If the target file has no Hash record, it will also re-translate.\n\n\n\n4.1.2 Warning: How to Protect Your Modifications?\nScenario: You modified the English version (corrected an AI error), and later updated the Chinese version.\n\nCase A (Dangerous): You only modified the English body text but kept the &lt;!-- Auto-generated ... --&gt; marker at the end of the file.\n\nResult: When the source file content changes (Hash mismatch), the script will think it needs updating and forcefully overwrite it. Your English modifications will be lost!\n\nCase B (Safe): When modifying the English body text, you deleted the auto-generated marker at the end of the file.\n\nResult: The script cannot detect the marker, considers it a “manually maintained file,” and skips translation. Your modifications are preserved.\n\n\n\nNote: Once you decide to manually intervene and modify a translation draft, be sure to delete the auto-generated marker at the end of the file immediately! The automated translation sync for this document stops here, and you can manually maintain the bilingual version from now on.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#how-listing-pages-work",
+    "href": "content/en/blog/setup-guide.html#how-listing-pages-work",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "4.2 How Listing Pages Work",
+    "text": "4.2 How Listing Pages Work\nThe list pages for “Blog,” “Notes,” and “Papers” in this template are automatically generated using Quarto’s Listing feature. You don’t need to manually maintain article lists; you just need to configure the index.qmd file in the corresponding folder.\n\n4.2.1 How to Create a New Listing Page?\nSuppose you want to create a new section called “Projects.” Follow these steps:\n\nCreate a Folder: Create a new folder named projects under content/zh/.\nCreate an Index File: Create an index.qmd file inside it and write the following configuration:\n\n---\ntitle: \"My Projects\"\nlisting:\n  contents: \"*.qmd\"        # Grabs all .qmd files in the current directory\n  sort: \"date desc\"        # Sorts by date descending\n  type: default            # Display style: default (list), grid (grid), table (table)\n  categories: true         # Shows category tags\n  sort-ui: true            # Shows sort buttons\n  filter-ui: true          # Shows search box\npage-layout: full\n---\n\nHere are all my projects.\n\nAdd Content: Create specific project introduction files (e.g., project-a.qmd) under the projects folder, and they will automatically appear in the list.\n\n\n\n4.2.2 Common Listing Styles (type)\n\ndefault: The classic blog list view, showing thumbnails, titles, summaries, and metadata. Suitable for blogs.\ngrid: A visually appealing card grid view. Suitable for showcasing portfolios or image-heavy content.\ntable: A compact table view. Suitable for displaying large lists of papers or data.\n\nYou can change the type field in index.qmd at any time to switch styles.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#configuration-hierarchy-and-priority",
+    "href": "content/en/blog/setup-guide.html#configuration-hierarchy-and-priority",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "4.3 Configuration Hierarchy and Priority",
+    "text": "4.3 Configuration Hierarchy and Priority\nA Quarto website is like a simply furnished house. While the default style is already quite clean and aesthetically pleasing, we all desire more options: for example, changing the layout, display options, or styles of one or several web pages. These needs can be met through YAML (.yml) configuration files.\n\n4.3.1 What is a YAML (.yml) File?\nIn this project, you will frequently see files with the .yml suffix, such as _quarto.yml and _metadata.yml. These are configuration files in YAML format.\nYAML (YAML Ain’t Markup Language) is a format specifically designed for writing configuration files. Its hallmark is being extremely readable—writing it is like writing an outline, using indentation to represent hierarchical relationships.\n\nAbout Filenames: YAML itself is just a data format; filenames can be arbitrary (e.g., config.yml, settings.yaml). However, Quarto specifies particular filenames: _quarto.yml for global configuration and _metadata.yml for directory-level configuration. Only by using these conventional names will Quarto automatically recognize and apply the configurations.\n\nCore Syntax Rules:\n\nIndentation Indicates Hierarchy: Just like in Python, indentation is crucial.\nSpace After Colon: key: value is the standard format; a space must follow the colon.\n\nSpecial Note: YAML at the Document Head (Front Matter)\nBesides standalone .yml configuration files, you’ll notice that the beginning of each .qmd document contains a section wrapped by three dashes ---. This is also YAML, called Front Matter, specifically used to describe the properties of that article (such as title, author, date, tags, etc.). The syntax for both types of YAML is the same. The difference between a YAML (.yml) file and Front Matter is that the former is a standalone configuration file, while the latter is embedded within the document; the former does not need to be wrapped in ---.\nQuarto’s configuration system is very flexible and follows a “Cascading” principle. Understanding this is crucial for customizing the website.\nQuarto supports three levels of configuration files, each with a different scope and priority. They are:\n\n\n4.3.2 1. Global Configuration (_quarto.yml)\n\nLocation: Project root directory.\nScope: Entire website.\nPurpose: Defines the website’s theme, navigation bar, language, and default settings for all pages.\nExample: Setting author: \"Perry\" here makes Perry the default author for all articles across the site.\n\n\n\n4.3.3 2. Directory-Level Configuration (_metadata.yml)\n\nLocation: Any subfolder (e.g., content/zh/blog/).\nScope: All documents within that folder and its subfolders.\nPurpose: Customizes styles for a specific section, overriding global settings or adding new properties.\nExample: If lightbox effects are not enabled globally, but you want images in the blog section to be clickable for enlargement, set lightbox: true in blog/_metadata.yml.\n\n\n\n4.3.4 3. Document-Level Configuration (YAML Front Matter)\n\nLocation: Top of a specific .qmd file (between ---).\nScope: Only the current document.\nPurpose: Defines article-specific properties, such as title, publication date, tags, or overriding higher-level settings.\nExample: If a blog post is a reprint, write author: \"Guest\" in the header of that file.\n\n\n\n4.3.5 Priority Rule: Proximity Principle\nWhen configurations at multiple levels conflict, the rule is simple: the closer to the document, the higher the priority.\n\n4.3.5.1 About Nested Folders (Nested Folders)\nIf your directory structure has multiple nested levels (e.g., content/zh/notes/math/), each level can have its own _metadata.yml. Configuration follows an “inheritance and override” mechanism:\n\nInheritance: Subfolders automatically inherit configurations from parent folders. For example, documents under math/ will automatically apply general settings from notes/_metadata.yml.\nOverride: If a property is redefined in a subfolder, it overrides the same property in the parent folder. For example, you can disable the table of contents specifically for math notes in math/_metadata.yml.\n\nFinal Priority Chain (from highest to lowest): **Document-Level (YAML) &gt; Document’s Folder (_metadata.yml) &gt; Parent Folder (_metadata.yml) &gt; Global (_quarto.yml)**\n\n\n4.3.5.2 Example (Hypothetical Scenario)\nThe following is a hypothetical example to illustrate how configuration priority works (not the actual configuration of this template):\n\n_quarto.yml (Global):\nauthor: \"Site Owner\"\ntoc: false # Disable table of contents globally by default\nblog/_metadata.yml (Directory):\n# No author specified, inherits global\ntoc: true  # Enable table of contents for the blog section (overrides global)\nlightbox: true  # Enable click-to-enlarge for images\nblog/post-1.qmd (Document):\ntitle: \"My First Blog Post\"\n# No author specified, inherits global -&gt; \"Site Owner\"\n# No toc specified, inherits from parent -&gt; true\nblog/guest-post.qmd (Document):\ntitle: \"Guest Post\"\nauthor: \"Guest Contributor\"  # &lt;--- Overrides global!\ntoc: false     # &lt;--- Overrides directory! (Disables TOC for this post)\n\nFinal Result:\n\nPost 1: Author is “Site Owner”, table of contents is enabled, lightbox effect is enabled.\nGuest Post: Author is “Guest Contributor”, table of contents is disabled, lightbox effect is enabled.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#sidebar-configuration-sidebar",
+    "href": "content/en/blog/setup-guide.html#sidebar-configuration-sidebar",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "4.4 Sidebar Configuration (Sidebar)",
+    "text": "4.4 Sidebar Configuration (Sidebar)\nThe sidebar is the soul of a note-taking website. Quarto supports flexible sidebar configuration, allowing you to set up independent sidebars for different sections (e.g., Notes, Blog).\n\n4.4.1 Defining Sidebars (_quarto.yml)\nIn _quarto.yml, you can define multiple sidebars, each with a unique id. You can create multiple sections (groups) under the same sidebar. Pages listed in contents will display the sidebar.\nsidebar:\n  # --- Chinese Notes Sidebar ---\n  - id: \"notes-zh\"    # Unique identifier (this template defines separate ones for Chinese and English)\n    title: \"笔记\"\n    contents:\n      - content/zh/notes/index.qmd\n      - section: \"数学\"   # Group\n        contents:\n          - content/zh/notes/calculus.qmd\n          - content/zh/notes/linear-algebra.qmd\n\n  # --- English Notes Sidebar ---\n  - id: \"notes-en\"\n    title: \"Notes\"\n    contents:\n      - content/en/notes/index.qmd\n      - section: \"Mathematics\"\n        contents:\n          - content/en/notes/calculus.qmd\n          - content/en/notes/linear-algebra.qmd\n\n\n4.4.2 Activating a Sidebar\nAfter defining sidebars, you also need to tell Quarto which pages should display a specific sidebar. This is typically set in a folder’s _metadata.yml.\nFor example, in content/en/notes/_metadata.yml:\n# All articles under this folder use the sidebar with id \"notes-en\"\nsidebar: notes-en\nThis way, when you visit any article under content/en/notes/, the notes-en sidebar you defined in _quarto.yml will appear on the left.\n\nHow this template actually works: The sidebar contents are listed directly in the contents section of _quarto.yml. Pages listed there will automatically display the corresponding sidebar. Therefore, this template does not create _metadata.yml in every subfolder.\n\nYou can also override the default behavior by setting the sidebar field in a single page’s YAML Front Matter:\n\nsidebar: notes-zh — Makes this page display the sidebar with the specified ID.\nsidebar: false — Disables the sidebar for this page.\n\n\n\n4.4.3 Auto-fetching Files\nWhen setting up a sidebar, contents supports auto-fetching from a root directory. However, for features like “auto-generating a sidebar from a specific subfolder,” I haven’t found a good implementation method yet.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#what-is-a-.qmd-file",
+    "href": "content/en/blog/setup-guide.html#what-is-a-.qmd-file",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "5.1 What is a .qmd File?",
+    "text": "5.1 What is a .qmd File?\n.qmd (Quarto Markdown) is the core file format used by this website.\nWhy use it?\n\nSimple and Easy to Learn: It is based on Markdown, a minimalist markup language. You don’t need to adjust formatting like in Word; you can write well-structured articles using simple symbols (e.g., # for headings).\nPowerful: It natively supports LaTeX math formulas (e.g., $E=mc^2$) and code blocks, making it ideal for academic writing and data presentation.\nAutomatic Web Rendering: Your text is automatically rendered into beautiful HTML web pages.\n\nQuick Start Markdown Example:\n# This is a Level 1 Heading\n## This is a Level 2 Heading\n\nThis is a paragraph of normal text. You can make it **bold** or *italic*.\n\n- This is a list item\n- Supports math formulas: $f(x) = \\int x dx$\n- Supports inserting images: `![](image.jpg)`",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#equation-referencing",
+    "href": "content/en/blog/setup-guide.html#equation-referencing",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "5.2 Equation Referencing",
+    "text": "5.2 Equation Referencing\nQuarto supports numbering and referencing mathematical equations, which is very useful for academic writing.\nDefining a Numbered Equation:\n$$\nE = mc^2\n$$ {#eq-einstein}\nReferencing an Equation:\nAccording to Einstein's mass-energy equation @eq-einstein, we can conclude...\nAfter rendering, the equation will be automatically numbered (e.g., “(1)”), and the reference will appear as a clickable link (e.g., “Equation 1”).\n\nTip: Equation labels must start with #eq-, followed by a custom identifier (e.g., einstein).",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#literature-citation",
+    "href": "content/en/blog/setup-guide.html#literature-citation",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "5.3 Literature Citation",
+    "text": "5.3 Literature Citation\nThis template is already configured with bibliography management functionality. You only need to:\n\nAdd Bibliography Entries: Add BibTeX-format bibliography entries to the references.bib file in the project root directory. For example:\n@article{Shannon1948,\n    author = {Claude E. Shannon},\n    title = {A Mathematical Theory of Communication},\n    journal = {Bell System Technical Journal},\n    year = {1948}\n}\nCite in the Main Text: Use the @ symbol followed by the literature key for citation.\nInformation theory was founded by Shannon [@Shannon1948].\n\nAs pointed out by @Shannon1948...\n\n[@Shannon1948] renders as: (Shannon 1948)\n@Shannon1948 renders as: Shannon (1948)\n\nBibliography List: Quarto will automatically generate a bibliography list at the end of the article, requiring no additional configuration. If you want to customize the location of the bibliography (e.g., place it in the middle of the article or under a specific section), you can add the following at the desired location:\n## References\n\n::: {#refs}\n:::\n\n\nTip:\n\nYou can use tools like Google Scholar, Zotero, etc., to export BibTeX-format bibliography entries and directly paste them into references.bib.\nWhen typing @ in VS Code, the Quarto extension will automatically pop up a list of literature from references.bib for you to choose from.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#publishing-workflow",
+    "href": "content/en/blog/setup-guide.html#publishing-workflow",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "5.4 Publishing Workflow",
+    "text": "5.4 Publishing Workflow\nAfter writing your article, you can publish it in just three steps:\n\nCreate the Article: Create a new .qmd file in the corresponding subdirectory (e.g., blog/, notes/) under content/zh/ or content/en/. Write the content in your preferred language (Chinese or English).\nCommit Changes: You can choose either of the following methods.\nMethod A: Using VS Code Git (Recommended)\nIn the VS Code Source Control panel on the left, enter a commit message, click “Commit”, and then click “Sync Changes”.\n\nNote: This method does not run translation locally. Translation will be automatically completed in the cloud after pushing to GitHub.\n\nMethod B: Using the Command Line\nIf you are accustomed to using the terminal, you can run standard Git commands:\ngit add .\ngit commit -m \"Commit message\"\ngit push\nWait for Deployment: After pushing, GitHub Actions will automatically handle translation, building, and publishing. Refresh the website after a few minutes to see the updates.\n\n\n5.4.1 Local Translation (Optional)\nIf you wish to preview the translation results locally instead of waiting for automatic cloud translation, you can follow the steps below.\n\nThe following commands should be run in the VS Code terminal (Terminal -&gt; New Terminal), ensuring the current directory is the project root.\n\nStep 1: Install Dependencies (Only needs to be done once)\npip install -r requirements.txt\nStep 2: Set Environment Variables\nWindows PowerShell:\n$env:DEEPSEEK_API_KEY = \"sk-your-key\"\nmacOS / Linux:\nexport DEEPSEEK_API_KEY=\"sk-your-key\"\nStep 3: Run the Translation Script\npython scripts/sync_deepseek.py\n\nNote: Environment variables become invalid after the terminal is closed and need to be set again next time.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#automated-workflow",
+    "href": "content/en/blog/setup-guide.html#automated-workflow",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "5.5 Automated Workflow",
+    "text": "5.5 Automated Workflow\nAfter you push your code, GitHub Actions will automatically take over the subsequent tasks:\n\nDetect Changes: Identifies which .qmd files you have added or modified.\nAI Translation:\n\nIf you write in Chinese, it will automatically translate to English.\nIf you write in English, it will automatically translate to Chinese.\nThe translation results are automatically committed back to your repository (you will see a new commit from DeepSeek Bot).\n\nBuild Website: Runs quarto render to generate static web pages.\nPublish Online: Pushes the web pages to the gh-pages branch. Your website will update within a few minutes.\n\nYou can view the real-time logs of the entire process in the Actions tab of your GitHub repository.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#local-preview",
+    "href": "content/en/blog/setup-guide.html#local-preview",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "5.6 Local Preview",
+    "text": "5.6 Local Preview\nRun the following command in the VS Code terminal to preview the website locally in real-time:\nquarto preview --render html\nThis will start a local server, and your browser will automatically open the preview page. After you modify and save a file, the page will refresh automatically.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#why-isnt-my-translation-taking-effect",
+    "href": "content/en/blog/setup-guide.html#why-isnt-my-translation-taking-effect",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "6.1 Why isn’t my translation taking effect?",
+    "text": "6.1 Why isn’t my translation taking effect?\n\nCheck the GitHub Actions logs: On your repository page, click “Actions” and view the details of the most recent run.\nCheck the API Key: Ensure you have correctly configured DEEPSEEK_API_KEY in Secrets and that the key still has a balance.\nLocal Debugging: If you are running the script locally and the translation is not taking effect, make sure the environment variable is set.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#getting-a-404-error-after-deployment",
+    "href": "content/en/blog/setup-guide.html#getting-a-404-error-after-deployment",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "6.2 Getting a 404 error after deployment?",
+    "text": "6.2 Getting a 404 error after deployment?\nPlease check the settings in Settings -&gt; Pages. Ensure the Source branch is set to gh-pages, not main.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/setup-guide.html#what-if-i-only-want-to-use-a-single-language-e.g.-only-chinese-and-dont-want-the-bilingual-feature",
+    "href": "content/en/blog/setup-guide.html#what-if-i-only-want-to-use-a-single-language-e.g.-only-chinese-and-dont-want-the-bilingual-feature",
+    "title": "How to Configure This Website Template (Setup Guide)",
+    "section": "6.3 What if I only want to use a single language (e.g., only Chinese) and don’t want the bilingual feature?",
+    "text": "6.3 What if I only want to use a single language (e.g., only Chinese) and don’t want the bilingual feature?\nThis template is designed flexibly and can be switched to single-language mode.\nSteps:\n\nDisable the translation feature:\n\nGo to your GitHub repository -&gt; Settings -&gt; Secrets and variables -&gt; Actions, and delete DEEPSEEK_API_KEY.\nWhen the script detects no API Key, it will automatically skip translation without affecting deployment.\n\nClean up unnecessary files:\n\nDelete the language folder you don’t need (e.g., content/en).\nAlso check _quarto.yml and remove all links pointing to that folder (e.g., paths like content/en/... in the navbar or sidebar).\n\nRemove the language switcher:\n\nOpen _quarto.yml, find the include-after-body section, and delete the line containing assets/html/include_lang_switch.html.\nIn the navbar settings, delete the navigation item related to icon: translate.\n\nVerify the configuration:\n\nRun quarto preview locally to confirm there are no errors.\nAfter pushing, check if the GitHub Actions run is successful.\n\n\nThis will turn your website into a single-language site.",
+    "crumbs": [
+      "Tutorials",
+      "How to Configure This Website Template (Setup Guide)"
+    ]
+  },
+  {
+    "objectID": "content/en/blog/index.html",
+    "href": "content/en/blog/index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Here are some of my blog posts.\n\n\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nHello, World\n\n\n\n\n\n\n\n\nDec 22, 2025\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\nHow to Configure This Website Template (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\nGitHub Actions\n\n\n\nA detailed guide on how to configure your own personal academic website based on this project template.\n\n\n\n\n\nDec 22, 2025\n\n\nPerry\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Blog"
+    ]
+  },
+  {
+    "objectID": "content/en/index.html",
+    "href": "content/en/index.html",
+    "title": "Perry",
+    "section": "",
+    "text": "GitHub\n  \n  \n    \n     Email\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\nI am XXX, a researcher focused on [Specific research area, e.g., Applied Mathematics / Artificial Intelligence].\nWelcome to my personal homepage! This site is used to organize academic notes, share research findings, publish blog posts, and document some beginner experiences with tinkering with technology.\nThis site is built with Quarto and hosted on GitHub Pages."
+  },
+  {
+    "objectID": "content/en/index.html#biography",
+    "href": "content/en/index.html#biography",
+    "title": "Perry",
+    "section": "📝 Biography",
+    "text": "📝 Biography\nI am currently pursuing a XX degree/working as a researcher at [University/Institution Name]. My research interests primarily focus on using data-driven methods to solve real-world problems.\nPrior to this, I obtained a XX degree from [Undergraduate/Master’s University].\n\n“Stay hungry, stay foolish.”"
+  },
+  {
+    "objectID": "content/en/index.html#education",
+    "href": "content/en/index.html#education",
+    "title": "Perry",
+    "section": "🎓 Education",
+    "text": "🎓 Education\n\nPh.D. in Computer Science | [University Name] | 2025 - Present\nM.S. in Data Science | [University Name] | 2023 - 2025\nB.S. in Mathematics | [University Name] | 2019 - 2023"
+  },
+  {
+    "objectID": "content/en/index.html#research-interests",
+    "href": "content/en/index.html#research-interests",
+    "title": "Perry",
+    "section": "🔬 Research Interests",
+    "text": "🔬 Research Interests\n\nMachine Learning"
+  },
+  {
+    "objectID": "content/en/index.html#news",
+    "href": "content/en/index.html#news",
+    "title": "Perry",
+    "section": "📰 News",
+    "text": "📰 News\n\n2025-11: 🎉 This personal website based on Quarto is officially live! You can refer to the Setup Guide to build your own academic website.\n2024-03: 📄 Our paper on [Paper Topic] was accepted by [Conference Name].\n2023-12: ✈️ Attended an academic conference held in [Location]."
+  },
+  {
+    "objectID": "content/en/index.html#recent-posts",
+    "href": "content/en/index.html#recent-posts",
+    "title": "Perry",
+    "section": "Recent Posts",
+    "text": "Recent Posts\nThis lists my most recently published articles. For more content, please visit the Blog List Page.\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\n\n\nDec 22, 2025\n\n\n\n\n\n\n\nHello, World\n\n\n\n\n\n\n\n\nDec 22, 2025\n\n\n\n\n\n\n\nHow to Configure This Website Template (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\nGitHub Actions\n\n\n\nA detailed guide on how to configure your own personal academic website based on this project template.\n\n\n\n\n\nDec 22, 2025\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "content/en/index.html#notes",
+    "href": "content/en/index.html#notes",
+    "title": "Perry",
+    "section": "Notes",
+    "text": "Notes\nHere are some of my notes:\n\n\n\n\n\n\n\n\nLinear Algebra Notes\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\n\n\n\n\n\n\n\nCalculus Review\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Perry",
+    "section": "",
+    "text": "GitHub\n  \n  \n    \n     Email\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\n我是 XXX，一名专注于 [具体研究方向，如：应用数学 / 人工智能] 的科研工作者。\n欢迎来到我的个人主页！这里用于整理学术笔记、分享科研成果、发布博客文章，以及记录折腾技术的一点新人经验。\n本站由 Quarto 构建，托管于 GitHub Pages。"
+  },
+  {
+    "objectID": "index.html#个人简介-biography",
+    "href": "index.html#个人简介-biography",
+    "title": "Perry",
+    "section": "📝 个人简介 / Biography",
+    "text": "📝 个人简介 / Biography\n我目前在 [大学/机构名称] 攻读 XX 学位/担任研究员。我的研究兴趣主要集中在利用数据驱动的方法解决现实世界的问题。\n在此之前，我在 [本科/硕士学校] 获得了 XX 学位。\n\n“Stay hungry, stay foolish.”"
+  },
+  {
+    "objectID": "index.html#教育背景-education",
+    "href": "index.html#教育背景-education",
+    "title": "Perry",
+    "section": "🎓 教育背景 / Education",
+    "text": "🎓 教育背景 / Education\n\n博士 / Ph.D. in Computer Science | [大学名称] | 2025 - Present\n硕士 / M.S. in Data Science | [大学名称] | 2023 - 2025\n学士 / B.S. in Mathematics | [大学名称] | 2019 - 2023"
+  },
+  {
+    "objectID": "index.html#研究兴趣-research-interests",
+    "href": "index.html#研究兴趣-research-interests",
+    "title": "Perry",
+    "section": "🔬 研究兴趣 / Research Interests",
+    "text": "🔬 研究兴趣 / Research Interests\n\n机器学习（Machine Learning）"
+  },
+  {
+    "objectID": "index.html#最新动态-news",
+    "href": "index.html#最新动态-news",
+    "title": "Perry",
+    "section": "📰 最新动态 / News",
+    "text": "📰 最新动态 / News\n\n2025-11: 🎉 这个基于 Quarto 的个人网站正式上线了！可以参考Setup Guide 搭建您自己的学术网站。\n2024-03: 📄 我们的一篇关于 [论文主题] 的论文被 [会议名称] 接收。\n2023-12: ✈️ 参加了在 [地点] 举办的学术会议。"
+  },
+  {
+    "objectID": "index.html#最新博客-recent-posts",
+    "href": "index.html#最新博客-recent-posts",
+    "title": "Perry",
+    "section": "最新博客 / Recent Posts",
+    "text": "最新博客 / Recent Posts\n这里列出了我最近发布的文章。更多内容请查看 博客列表页。\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\n\n\n2025年12月22日\n\n\n\n\n\n\n\n你好，世界\n\n\n\n\n\n\n\n\n2025年12月22日\n\n\n\n\n\n\n\n如何配置本网站模板 (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\nGitHub Actions\n\n\n\n一份详细的指南，教你如何根据这个项目模板配置你自己的个人学术网站。\n\n\n\n\n\n2025年12月22日\n\n\n\n\n\n无匹配项"
+  },
+  {
+    "objectID": "index.html#笔记notes",
+    "href": "index.html#笔记notes",
+    "title": "Perry",
+    "section": "笔记/Notes",
+    "text": "笔记/Notes\n这里是我的一些笔记：\n\n\n\n\n\n\n\n\n线性代数笔记\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\n\n\n\n\n\n\n\n微积分回顾\n\n\n\n\n\n无匹配项"
+  },
+  {
+    "objectID": "content/en/cv.html",
+    "href": "content/en/cv.html",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Personal introduction.\n\n\n\nSchool of Automation, Some University\n\nPh.D. Candidate, Control Science and Engineering (2025 - )\n\nDepartment of Computer Science, Some University\n\nMaster of Science (2023 - 2025)\n\nDepartment of Electronics, Some University\n\nBachelor of Engineering (2019 - 2023)\n\n\n\n\n\n\nMachine Learning"
+  },
+  {
+    "objectID": "content/en/cv.html#education",
+    "href": "content/en/cv.html#education",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "School of Automation, Some University\n\nPh.D. Candidate, Control Science and Engineering (2025 - )\n\nDepartment of Computer Science, Some University\n\nMaster of Science (2023 - 2025)\n\nDepartment of Electronics, Some University\n\nBachelor of Engineering (2019 - 2023)"
+  },
+  {
+    "objectID": "content/en/cv.html#research-interests",
+    "href": "content/en/cv.html#research-interests",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Machine Learning"
+  },
+  {
+    "objectID": "content/en/blog/life/hello.html",
+    "href": "content/en/blog/life/hello.html",
+    "title": "Hello, World",
+    "section": "",
+    "text": "Welcome to my personal blog! This is my first post.",
+    "crumbs": [
+      "Life",
+      "Hello, World"
+    ]
+  },
+  {
+    "objectID": "content/en/publications/index.html",
+    "href": "content/en/publications/index.html",
+    "title": "Publications",
+    "section": "",
+    "text": "Here are some publications.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(Example) Research on Image Recognition Based on Deep Learning\n\n\nA study on high-precision image classification using Convolutional Neural Networks.\n\n\n\n\n\nJun 15, 2024\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\nExample Publication\n\n\nA sample publication entry.\n\n\n\n\n\nJan 1, 2024\n\n\nPerry\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "content/en/publications/paper1.html",
+    "href": "content/en/publications/paper1.html",
+    "title": "Example Publication",
+    "section": "",
+    "text": "1 Abstract\nThis is a placeholder for a publication. You can upload your paper’s abstract and details here."
+  },
+  {
+    "objectID": "content/en/notes/index.html",
+    "href": "content/en/notes/index.html",
+    "title": "Notes",
+    "section": "",
+    "text": "Here are some notes.\n\n\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nCategories\n\n\n\n\n\n\n\n\nDec 22, 2025\n\n\nCalculus Review\n\n\nMath, Calculus\n\n\n\n\n\n\nDec 22, 2025\n\n\nLinear Algebra Notes\n\n\nMath, Linear Algebra\n\n\n\n\n\n\nDec 22, 2025\n\n\nMath Notes Example\n\n\nMath, Analysis\n\n\n\n\n\n\nDec 22, 2025\n\n\nIntroduction to Stochastic Gradient Descent\n\n\nMath, Optimization, SGD, Machine-Learning\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Notes"
+    ]
+  },
+  {
+    "objectID": "content/en/notes/math-topic-1.html",
+    "href": "content/en/notes/math-topic-1.html",
+    "title": "Math Notes Example",
+    "section": "",
+    "text": "This is an example note. Quarto has excellent support for LaTeX mathematical formulas, including formula numbering, theorem environments, and cross-referencing.\n\n\nThis is an inline formula: \\(E = mc^2\\).\nThis is a numbered block-level formula, using the {#eq-label} syntax to define a label:\n\\[\n\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}\n\\tag{1}\\]\nThe Gaussian integral Equation 1 has important applications in probability theory and statistics.\nLet’s look at another example, the famous Euler’s formula:\n\\[\ne^{i\\pi} + 1 = 0\n\\tag{2}\\]\nEquation 2 is hailed as the most beautiful formula in mathematics, connecting five of the most important mathematical constants.\n\n\n\nUse the aligned environment to write multiline aligned formulas:\n\\[\n\\begin{aligned}\n\\nabla \\cdot \\mathbf{E} &= \\frac{\\rho}{\\varepsilon_0} \\\\\n\\nabla \\cdot \\mathbf{B} &= 0 \\\\\n\\nabla \\times \\mathbf{E} &= -\\frac{\\partial \\mathbf{B}}{\\partial t} \\\\\n\\nabla \\times \\mathbf{B} &= \\mu_0 \\mathbf{J} + \\mu_0 \\varepsilon_0 \\frac{\\partial \\mathbf{E}}{\\partial t}\n\\end{aligned}\n\\tag{3}\\]\nEquation 3 is the differential form of Maxwell’s equations, describing the fundamental laws of electromagnetic fields.\nUse the cases environment to write piecewise functions:\n\\[\nf(x) = \\begin{cases}\nx^2 & \\text{if } x \\geq 0 \\\\\n-x^2 & \\text{if } x &lt; 0\n\\end{cases}\n\\tag{4}\\]\nEquation 4 defines a piecewise function symmetric about the origin.\nFor multi-line derivations, you can use the align style (each line numbered separately) or aligned (one number for the whole block):\n\\[\n\\begin{aligned}\n\\sum_{k=1}^{n} k &= 1 + 2 + \\cdots + n \\\\\n&= \\frac{n(n+1)}{2}\n\\end{aligned}\n\\tag{5}\\]\nFrom Equation 5, we know that the sum of the first 100 positive integers is \\(\\frac{100 \\times 101}{2} = 5050\\).\n\n\n\nQuarto supports various theorem environments, including theorem, lemma, proposition, corollary, definition, example, etc.\n\nTheorem 1 (Euclid’s Theorem) There are infinitely many prime numbers.\n\n\nProof. Assume there are only finitely many primes, say \\(p_1, p_2, \\ldots, p_n\\). Consider the number \\(N = p_1 p_2 \\cdots p_n + 1\\).\n\\(N\\) is not divisible by any \\(p_i\\) (remainder is 1), so \\(N\\) is either prime itself or has a prime factor not in the list.\nIn either case, this contradicts the assumption that there are only finitely many primes. Therefore, there are infinitely many primes.\n\nAccording to Theorem 1, we know there is no “largest prime number”.\n\nDefinition 1 (Prime Number) Let \\(p\\) be a positive integer greater than 1. If the only positive divisors of \\(p\\) are 1 and \\(p\\) itself, then \\(p\\) is called a prime number.\n\nDefinition 1 is one of the most fundamental concepts in number theory.\n\nLemma 1 (Divisibility Lemma) Let \\(a, b, c\\) be integers. If \\(a \\mid b\\) and \\(a \\mid c\\), then for any integers \\(m, n\\), we have \\(a \\mid (mb + nc)\\).\n\n\nExample 1 (Prime Number Example) The first ten prime numbers are: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29.\nNote that 2 is the only even prime number.\n\nMany useful divisibility properties can be derived from Lemma 1.\n\n\n\nThis is an example of a bibliographic citation. In 1948, Shannon (1948) published a seminal paper that laid the foundation for information theory. Shannon’s work (Shannon 1948) has had a profound impact on modern communication technology.\n\n\n\n\n\nShannon, Claude E. 1948. “A Mathematical Theory of Communication.” Bell System Technical Journal 27 (3): 379–423. https://doi.org/10.1002/j.1538-7305.1948.tb01338.x.",
+    "crumbs": [
+      "Mathematics",
+      "Math Notes Example"
+    ]
+  },
+  {
+    "objectID": "content/en/notes/math-topic-1.html#formulas-and-references",
+    "href": "content/en/notes/math-topic-1.html#formulas-and-references",
+    "title": "Math Notes Example",
+    "section": "",
+    "text": "This is an inline formula: \\(E = mc^2\\).\nThis is a numbered block-level formula, using the {#eq-label} syntax to define a label:\n\\[\n\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}\n\\tag{1}\\]\nThe Gaussian integral Equation 1 has important applications in probability theory and statistics.\nLet’s look at another example, the famous Euler’s formula:\n\\[\ne^{i\\pi} + 1 = 0\n\\tag{2}\\]\nEquation 2 is hailed as the most beautiful formula in mathematics, connecting five of the most important mathematical constants.",
+    "crumbs": [
+      "Mathematics",
+      "Math Notes Example"
+    ]
+  },
+  {
+    "objectID": "content/en/notes/math-topic-1.html#multiline-formulas",
+    "href": "content/en/notes/math-topic-1.html#multiline-formulas",
+    "title": "Math Notes Example",
+    "section": "",
+    "text": "Use the aligned environment to write multiline aligned formulas:\n\\[\n\\begin{aligned}\n\\nabla \\cdot \\mathbf{E} &= \\frac{\\rho}{\\varepsilon_0} \\\\\n\\nabla \\cdot \\mathbf{B} &= 0 \\\\\n\\nabla \\times \\mathbf{E} &= -\\frac{\\partial \\mathbf{B}}{\\partial t} \\\\\n\\nabla \\times \\mathbf{B} &= \\mu_0 \\mathbf{J} + \\mu_0 \\varepsilon_0 \\frac{\\partial \\mathbf{E}}{\\partial t}\n\\end{aligned}\n\\tag{3}\\]\nEquation 3 is the differential form of Maxwell’s equations, describing the fundamental laws of electromagnetic fields.\nUse the cases environment to write piecewise functions:\n\\[\nf(x) = \\begin{cases}\nx^2 & \\text{if } x \\geq 0 \\\\\n-x^2 & \\text{if } x &lt; 0\n\\end{cases}\n\\tag{4}\\]\nEquation 4 defines a piecewise function symmetric about the origin.\nFor multi-line derivations, you can use the align style (each line numbered separately) or aligned (one number for the whole block):\n\\[\n\\begin{aligned}\n\\sum_{k=1}^{n} k &= 1 + 2 + \\cdots + n \\\\\n&= \\frac{n(n+1)}{2}\n\\end{aligned}\n\\tag{5}\\]\nFrom Equation 5, we know that the sum of the first 100 positive integers is \\(\\frac{100 \\times 101}{2} = 5050\\).",
+    "crumbs": [
+      "Mathematics",
+      "Math Notes Example"
+    ]
+  },
+  {
+    "objectID": "content/en/notes/math-topic-1.html#theorem-environments",
+    "href": "content/en/notes/math-topic-1.html#theorem-environments",
+    "title": "Math Notes Example",
+    "section": "",
+    "text": "Quarto supports various theorem environments, including theorem, lemma, proposition, corollary, definition, example, etc.\n\nTheorem 1 (Euclid’s Theorem) There are infinitely many prime numbers.\n\n\nProof. Assume there are only finitely many primes, say \\(p_1, p_2, \\ldots, p_n\\). Consider the number \\(N = p_1 p_2 \\cdots p_n + 1\\).\n\\(N\\) is not divisible by any \\(p_i\\) (remainder is 1), so \\(N\\) is either prime itself or has a prime factor not in the list.\nIn either case, this contradicts the assumption that there are only finitely many primes. Therefore, there are infinitely many primes.\n\nAccording to Theorem 1, we know there is no “largest prime number”.\n\nDefinition 1 (Prime Number) Let \\(p\\) be a positive integer greater than 1. If the only positive divisors of \\(p\\) are 1 and \\(p\\) itself, then \\(p\\) is called a prime number.\n\nDefinition 1 is one of the most fundamental concepts in number theory.\n\nLemma 1 (Divisibility Lemma) Let \\(a, b, c\\) be integers. If \\(a \\mid b\\) and \\(a \\mid c\\), then for any integers \\(m, n\\), we have \\(a \\mid (mb + nc)\\).\n\n\nExample 1 (Prime Number Example) The first ten prime numbers are: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29.\nNote that 2 is the only even prime number.\n\nMany useful divisibility properties can be derived from Lemma 1.",
+    "crumbs": [
+      "Mathematics",
+      "Math Notes Example"
+    ]
+  },
+  {
+    "objectID": "content/en/notes/math-topic-1.html#literature-citation",
+    "href": "content/en/notes/math-topic-1.html#literature-citation",
+    "title": "Math Notes Example",
+    "section": "",
+    "text": "This is an example of a bibliographic citation. In 1948, Shannon (1948) published a seminal paper that laid the foundation for information theory. Shannon’s work (Shannon 1948) has had a profound impact on modern communication technology.",
+    "crumbs": [
+      "Mathematics",
+      "Math Notes Example"
+    ]
+  },
+  {
+    "objectID": "content/en/notes/math-topic-1.html#references",
+    "href": "content/en/notes/math-topic-1.html#references",
+    "title": "Math Notes Example",
+    "section": "",
+    "text": "Shannon, Claude E. 1948. “A Mathematical Theory of Communication.” Bell System Technical Journal 27 (3): 379–423. https://doi.org/10.1002/j.1538-7305.1948.tb01338.x.",
+    "crumbs": [
+      "Mathematics",
+      "Math Notes Example"
+    ]
+  },
+  {
+    "objectID": "content/zh/cv.html",
+    "href": "content/zh/cv.html",
+    "title": "个人简历",
+    "section": "",
+    "text": "个人介绍。\n\n\n\n某高校自动化学院\n\n博士研究生，控制科学与工程（2025 - ）\n\n某高校计算机系\n\n理学硕士（2023 - 2025）\n\n某大学电子系\n\n工学学士（2019 - 2023）\n\n\n\n\n\n\n机器学习"
+  },
+  {
+    "objectID": "content/zh/cv.html#教育经历",
+    "href": "content/zh/cv.html#教育经历",
+    "title": "个人简历",
+    "section": "",
+    "text": "某高校自动化学院\n\n博士研究生，控制科学与工程（2025 - ）\n\n某高校计算机系\n\n理学硕士（2023 - 2025）\n\n某大学电子系\n\n工学学士（2019 - 2023）"
+  },
+  {
+    "objectID": "content/zh/cv.html#研究兴趣",
+    "href": "content/zh/cv.html#研究兴趣",
+    "title": "个人简历",
+    "section": "",
+    "text": "机器学习"
+  },
+  {
+    "objectID": "content/zh/blog/life/hello.html",
+    "href": "content/zh/blog/life/hello.html",
+    "title": "你好，世界",
+    "section": "",
+    "text": "欢迎来到我的个人博客！这是我的第一篇文章。",
+    "crumbs": [
+      "Blog",
+      "生活",
+      "你好，世界"
+    ]
+  },
+  {
+    "objectID": "content/zh/publications/index.html",
+    "href": "content/zh/publications/index.html",
+    "title": "发表",
+    "section": "",
+    "text": "这里是一些发表的内容。\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n（示例）基于深度学习的图像识别研究\n\n\n一项关于使用卷积神经网络进行高精度图像分类的研究。\n\n\n\n\n\n2024年6月15日\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\n示例出版物\n\n\n一份出版物条目样本.\n\n\n\n\n\n2024年1月1日\n\n\nPerry\n\n\n\n\n\n无匹配项"
+  },
+  {
+    "objectID": "content/zh/publications/paper1.html",
+    "href": "content/zh/publications/paper1.html",
+    "title": "示例出版物",
+    "section": "",
+    "text": "1 Abstract\n这是一个出版物的占位符。您可以在此上传您的论文摘要和详细信息。"
+  },
+  {
+    "objectID": "content/zh/notes/index.html",
+    "href": "content/zh/notes/index.html",
+    "title": "Notes",
+    "section": "",
+    "text": "这里是一些笔记内容。\n\n\n\n\n\n\n   \n    \n    \n      排序方式\n      默认\n      \n        日期 - 日期升序\n      \n      \n        日期 - 日期降序\n      \n      \n        标题\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n日期\n\n\n\n标题\n\n\n\n分类\n\n\n\n\n\n\n\n\n2025年12月22日\n\n\n微积分回顾\n\n\nMath, Calculus\n\n\n\n\n\n\n2025年12月22日\n\n\n线性代数笔记\n\n\nMath, Linear Algebra\n\n\n\n\n\n\n2025年12月22日\n\n\n数学笔记示例\n\n\nMath, Analysis\n\n\n\n\n\n\n2025年12月22日\n\n\n随机梯度下降初步\n\n\nMath, Optimization, SGD, Machine-Learning\n\n\n\n\n\n\n无匹配项",
+    "crumbs": [
+      "Notes"
+    ]
+  },
+  {
+    "objectID": "content/zh/notes/math-topic-1.html",
+    "href": "content/zh/notes/math-topic-1.html",
+    "title": "数学笔记示例",
+    "section": "",
+    "text": "这是一个示例笔记。Quarto 对 LaTeX 数学公式有很好的支持，并且支持公式编号、定理环境及交叉引用。\n\n\n这是一个行内公式：\\(E = mc^2\\)。\n这是一个带编号的块级公式，使用 {#eq-label} 语法定义标签：\n\\[\n\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}\n\\tag{1}\\]\n高斯积分 式 1 在概率论和统计学中有重要应用。\n再看一个例子，著名的欧拉公式：\n\\[\ne^{i\\pi} + 1 = 0\n\\tag{2}\\]\n式 2 被誉为数学中最优美的公式，它将五个最重要的数学常数联系在一起。\n\n\n\n使用 aligned 环境可以书写多行对齐的公式：\n\\[\n\\begin{aligned}\n\\nabla \\cdot \\mathbf{E} &= \\frac{\\rho}{\\varepsilon_0} \\\\\n\\nabla \\cdot \\mathbf{B} &= 0 \\\\\n\\nabla \\times \\mathbf{E} &= -\\frac{\\partial \\mathbf{B}}{\\partial t} \\\\\n\\nabla \\times \\mathbf{B} &= \\mu_0 \\mathbf{J} + \\mu_0 \\varepsilon_0 \\frac{\\partial \\mathbf{E}}{\\partial t}\n\\end{aligned}\n\\tag{3}\\]\n式 3 是麦克斯韦方程组的微分形式，描述了电磁场的基本规律。\n使用 cases 环境可以书写分段函数：\n\\[\nf(x) = \\begin{cases}\nx^2 & \\text{if } x \\geq 0 \\\\\n-x^2 & \\text{if } x &lt; 0\n\\end{cases}\n\\tag{4}\\]\n式 4 定义了一个关于原点对称的分段函数。\n多行推导过程可以使用 align 风格（每行单独编号）或 aligned（整体一个编号）：\n\\[\n\\begin{aligned}\n\\sum_{k=1}^{n} k &= 1 + 2 + \\cdots + n \\\\\n&= \\frac{n(n+1)}{2}\n\\end{aligned}\n\\tag{5}\\]\n由 式 5 可知，前 100 个正整数之和为 \\(\\frac{100 \\times 101}{2} = 5050\\)。\n\n\n\nQuarto 支持多种定理环境，包括定理、引理、命题、推论、定义、例子等。\n\n定理 1 (欧几里得定理) 素数有无穷多个。\n\n\n证明. 假设素数只有有限个，设为 \\(p_1, p_2, \\ldots, p_n\\)。考虑数 \\(N = p_1 p_2 \\cdots p_n + 1\\)。\n\\(N\\) 不能被任何 \\(p_i\\) 整除（余数为 1），因此 \\(N\\) 要么本身是素数，要么有一个不在列表中的素数因子。\n无论哪种情况，都与”素数只有有限个”的假设矛盾。因此素数有无穷多个。\n\n根据 定理 1，我们知道不存在”最大的素数”。\n\n定义 1 (素数) 设 \\(p\\) 是大于 1 的正整数。如果 \\(p\\) 的正因数只有 1 和 \\(p\\) 本身，则称 \\(p\\) 为素数（prime number）。\n\n定义 1 是数论中最基本的概念之一。\n\n引理 1 (整除引理) 设 \\(a, b, c\\) 为整数。若 \\(a \\mid b\\) 且 \\(a \\mid c\\)，则对任意整数 \\(m, n\\)，有 \\(a \\mid (mb + nc)\\)。\n\n\n例 1 (素数示例) 前十个素数是：2, 3, 5, 7, 11, 13, 17, 19, 23, 29。\n注意 2 是唯一的偶素数。\n\n由 引理 1 可以推导出许多有用的整除性质。\n\n\n\n这是一个参考文献引用示例。1948 年，Shannon (1948) 发表了开创性论文，奠定了信息论的基础。Shannon 的工作 (Shannon 1948) 对现代通信技术产生了深远影响。\n\n\n\n\n\nShannon, Claude E. 1948. 《A Mathematical Theory of Communication》. Bell System Technical Journal 27 (3): 379–423. https://doi.org/10.1002/j.1538-7305.1948.tb01338.x.",
+    "crumbs": [
+      "Notes",
+      "数学",
+      "数学笔记示例"
+    ]
+  },
+  {
+    "objectID": "content/zh/notes/math-topic-1.html#公式与引用",
+    "href": "content/zh/notes/math-topic-1.html#公式与引用",
+    "title": "数学笔记示例",
+    "section": "",
+    "text": "这是一个行内公式：\\(E = mc^2\\)。\n这是一个带编号的块级公式，使用 {#eq-label} 语法定义标签：\n\\[\n\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}\n\\tag{1}\\]\n高斯积分 式 1 在概率论和统计学中有重要应用。\n再看一个例子，著名的欧拉公式：\n\\[\ne^{i\\pi} + 1 = 0\n\\tag{2}\\]\n式 2 被誉为数学中最优美的公式，它将五个最重要的数学常数联系在一起。",
+    "crumbs": [
+      "Notes",
+      "数学",
+      "数学笔记示例"
+    ]
+  },
+  {
+    "objectID": "content/zh/notes/math-topic-1.html#多行公式",
+    "href": "content/zh/notes/math-topic-1.html#多行公式",
+    "title": "数学笔记示例",
+    "section": "",
+    "text": "使用 aligned 环境可以书写多行对齐的公式：\n\\[\n\\begin{aligned}\n\\nabla \\cdot \\mathbf{E} &= \\frac{\\rho}{\\varepsilon_0} \\\\\n\\nabla \\cdot \\mathbf{B} &= 0 \\\\\n\\nabla \\times \\mathbf{E} &= -\\frac{\\partial \\mathbf{B}}{\\partial t} \\\\\n\\nabla \\times \\mathbf{B} &= \\mu_0 \\mathbf{J} + \\mu_0 \\varepsilon_0 \\frac{\\partial \\mathbf{E}}{\\partial t}\n\\end{aligned}\n\\tag{3}\\]\n式 3 是麦克斯韦方程组的微分形式，描述了电磁场的基本规律。\n使用 cases 环境可以书写分段函数：\n\\[\nf(x) = \\begin{cases}\nx^2 & \\text{if } x \\geq 0 \\\\\n-x^2 & \\text{if } x &lt; 0\n\\end{cases}\n\\tag{4}\\]\n式 4 定义了一个关于原点对称的分段函数。\n多行推导过程可以使用 align 风格（每行单独编号）或 aligned（整体一个编号）：\n\\[\n\\begin{aligned}\n\\sum_{k=1}^{n} k &= 1 + 2 + \\cdots + n \\\\\n&= \\frac{n(n+1)}{2}\n\\end{aligned}\n\\tag{5}\\]\n由 式 5 可知，前 100 个正整数之和为 \\(\\frac{100 \\times 101}{2} = 5050\\)。",
+    "crumbs": [
+      "Notes",
+      "数学",
+      "数学笔记示例"
+    ]
+  },
+  {
+    "objectID": "content/zh/notes/math-topic-1.html#定理环境",
+    "href": "content/zh/notes/math-topic-1.html#定理环境",
+    "title": "数学笔记示例",
+    "section": "",
+    "text": "Quarto 支持多种定理环境，包括定理、引理、命题、推论、定义、例子等。\n\n定理 1 (欧几里得定理) 素数有无穷多个。\n\n\n证明. 假设素数只有有限个，设为 \\(p_1, p_2, \\ldots, p_n\\)。考虑数 \\(N = p_1 p_2 \\cdots p_n + 1\\)。\n\\(N\\) 不能被任何 \\(p_i\\) 整除（余数为 1），因此 \\(N\\) 要么本身是素数，要么有一个不在列表中的素数因子。\n无论哪种情况，都与”素数只有有限个”的假设矛盾。因此素数有无穷多个。\n\n根据 定理 1，我们知道不存在”最大的素数”。\n\n定义 1 (素数) 设 \\(p\\) 是大于 1 的正整数。如果 \\(p\\) 的正因数只有 1 和 \\(p\\) 本身，则称 \\(p\\) 为素数（prime number）。\n\n定义 1 是数论中最基本的概念之一。\n\n引理 1 (整除引理) 设 \\(a, b, c\\) 为整数。若 \\(a \\mid b\\) 且 \\(a \\mid c\\)，则对任意整数 \\(m, n\\)，有 \\(a \\mid (mb + nc)\\)。\n\n\n例 1 (素数示例) 前十个素数是：2, 3, 5, 7, 11, 13, 17, 19, 23, 29。\n注意 2 是唯一的偶素数。\n\n由 引理 1 可以推导出许多有用的整除性质。",
+    "crumbs": [
+      "Notes",
+      "数学",
+      "数学笔记示例"
+    ]
+  },
+  {
+    "objectID": "content/zh/notes/math-topic-1.html#文献引用",
+    "href": "content/zh/notes/math-topic-1.html#文献引用",
+    "title": "数学笔记示例",
+    "section": "",
+    "text": "这是一个参考文献引用示例。1948 年，Shannon (1948) 发表了开创性论文，奠定了信息论的基础。Shannon 的工作 (Shannon 1948) 对现代通信技术产生了深远影响。",
+    "crumbs": [
+      "Notes",
+      "数学",
+      "数学笔记示例"
+    ]
+  },
+  {
+    "objectID": "content/zh/notes/math-topic-1.html#参考文献",
+    "href": "content/zh/notes/math-topic-1.html#参考文献",
+    "title": "数学笔记示例",
+    "section": "",
+    "text": "Shannon, Claude E. 1948. 《A Mathematical Theory of Communication》. Bell System Technical Journal 27 (3): 379–423. https://doi.org/10.1002/j.1538-7305.1948.tb01338.x.",
+    "crumbs": [
+      "Notes",
+      "数学",
+      "数学笔记示例"
+    ]
+  }
+]

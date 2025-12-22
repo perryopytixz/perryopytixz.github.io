@@ -1,0 +1,190 @@
+/* AI辅助生成的自定义样式文件 */
+
+
+
+
+
+
+/* =======================================================
+   文档展示设置，使文档展示
+   ======================================================= */
+
+/* 优先使用简体中文字体，解决标点居中问题 */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Microsoft YaHei", "Heiti SC", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* 强制 Quarto 的主容器在页面中间 */
+.quarto-container {
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+
+  max-width: 1400px;
+  /* 可以根据喜好调整这个数值，比如 1600px */
+}
+
+/* 针对特定的分栏布局容器也做个保险 */
+/* .page-columns {
+  margin-left: auto !important;
+  margin-right: auto !important;
+} */
+
+
+
+
+
+
+/* =======================================================
+   针对 Trestles 模板的头像图片进行样式优化
+   ======================================================= */
+/* === 方案：iOS 弥散风 + 灵动旋转 === */
+
+.quarto-about-trestles .about-image {
+  /* 1. 圆角：保持 30px 的大圆角，看起来润泽 */
+  border-radius: 30px !important;
+
+  /* 2. 边框：极细的半透明灰线，区分白底 */
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  /* 3. 初始阴影：柔和的双层投影 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08),
+    0 12px 28px rgba(0, 0, 0, 0.05);
+
+  /* 4. 动画曲线：使用 ease-out 让动作结束时更顺滑 */
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  /* 确保变换中心在中间 */
+  transform-origin: center center;
+  object-fit: cover;
+}
+
+/* === 鼠标悬停效果 === */
+.quarto-about-trestles .about-image:hover {
+  /* ✨ 核心变化：组合动作 */
+  /* scale(1.05): 放大一点点 */
+  /* translateY(-8px): 向上浮起 */
+  /* rotate(3deg): 轻轻向右旋转 3度 (顺时针) */
+  /* 如果喜欢向左歪，把 3deg 改成 -3deg 即可 */
+  transform: scale(1.05) translateY(-8px) rotate(3deg);
+
+  /* 阴影变化：范围扩大，颜色稍微加深，模拟离地高度 */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1),
+    0 20px 50px rgba(0, 0, 0, 0.1);
+
+  /* 可选：增加一点点亮度，模拟光照 */
+  filter: brightness(1.02);
+}
+
+/* =======================================================
+   页脚样式 (Footer Styles) - Moved from footer.html
+   ======================================================= */
+
+/* --- A. 基础清洗 & 亮色模式 (Light Mode) --- */
+footer.footer {
+  height: auto !important;
+  min-height: unset !important;
+  padding: 0 !important;
+  /* 默认亮色背景 */
+  background-color: #f9f9f9 !important;
+  color: #555; /* 默认文字颜色 */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 杀掉 p 标签干扰 */
+footer.footer p { margin: 0 !important; padding: 0 !important; line-height: 1 !important; }
+.nav-footer, .nav-footer-center { padding: 0 !important; margin: 0 !important; display: block !important; width: 100% !important; }
+
+/* --- B. 布局容器 --- */
+.my-responsive-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 0;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* 链接与图标的通用样式 */
+.my-footer-link {
+  color: inherit; /* 跟随父元素颜色 */
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+.my-footer-link:hover {
+  color: #007bff; /* 悬停高亮色 */
+  opacity: 0.8;
+}
+
+/* 分割线 */
+.my-divider {
+  width: 1px;
+  height: 14px;
+  background-color: #bbb;
+  display: block;
+}
+
+/* --- C. 🌛 暗色模式适配 (Dark Mode) --- */
+/* 当 Quarto 切换到 dark 主题时，HTML 标签会有 data-theme="dark" 属性 */
+html[data-theme="dark"] footer.footer {
+  /* 1. 背景变深 (配合 darkly 主题) */
+  background-color: #191919 !important; 
+  border-top: 1px solid #333; /* 加一条深灰色的顶部分割线 */
+  
+  /* 2. 文字变浅 */
+  color: #b0b0b0 !important;
+}
+
+/* 暗色模式下，分割线也要变暗 */
+html[data-theme="dark"] .my-divider {
+  background-color: #444;
+}
+
+/* 暗色模式下，稍微降低图片的亮度，防止太刺眼 */
+html[data-theme="dark"] .my-responsive-footer img {
+  filter: brightness(0.9);
+}
+
+/* --- D. 手机端适配 --- */
+@media (max-width: 800px) {
+  .my-responsive-footer {
+    flex-direction: column !important;
+    padding: 15px 0;
+    gap: 12px; 
+  }
+  .my-divider { display: none !important; }
+}
+
+/* =======================================================
+   移动端语言切换按钮 (Mobile Lang Switch) - Moved from include_lang_switch.html
+   ======================================================= */
+
+/* 默认隐藏移动端图标 */
+.mobile-lang-switch {
+    display: none !important;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    color: rgba(0, 0, 0, 0.55);
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
+.mobile-lang-switch:hover {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+/* 在导航栏折叠时 (通常是 < 992px)，显示移动端图标，隐藏菜单内的图标 */
+@media (max-width: 991.98px) {
+    .mobile-lang-switch {
+    display: flex !important;
+    align-items: center;
+    }
+    /* 隐藏折叠菜单里的那个，避免重复 */
+    .navbar-collapse .nav-link[href*="#lang-switch"] {
+    display: none !important;
+    }
+}
