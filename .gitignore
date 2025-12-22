@@ -1,0 +1,16 @@
+/.vscode/
+/_site/
+/.quarto/
+__pycache__/
+.DS_Store
+/.venv/
+*.log
+*.aux
+*.out
+*.toc
+*.tmp
+*.bak
+*.tex
+*.synctex.gz
+**/*.quarto_ipynb
+.env
