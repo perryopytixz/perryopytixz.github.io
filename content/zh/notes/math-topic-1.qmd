@@ -1,0 +1,115 @@
+---
+title: "数学笔记示例"
+categories: [Math, Analysis]
+description: "一个展示 LaTeX 支持的示例笔记。"
+---
+
+# 介绍
+
+这是一个示例笔记。Quarto 对 LaTeX 数学公式有很好的支持，并且支持公式编号、定理环境及交叉引用。
+
+## 公式与引用
+
+这是一个行内公式：$E = mc^2$。
+
+这是一个**带编号**的块级公式，使用 `{#eq-label}` 语法定义标签：
+
+$$
+\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+$$ {#eq-gaussian}
+
+高斯积分 @eq-gaussian 在概率论和统计学中有重要应用。
+
+再看一个例子，著名的欧拉公式：
+
+$$
+e^{i\pi} + 1 = 0
+$$ {#eq-euler}
+
+@eq-euler 被誉为数学中最优美的公式，它将五个最重要的数学常数联系在一起。
+
+## 多行公式
+
+使用 `aligned` 环境可以书写多行对齐的公式：
+
+$$
+\begin{aligned}
+\nabla \cdot \mathbf{E} &= \frac{\rho}{\varepsilon_0} \\
+\nabla \cdot \mathbf{B} &= 0 \\
+\nabla \times \mathbf{E} &= -\frac{\partial \mathbf{B}}{\partial t} \\
+\nabla \times \mathbf{B} &= \mu_0 \mathbf{J} + \mu_0 \varepsilon_0 \frac{\partial \mathbf{E}}{\partial t}
+\end{aligned}
+$$ {#eq-maxwell}
+
+@eq-maxwell 是麦克斯韦方程组的微分形式，描述了电磁场的基本规律。
+
+使用 `cases` 环境可以书写分段函数：
+
+$$
+f(x) = \begin{cases}
+x^2 & \text{if } x \geq 0 \\
+-x^2 & \text{if } x < 0
+\end{cases}
+$$ {#eq-piecewise}
+
+@eq-piecewise 定义了一个关于原点对称的分段函数。
+
+多行推导过程可以使用 `align` 风格（每行单独编号）或 `aligned`（整体一个编号）：
+
+$$
+\begin{aligned}
+\sum_{k=1}^{n} k &= 1 + 2 + \cdots + n \\
+&= \frac{n(n+1)}{2}
+\end{aligned}
+$$ {#eq-sum}
+
+由 @eq-sum 可知，前 100 个正整数之和为 $\frac{100 \times 101}{2} = 5050$。
+
+## 定理环境
+
+Quarto 支持多种定理环境，包括定理、引理、命题、推论、定义、例子等。
+
+::: {#thm-euclid}
+## 欧几里得定理
+素数有无穷多个。
+:::
+
+::: {.proof}
+假设素数只有有限个，设为 $p_1, p_2, \ldots, p_n$。考虑数 $N = p_1 p_2 \cdots p_n + 1$。
+
+$N$ 不能被任何 $p_i$ 整除（余数为 1），因此 $N$ 要么本身是素数，要么有一个不在列表中的素数因子。
+
+无论哪种情况，都与"素数只有有限个"的假设矛盾。因此素数有无穷多个。
+:::
+
+根据 @thm-euclid，我们知道不存在"最大的素数"。
+
+::: {#def-prime}
+## 素数
+设 $p$ 是大于 1 的正整数。如果 $p$ 的正因数只有 1 和 $p$ 本身，则称 $p$ 为**素数**（prime number）。
+:::
+
+@def-prime 是数论中最基本的概念之一。
+
+::: {#lem-divisibility}
+## 整除引理
+设 $a, b, c$ 为整数。若 $a \mid b$ 且 $a \mid c$，则对任意整数 $m, n$，有 $a \mid (mb + nc)$。
+:::
+
+::: {#exm-prime}
+## 素数示例
+前十个素数是：2, 3, 5, 7, 11, 13, 17, 19, 23, 29。
+
+注意 2 是唯一的偶素数。
+:::
+
+由 @lem-divisibility 可以推导出许多有用的整除性质。
+
+## 文献引用
+
+这是一个参考文献引用示例。1948 年，@Shannon1948 发表了开创性论文，奠定了信息论的基础。Shannon 的工作 [@Shannon1948] 对现代通信技术产生了深远影响。
+
+## 参考文献 {.unnumbered}
+
+::: {#refs}
+:::

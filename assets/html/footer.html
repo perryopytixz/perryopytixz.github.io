@@ -1,0 +1,72 @@
+<!-- AI辅助生成的代码用于网站页脚部分 -->
+
+<!-- 有关页面底部的脚本和样式 -->
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    var footerContainer = document.getElementById("global-footer");
+
+    if (footerContainer) {
+
+      // ==========================================================
+      // 1. CSS 注入 (已移动到 assets/css/custom.css)
+      // ==========================================================
+      // var style = document.createElement('style');
+      // style.innerHTML = `...`;
+      // document.head.appendChild(style);
+
+      // ==========================================================
+      // 2. 准备动态内容
+      // ==========================================================
+      var path = window.location.pathname;
+      if (path.endsWith("/") || path === "") path += "index.html";
+      var pageId = "perryopytixz.github.io" + path;
+
+      var badgeUrl = "https://visitor-badge.laobi.icu/badge?page_id=" + encodeURIComponent(pageId) + "&left_text=Views&color=blue";
+
+      // ==========================================================
+      // 3. 注入 HTML (去掉了内联 style颜色，改用 class)
+      // ==========================================================
+      var fullFooterHtml = `
+        <div class="my-responsive-footer">
+          
+          <!-- 第一块：版权 -->
+          <div style="font-size: 0.9em; display: flex; align-items: center; gap: 5px;">
+             <span>© 2025 Perry</span>
+             <span class="my-divider" style="height: 10px; background: transparent; border-left: 1px solid currentColor; width: 0;"></span>
+             <span>Powered by Quarto</span>
+          </div>
+          
+          <!-- 分割线 -->
+          <div class="my-divider"></div>
+
+          <!-- 第二块：徽章 -->
+          <div style="display: flex; align-items: center; gap: 8px;">
+             <img src="https://img.shields.io/badge/Quarto-blue?style=flat-square&logo=quarto&logoColor=white" style="height: 18px;">
+             <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="my-footer-link">
+               <img src="https://img.shields.io/badge/CC%20BY--NC--SA-lightgrey?style=flat-square" style="height: 18px;">
+             </a>
+          </div>
+
+          <!-- 分割线 -->
+          <div class="my-divider"></div>
+
+          <!-- 第三块：社交图标 & 访问量 -->
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <a href="https://github.com/perryopytixz" target="_blank" title="GitHub" class="my-footer-link">
+              <i class="bi bi-github" style="font-size: 1.1em;"></i>
+            </a>
+
+            <!-- 访问量 -->
+            <img src="${badgeUrl}" alt="Views" style="height: 16px; display: block;">
+          </div>
+          
+        </div>
+      `;
+
+      footerContainer.innerHTML = fullFooterHtml;
+    }
+  });
+</script>

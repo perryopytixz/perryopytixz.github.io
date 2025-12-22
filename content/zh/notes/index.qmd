@@ -1,0 +1,12 @@
+---
+title: "Notes"
+listing:
+  contents: "*.qmd"
+  sort: "date desc"
+  type: table
+  categories: true
+  fields: [date, title, categories]
+
+---
+
+这里是一些笔记内容。

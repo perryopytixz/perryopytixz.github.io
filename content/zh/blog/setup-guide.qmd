@@ -1,0 +1,812 @@
+---
+title: "如何配置本网站模板 (Setup Guide)"
+categories: [Tutorial, Quarto, GitHub Actions]
+description: "一份详细的指南，教你如何根据这个项目模板配置你自己的个人学术网站。"
+---
+
+# 简介
+
+这是一个基于 **Quarto** 构建的学术个人网站模板，旨在帮助科研工作者快速搭建个人网站，分享笔记和博客文章。它具有以下特点：
+
+- **上手简单**：只需跟随本教程，结合现代 AI 工具答疑，不需要什么前置知识即可轻松完成网站部署。
+- **学术友好**：支持 LaTeX 风格的数学公式、公式引用及参考文献管理，适合发布学术内容。
+- **轻量简洁**：尽量使用 Quarto 原生功能，减少自定义 CSS/HTML，便于理解和二次开发。
+- **AI 自动翻译**：内置 Python 脚本，利用 DeepSeek API 实现中英文内容自动同步。
+- **自动化部署**：集成 GitHub Actions，自动免费构建和发布，无需手动操作，无需配置个人服务器。
+- **响应式设计**：界面简洁美观，适配桌面与移动设备。
+
+
+## 项目文件夹结构与功能说明
+
+在正式开始配置前，我们需要先了解一下项目的文件夹结构和各部分功能，便于理解后续的操作。
+
+```
+username.github.io/              # 你的个人网站项目根目录
+├─ _quarto.yml                   # Quarto 网站全局配置文件
+├─ index.qmd                     # 网站首页（源语言版本。默认为中文，翻译脚本自动生成另一语言版本，详见后文）
+├─ requirements.txt              # Python 依赖列表
+├─ README.md                     # 仓库说明文档
+├─ references.bib                # 全局参考文献数据库
+├─ .gitignore                    # Git 忽略文件列表
+├─ .github/                      # GitHub 配置文件夹
+│  └─ workflows/
+│     └─ publish.yml             # GitHub Actions 自动化工作流，详见后文
+├─ content/                      # 主要内容文件夹，平时需要进行编辑的地方
+│  ├─ en/                        # 英文内容
+│  │  ├─ _metadata.yml           # 英文文件夹元数据
+│  │  ├─ index.qmd               # 英文首页（若源语言为中文，本文件由翻译脚本自动生成）
+│  │  ├─ cv.qmd                  # 英文简历
+│  │  ├─ blog/                   # 英文博客
+│  │  ├─ notes/                  # 英文笔记
+│  │  │  ├─ _metadata.yml        # 笔记文件夹元数据
+│  │  │  └─ ...
+│  │  └─ publications/           # 英文论文
+│  └─ zh/                        # 中文内容
+│     ├─ _metadata.yml           # 中文文件夹元数据
+│     ├─ cv.qmd                  # 中文简历
+│     ├─ blog/                   # 中文博客
+│     ├─ notes/                  # 中文笔记
+│     └─ publications/           # 中文论文
+├─ assets/                       # 静态资源
+│  ├─ css/
+│  │  └─ custom.css              # 自定义样式
+│  ├─ images/
+│  │  └─ avatar.jpg              # 头像等图片
+│  └─ html/
+│     ├─ footer.html             # 自定义页脚
+│     └─ include_lang_switch.html # 语言切换器
+├─ scripts/                      # 自动化脚本文件夹
+│  ├─ README.md                  # 脚本说明文档
+│  ├─ sync_deepseek.py           # 自动翻译脚本
+│  └─ tex2qmd.py                 # LaTeX 转 Quarto 脚本
+└─ _site/                        # 生成的静态网站（自动生成，勿手动编辑）
+```
+
+### 补充说明
+
+- **根目录 `index.qmd`**：网站首页的源文件。默认以中文撰写（`lang: zh`），翻译脚本会自动生成英文版到 `content/en/index.qmd`。若你习惯用英文写作，可将 `lang` 改为 `en`，脚本则会反向生成中文版到 `content/zh/index.qmd`。
+
+- **`_metadata.yml`**：可放置于任意内容子文件夹中（如 `blog/`、`notes/`），用于定义该文件夹下所有文档的默认元数据。详见后文"配置层级与优先级"。
+
+- **`_site/`**：Quarto 构建后生成的静态网站，**勿手动编辑**。
+
+
+# 准备工作
+
+本教程假设你已经拥有一个 GitHub 账号。如果你还没有，请访问 [GitHub 官网](https://github.com/) 注册一个账号。GitHub 是全球最大的代码托管平台，支持版本管理、协作开发和自动化部署。你将用它来存储网站源码、管理历史记录，并通过 GitHub Actions 实现自动化构建和发布。
+
+如果你是非计算机专业的学生，可能会对以下工具感到陌生。别担心，这些工具非常值得学习，投入的时间绝不会浪费。
+
+> **建议**：遇到不懂的名词（如 "git commit", "pull request"），请直接询问 AI（如 ChatGPT 或 DeepSeek）。例如：
+> *"我是非计算机专业的学生，请用通俗的语言解释什么是 Git，以及如何在 VS Code 中使用它？"*
+
+> 有不懂的问题欢迎在评论区提出Issue，这也可以为后来者提供帮助。
+
+
+## 核心工具
+
+本项目需要下载安装以下工具：
+
+- **[VS Code](https://code.visualstudio.com/)**：一个强大的文本编辑器，我们用它来写代码、写文章、管理项目、操作 Git。
+
+- **[Quarto CLI](https://quarto.org/docs/get-started/)**：将你的 Markdown 文章转化为网页的引擎。
+
+- **[Git](https://git-scm.com/downloads)**：版本控制工具，用于将修改同步到 GitHub。
+
+- **[Python](https://www.python.org/downloads/)** (可选)：用于本地运行翻译脚本。安装时请勾选 "Add Python to PATH"。
+
+相关工具的安装和配置请自行搜索，这里不再赘述。
+
+### 关于 VS Code
+VS Code 本质上是一个文本编辑器，但它有丰富的**插件生态**——这些插件能让 VS Code "认识"各种语言（语法高亮、错误提示、自动补全），或"变身"成各种工具（Git 客户端、Quarto 编辑器等）。它被称为"集成开发环境"（IDE）。
+
+不过，VS Code 和插件只负责**编辑**，真正**执行**代码的是你电脑上安装的**外部工具**（如 Python 解释器、TeX 编译器）。
+
+举个例子：想用 VS Code 写 Python，你需要同时安装：
+
+- **Python 插件**：让编辑器认识 `.py` 文件，提供智能提示
+- **Python 解释器**：真正运行代码的程序
+
+本教程聚焦于 Quarto 网站配置，上述工具的详细使用方法篇幅太长，不在本文讨论范围内，如有需要建议自行搜索或问 AI。考虑到 Git 对本项目配置的重要作用，以及非计算机专业的同学可能比较陌生，下文会简要介绍它的价值和学习建议。
+
+
+### 关于 Git 和 GitHub：值得投入的技能
+
+这里主要想特别说明：**Git 是一项非常值得学习的技能**。
+
+**Git 和 GitHub 是什么关系？**
+
+- **Git**：安装在你电脑上的版本控制工具，负责记录文件的每一次修改历史。
+- **GitHub**：云端代码托管平台，可以把你本地的 Git 仓库同步到网上，实现备份、协作和自动化部署。
+
+简单理解：Git 管理本地历史，GitHub 负责云端同步。两者配合使用，你的代码既有完整的版本记录，又有云端备份。
+
+**为什么值得学？**
+
+- **版本历史**：每次"提交"(commit) 都会保存一个快照，随时可以回到过去的任何版本。
+- **云端备份**：推送到 GitHub 后，即使电脑坏了，代码也不会丢失。
+- **多设备同步**：在实验室电脑上推送，回宿舍拉取，无缝继续工作。
+- **协作与自动化**：GitHub 支持多人协作、自动化构建（如本项目的自动翻译和部署）。
+
+**好消息：VS Code 让 Git 变得简单**
+
+你**不需要**记住复杂的命令行。VS Code 内置了图形化的 Git 界面——左侧边栏的"源代码管理"面板可以完成 **90% 的日常操作**：查看修改、提交、推送、拉取，全部点点鼠标就能搞定。
+
+**学习建议**：
+
+- 遇到不懂的概念，直接问 AI："*请用简单的语言解释 Git 的 commit 是什么意思？*"
+- 搜索有关教学视频或文章，学习基本操作流程即可。
+
+> Git 和 GitHub 是现代科研的基础设施。无论你将来是写代码、做数据分析，还是管理实验记录，这项技能都会让你受益终身。花几个小时学习，换来的是长期的效率提升。VS Code 同样值得投入，它能极大提升你的写作和编程效率。
+
+## 推荐插件
+
+打开 VS Code 左侧的扩展商店 (Extensions)，搜索并安装：
+
+- **Quarto**：提供 `.qmd` 文件（本项目网页文章的文件格式）的语法高亮、实时预览功能。本项目必装。
+- **GitHub Copilot**（推荐）：AI 编程助手，支持教育认证免费。能大幅提升写代码和文档的效率。
+
+
+## 验证安装
+在确保上述工具安装完成后，请验证 Quarto 是否正确安装。
+打开 VS Code，在顶部菜单栏选择 **终端 (Terminal) -> 新建终端 (New Terminal)**，输入以下命令并回车：
+
+```bash
+quarto --version
+```
+如果显示版本号（如 `1.8.xx`），说明安装成功。
+
+#  配置步骤
+
+## Fork 项目
+
+首先，你需要将本项目模板 Fork 到你自己的 GitHub 账号下：
+
+1. 打开[本项目的 GitHub 页面](https://github.com/perryopytixz/perryopytixz.github.io)。
+2. 点击右上角的 **Fork** 按钮。
+3. **重要**：将仓库名称改为 `你的用户名.github.io`（例如 `zhangsan.github.io`），这样才能启用 GitHub Pages 的默认域名。
+4. **(推荐)** **取消勾选 "Copy the main branch only"**，以便复制 `gh-pages` 分支（如果模板仓库中存在）。
+5. 点击 **Create fork**。
+
+Fork 完成后，你就拥有了自己的独立副本，可以自由修改和配置。
+
+**克隆到本地**：打开终端，运行以下命令（将 `你的用户名` 替换为你的 GitHub 用户名）：
+
+```bash
+git clone https://github.com/你的用户名/你的用户名.github.io.git
+cd 你的用户名.github.io
+```
+
+克隆完成后，用 VS Code 打开该文件夹即可开始编辑。
+
+## 配置 AI 翻译 (DeepSeek)
+
+本模板使用 DeepSeek API 进行自动翻译。你需要配置 API Key 才能使用此功能。
+
+1.  **获取 Key**：去 [DeepSeek 开放平台](https://platform.deepseek.com/) 注册并申请 API Key（格式为 `sk-xxxxx`）。新用户通常有免费额度。
+2.  **配置 GitHub Secrets**：
+
+  - 进入你的 GitHub 仓库页面。
+  - 点击 **Settings** -> **Secrets and variables** -> **Actions**。
+  - 点击 **New repository secret**。
+  - **Name**: `DEEPSEEK_API_KEY`
+  - **Secret**: 粘贴你的 Key。
+
+## 关键初始化步骤
+
+在执行第一次推送之前，**请务必完成以下初始化配置**，否则自动化脚本可能会报错。
+
+> **重要提示**：以下所有命令都必须在**项目的根目录**下运行。
+> 如果你在 VS Code 中打开了本项目的文件夹，那么直接打开终端（Terminal -> New Terminal）即可，默认就是项目根目录。
+
+### 确保目录结构完整
+
+Git 有一个特性：**它不会跟踪空的文件夹**。
+
+这意味着，如果你新建了一个文件夹但还没放文件，或者把某个文件夹里的文件全删了，这个文件夹在推送到 GitHub 时就会**消失**。
+
+这会导致自动化脚本（如翻译脚本）在云端运行时，因为找不到预期的目录结构（例如 `content/en`）而报错失败。
+
+如果你直接Fork本项目后没有删减文件，那么应该是没问题的，这一步可以直接跳过。
+
+**解决方案**：
+请确保本项目的 `content/zh` 和 `content/en` 及其子目录（如 `blog`, `notes`）中至少有一个文件。如果其中没有内容，请手动新建一个名为 `.gitkeep` 的空文件作为占位符，可以使用命令行操作：
+
+```bash
+# macOS / Linux / Git Bash:
+touch content/en/.gitkeep
+
+# Windows PowerShell:
+New-Item -Path content/en/.gitkeep -ItemType File -Force
+```
+
+### 初始化发布分支 (gh-pages)
+
+项目自动化脚本会把编译好的 HTML 网页文件推送到 `gh-pages` 分支。**如果没有这个分支，第一次部署会失败**。
+
+请在终端运行以下命令检查并创建：
+
+```bash
+# 1. 检查是否已存在 gh-pages 分支
+git branch -a
+
+# 如果输出中已包含 "remotes/origin/gh-pages"，可以跳过后续步骤。
+# 否则，继续执行以下命令创建分支：
+
+# 2. 创建一个空的孤立分支
+git checkout --orphan gh-pages
+
+# 3. 清空暂存区（此时 VS Code 文件列表会变空，别慌）
+git rm -rf .
+
+# 4. 创建一个空提交
+git commit --allow-empty -m "Initial gh-pages"
+
+# 5. 推送到远程
+git push origin gh-pages
+
+# 6. 切回主分支
+git checkout main
+```
+
+> **小贴士**：执行第 3 步后，VS Code 左侧文件列表会瞬间清空，这是正常的——你只是切换到了空分支。执行第 6 步切回 `main` 后，所有文件会恢复。
+
+### 开启 GitHub 权限
+
+新仓库默认只有读权限，无法写回翻译结果（即 GitHub Actions 无法把翻译好的英文文件推送到你的仓库）。
+
+1.  进入你本项目的 GitHub 仓库页面 -> **Settings** -> **Actions** -> **General**。
+2.  滚动到底部 **Workflow permissions**。
+3.  选中 **Read and write permissions**。
+4.  点击 **Save** 保存。
+
+### 配置 GitHub Pages 分支
+
+为了让网站正确显示，你需要告诉 GitHub 从哪个分支发布网页。
+
+1.  打开你本项目的 GitHub 仓库页面 -> **Settings** -> **Pages**。
+2.  在 **Build and deployment** 下：
+    - **Source**: 选择 `Deploy from a branch`。
+    - **Branch**: 选择 `gh-pages` 分支，文件夹保持 `/ (root)`。
+3.  点击 **Save** 保存。
+
+配置完成后，稍等几分钟，你的网站就可以通过 `https://你的用户名.github.io` 访问了！🎉
+
+> **提示**：如果网站没有正常显示，可以去 GitHub 仓库的 **Actions** 标签页查看部署状态。点击最近一次运行记录，如果有红色叉号，点进去查看具体报错信息，根据提示排查问题尝试解决。
+
+
+
+## 配置评论系统 Giscus (可选)  
+
+本模板集成了 Giscus 评论系统。**如果你不需要评论功能，请按照下面教程禁用后直接跳过此步**。
+
+> **如何彻底禁用评论？**
+> 打开 `_quarto.yml` 文件，找到 `comments` 部分，将这部分代码删除或注释掉即可。
+
+若要配置评论，请按以下步骤操作：
+
+1.  **开启 Discussions**：
+    - 进入你本项目的 GitHub 仓库页面 -> **Settings** -> **General**。
+    - 向下滚动到 **Features** 区域。
+    - 勾选 **Discussions**。
+
+2.  **安装 Giscus App**：
+    - 访问 [Giscus App](https://github.com/apps/giscus)。
+    - 点击 **Install**，选择你的这个仓库进行授权。
+
+3.  **获取配置信息**：
+    - 访问 [giscus.app](https://giscus.app/zh-CN)。
+    - 输入你的仓库地址（例如 `username/username.github.io`）。
+    - 在 **Discussion Category** 中选择 **General**。
+    - 滚动到底部，你会看到生成的配置代码。
+
+4.  **更新配置文件**：
+    - 打开项目根目录下的 `_quarto.yml` 文件。
+    - 找到 `comments` -> `giscus` 部分。
+    - 将你在上一步获取到的 `data-repo-id` 和 `data-category-id` 填入对应位置：
+
+    ```yaml
+    comments:
+      giscus:
+        repo: username/username.github.io  # 你的仓库名
+        repo-id: R_kgDO...                 # 填入 data-repo-id
+        category: General
+        category-id: DIC_kwDO...           # 填入 data-category-id
+    ```
+
+5.  **个性化设置**：
+    - 如果你想在某些页面（如主页）关闭评论，只需在该页面的顶部 YAML 中添加 `comments: false`。
+
+## 个性化定制
+
+你需要修改以下文件，把这个网站上的信息变成你自己的：
+
+### 修改基本信息 (`_quarto.yml`)
+打开根目录下的 `_quarto.yml` 文件，修改网站标题、描述和 URL：
+
+```yaml
+website:
+  title: "你的名字"              # 网站左上角显示的标题
+  site-url: "https://你的用户名.github.io" # 你的网站地址
+  description: "你的个人介绍"
+```
+
+### 修改个人主页 (`index.qmd`)
+打开根目录下的 `index.qmd`，这是你的网站入口页（Landing Page）。修改 `title`、头像路径和联系方式：
+
+```yaml
+---
+title: "你的名字"
+lang: zh  # 源语言：zh 表示中文，en 表示英文
+image: assets/images/avatar.jpg  # 替换为你的头像
+about:
+  template: trestles  # 模板样式，可选 jolla, trestles, solana, marquee, broadside
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/你的用户名
+    - icon: envelope
+      text: Email
+      href: mailto:你的邮箱@example.com
+---
+```
+
+**关于 `lang` 字段**：
+
+- `lang: zh`（默认）：表示你用中文写这个文件，翻译脚本会自动生成英文版到 `content/en/index.qmd`。
+- `lang: en`：如果你想用英文写首页，把 `lang` 改为 `en`，脚本会自动生成中文版到 `content/zh/index.qmd`。
+
+> **注意**：本模板默认 `lang: zh`，所以 `content/en/index.qmd` 是自动生成的。如果你想改用英文写首页（`lang: en`），建议先**删除** `content/en/index.qmd`，避免造成混乱。
+
+
+
+# 进阶原理
+
+如果你对网站背后的原理感兴趣，或者想进行深度定制，请阅读[官方文档](https://quarto.org/docs/websites/)。本章提供一些针对性的说明，参考项目目录结构阅读更佳。
+
+
+## 自动翻译方案是如何工作的？
+
+传统的双语网站通常需要复杂的 i18n 配置或维护两套完全独立的代码。本模板通过一个 Python 脚本 (`scripts/sync_deepseek.py`) 实现了**自动化镜像**：
+
+1.  **镜像结构**：`content/zh` 和 `content/en` 中的 `.qmd` 文件一一对应并自动翻译。**只有 `.qmd` 文件参与同步**，其他文件（如图片、PDF、`_metadata.yml` 配置文件等）均不会被处理。
+    *   **特例**：语言根目录下的首页（`content/zh/index.qmd` 或 `content/en/index.qmd`）也不会参与同步，因为它是由根目录 `index.qmd` 根据 `lang` 字段单向生成的。
+    
+    > **注意**：脚本不会主动创建空文件夹。只有当源语言文件夹（如 `content/zh/blog`）中存在 `.qmd` 文件时，脚本才会在目标语言文件夹（如 `content/en/blog`）中创建对应的翻译文件及文件夹结构。
+2.  **自动补全**：
+    *   当你写了 `content/zh/blog/post1.qmd`，脚本会自动生成对应的 `content/en/blog/post1.qmd`。
+    *   反之亦然。
+3.  **脚本标记**：脚本自动生成的文件，在其代码末端会有`<!-- Auto-generated ... -->`标记，配合自动化流程的实现。
+3.  **自动翻译**：你只需要关注一种语言的写作，另一种语言的内容由 AI 自动生成并填充。
+4.  **独立与统一**：虽然内容是自动生成的，但生成后的文件是独立的。如果你对 AI 的翻译不满意，可以直接修改生成后的文件，脚本会尊重你的修改（除非你删除了它）。
+
+这种设计使得网站维护变得极其简单：**像写单一语言博客一样写双语网站**。
+
+### 脚本是如何知道哪些文件需要翻译的？
+
+你可能会好奇，脚本怎么知道我修改了哪个文件？它是通过以下逻辑判断的：
+
+1.  **文件不存在**：如果 `content/en` 里没有对应的文件，说明是新文章，**翻译它**。
+2.  **人工文件保护**：如果目标文件存在，脚本会先检查是否有 `<!-- Auto-generated ... -->` 标记。**没有标记** = 人工创建/维护的文件，脚本会**跳过它**，防止覆盖你的心血。
+3.  **Hash 校验**：对于有标记的文件（即脚本生成的），脚本会计算源文件的内容 Hash，并与目标文件中记录的 Hash 对比。如果不一致，说明源文件有更新，**重新翻译它**。如果目标文件没有 Hash 记录，也会**重新翻译**。
+
+### 警告：如何保护你的修改？
+
+**场景**：你修改了英文版（修正了 AI 的错误），随后又更新了中文版。
+
+- **情况 A（危险）**：你只修改了英文正文，但**保留了**文件末尾的 `<!-- Auto-generated ... -->` 标记。
+    - **结果**：当源文件内容变化（Hash 不一致）时，脚本会认为需要更新，于是**强制覆盖**它。你的英文修改将**丢失**！
+- **情况 B（安全）**：你修改英文正文时，**删除了**文件末尾的自动生成标记。
+    - **结果**：脚本检测不到标记，认为这是"人工维护文件"，于是**跳过翻译**。你的修改得以**保存**。
+
+> **注意**：一旦你决定手动介入修改某篇翻译稿，**请务必第一时间删除文件末尾的自动生成标记**！这篇文档的自动化翻译同步就此停止，以后你可以手动维护双语版本。
+
+## 列表页面原理 (Listings)
+
+本模板中的“博客”、“笔记”和“论文”页面首页的列表都是通过 Quarto 的 **Listing** 功能自动生成的。你不需要手动维护文章列表，只需要配置好对应文件夹的 `index.qmd` 即可。
+
+### 如何创建一个新的列表页？
+
+假设你想创建一个新的板块叫“项目 (Projects)”，步骤如下：
+
+1.  **创建文件夹**：在 `content/zh/` 下新建文件夹 `projects`。
+2.  **创建索引文件**：在里面新建 `index.qmd`，并写入以下配置：
+
+```yaml
+---
+title: "我的项目"
+listing:
+  contents: "*.qmd"        # 抓取当前目录下所有的 .qmd 文件
+  sort: "date desc"        # 按日期降序排列
+  type: default            # 显示样式：default (列表), grid (网格), table (表格)
+  categories: true         # 显示分类标签
+  sort-ui: true            # 显示排序按钮
+  filter-ui: true          # 显示搜索框
+page-layout: full
+---
+
+这里展示我的所有项目。
+```
+
+3.  **添加内容**：在 `projects` 文件夹下创建具体的项目介绍文件（如 `project-a.qmd`），它们就会自动出现在列表中。
+
+### 常用列表样式 (`type`)
+
+- **default**: 经典的博客列表视图，显示缩略图、标题、摘要和元数据。适合博客。
+- **grid**: 卡片网格视图，视觉效果好。适合展示作品集或图片为主的内容。
+- **table**: 紧凑的表格视图。适合展示大量论文列表或数据。
+
+你可以随时修改 `index.qmd` 中的 `type` 字段来切换样式。
+
+## 配置层级与优先级
+
+Quarto 网站就像一个简装的房子。虽然默认样式已经比较简约美观，但我们都希望能有更多的选择空间：比如更改某个或者某些网页的布局、展示选项等样式。这些需求可以通过**YAML (.yml)**配置文件来实现。
+
+### 什么是 YAML (.yml) 文件？
+在本项目中，你会频繁看到后缀为 `.yml` 的文件，例如 `_quarto.yml` 和 `_metadata.yml`。这些都是 **YAML** 格式的配置文件。
+
+**YAML** (YAML Ain't Markup Language) 是一种专门用来写配置文件的格式，特点是**极其易读**——写它就像写大纲一样，用缩进表示层级关系。
+
+> **关于文件名**：YAML 本身只是一种数据格式，文件名可以任意取（如 `config.yml`、`settings.yaml`）。但 Quarto 规定了特定的文件名：`_quarto.yml` 用于全局配置，`_metadata.yml` 用于目录级配置。只有使用这些约定名称，Quarto 才会自动识别并应用配置。
+
+**语法核心规则：**
+
+1.  **缩进表示层级**：就像 Python 一样，缩进非常重要。
+
+2.  **冒号后要空格**：`key: value` 是标准格式，冒号后面必须跟一个空格。
+
+**特别提示：文档头部的 YAML (Front Matter)**
+
+除了独立的 `.yml` 配置文件，你会发现每个 `.qmd` 文档的开头都有一段被三个短横线 `---` 包裹的内容。这也是 YAML，它被称为 **Front Matter**，专门用来描述这篇文章的属性（如标题、作者、日期、标签等）。两种 YAML 的语法是一样的。YAML (.yml) 文件和 Front Matter 的区别在于前者是独立的配置文件，后者是嵌入在文档中的，前者不需要 `---` 包裹。
+
+
+Quarto 的配置系统非常灵活，它遵循**"层叠（Cascading）"**原则。理解这一点对于自定义网站至关重要。
+
+Quarto 支持三种层级的配置文件，每种层级的配置作用域和优先级不同，它们分别是：
+
+### 1. 全局配置 (`_quarto.yml`)
+
+- **位置**：项目根目录。
+- **作用域**：**整个网站**。
+- **用途**：定义网站的主题、导航栏、语言、以及所有页面的默认设置。
+- **示例**：在这里设置 `author: "Perry"`，那么全站所有文章默认作者都是 Perry。
+
+### 2. 目录级配置 (`_metadata.yml`)
+
+- **位置**：任意子文件夹内（如 `content/zh/blog/`）。
+- **作用域**：**该文件夹及其子文件夹**下的所有文档。
+- **用途**：为特定板块定制样式，覆盖全局设置或补充新属性。
+- **示例**：全局没有开启灯箱效果，但你希望博客板块的图片可以点击放大，就在 `blog/_metadata.yml` 里设置 `lightbox: true`。
+
+### 3. 文档级配置 (YAML Front Matter)
+
+- **位置**：具体 `.qmd` 文件的顶部（`---` 之间）。
+- **作用域**：**仅当前这一篇文档**。
+- **用途**：定义文章特有的属性，如标题、发布日期、标签、或覆盖上层设置。
+- **示例**：某篇博客是转载的，你在该文件的头部写上 `author: "Guest"`。
+
+### 优先级规则：就近原则
+
+当多个层级的配置出现冲突时，规则非常简单：**越靠近文档，优先级越高**。
+
+
+
+#### 关于嵌套文件夹 (Nested Folders)
+如果你的目录结构有多层嵌套（例如 `content/zh/notes/math/`），每一层都可以放置一个 `_metadata.yml`。配置规则遵循**“继承与覆盖”**机制：
+
+- **继承 (Inheritance)**：子文件夹会自动继承父文件夹的配置。例如，`math/` 下的文档会自动应用 `notes/_metadata.yml` 中的通用设置。
+- **覆盖 (Override)**：如果在子文件夹中重新定义了某个属性，它将覆盖父文件夹的同名属性。例如，你可以在 `math/_metadata.yml` 中为数学笔记单独设置关闭目录。
+
+**最终优先级链条（由高到低）：**
+**文档级 (YAML) > 文档所在文件夹 (_metadata.yml) > 父文件夹 (_metadata.yml) > 全局 (_quarto.yml)**
+
+#### 示例（假设场景）
+
+以下是一个**假设性示例**，用于说明配置优先级的工作原理（并非本模板的实际配置）：
+
+1.  **`_quarto.yml` (全局)**:
+
+    ```yaml
+    author: "站长"
+    toc: false # 默认全站关闭目录
+    ```
+2.  **`blog/_metadata.yml` (目录)**:
+
+    ```yaml
+    # 没写 author，继承全局
+    toc: true  # 博客板块开启目录 (覆盖全局)
+    lightbox: true  # 开启图片点击放大
+    ```
+3.  **`blog/post-1.qmd` (文档)**:
+
+    ```yaml
+    title: "我的第一篇博客"
+    # 没写 author，继承全局 -> "站长"
+    # 没写 toc，继承上一级 -> true
+    ```
+4.  **`blog/guest-post.qmd` (文档)**:
+
+    ```yaml
+    title: "客座文章"
+    author: "特邀嘉宾"  # <--- 覆盖全局！
+    toc: false     # <--- 覆盖目录！(本篇关闭目录)
+    ```
+
+**最终结果**：
+
+- **Post 1**: 作者是“站长”，**开启**了目录，开启了灯箱效果。
+- **Guest Post**: 作者是“特邀嘉宾”，**关闭**了目录，开启了灯箱效果。
+
+## 侧边栏配置 (Sidebar)
+
+侧边栏是笔记类网站的灵魂。[Quarto支持灵活的侧边栏配置](https://quarto.org/docs/websites/website-navigation.html)，你可以为不同的板块（如 Notes, Blog）设置独立的侧边栏。
+
+### 定义侧边栏 (`_quarto.yml`)
+
+在 `_quarto.yml` 中，你可以定义多个侧边栏，每个侧边栏都有一个唯一的 `id`。你可以在同一个侧边栏下创建多个 `section`（分组）。`contents`中涉及到的页面将会显示侧边栏。
+
+```yaml
+sidebar:
+  # --- 中文笔记侧边栏 ---
+  - id: "notes-zh"    # 唯一标识符（本模板中英文分开定义）
+    title: "笔记"
+    contents:
+      - content/zh/notes/index.qmd
+      - section: "数学"   # 分组
+        contents:
+          - content/zh/notes/calculus.qmd
+          - content/zh/notes/linear-algebra.qmd
+
+  # --- 英文笔记侧边栏 ---
+  - id: "notes-en"
+    title: "Notes"
+    contents:
+      - content/en/notes/index.qmd
+      - section: "Mathematics"
+        contents:
+          - content/en/notes/calculus.qmd
+          - content/en/notes/linear-algebra.qmd
+```
+
+### 激活侧边栏
+
+定义好侧边栏后，你还可以告诉 Quarto 哪些页面应该显示这个侧边栏。这通常在文件夹的 `_metadata.yml` 中设置。
+
+例如，在 `content/en/notes/_metadata.yml` 中：
+
+```yaml
+# 该文件夹下的所有文章都使用 id 为 "notes-en" 的侧边栏
+sidebar: notes-en
+```
+
+这样，当你访问 `content/en/notes/` 下的任何文章时，左侧都会显示你在 `_quarto.yml` 中定义的 `notes-en` 侧边栏。
+
+> **本模板的实际情况**：侧边栏内容直接在 `_quarto.yml` 的 `contents` 中列出，被列出的页面会自动显示对应侧边栏，因此本模板并未在每个子文件夹下都创建 `_metadata.yml`。
+
+你也可以在单个页面的 YAML Front Matter 中设置 `sidebar` 字段来覆盖默认行为：
+
+- `sidebar: notes-zh` — 让该页显示指定 ID 的侧边栏
+- `sidebar: false` — 关闭该页的侧边栏
+
+### 自动抓取文件
+
+设置侧边栏时， `contents` 支持自动抓取根目录，但有关“抓取某个子文件夹生成侧边栏”这种功能，我还没有找到很好的实现方式。
+
+# 核心概念与写作
+
+配置完成后，这里是你日常使用最频繁的部分。
+
+## 什么是 .qmd 文件？
+
+`.qmd` (Quarto Markdown) 是本网站使用的核心文件格式。
+
+**为什么使用它？**
+
+1.  **简单易学**：它基于 **Markdown**，这是一种极简的标记语言。你不需要像 Word 那样调整排版，只需要用简单的符号（如 `#` 表示标题）就能写出结构清晰的文章。
+2.  **功能强大**：它原生支持 **LaTeX 数学公式**（例如 `$E=mc^2$`）和 **代码块**，非常适合学术写作和数据展示。
+3.  **自动网页化**：你写的文本会被自动渲染成漂亮的 HTML 网页。
+
+**Markdown 极速入门示例：**
+
+```markdown
+# 这是一级标题
+## 这是二级标题
+
+这是一段普通文本，可以**加粗**，也可以*倾斜*。
+
+- 这是一个列表
+- 支持数学公式：$f(x) = \int x dx$
+- 支持插入图片：`![](image.jpg)`
+```
+
+## 公式引用
+
+Quarto 支持对数学公式进行编号和引用，非常适合学术写作。
+
+**定义带编号的公式：**
+
+```markdown
+$$
+E = mc^2
+$$ {#eq-einstein}
+```
+
+**引用公式：**
+
+```markdown
+根据爱因斯坦的质能方程 @eq-einstein，我们可以得出...
+```
+
+渲染后，公式会自动编号（如 "(1)"），引用处会显示为可点击的链接（如 "公式 1"）。
+
+> **提示**：公式标签必须以 `#eq-` 开头，后面跟一个自定义的标识符（如 `einstein`）。
+
+## 文献引用
+
+本模板已配置好参考文献管理功能，你只需要：
+
+1.  **添加文献条目**：在项目根目录的 `references.bib` 文件中添加 BibTeX 格式的文献条目。例如：
+
+    ```bibtex
+    @article{Shannon1948,
+        author = {Claude E. Shannon},
+        title = {A Mathematical Theory of Communication},
+        journal = {Bell System Technical Journal},
+        year = {1948}
+    }
+    ```
+
+2.  **在正文中引用**：使用 `@` 符号加上文献的 key 进行引用。
+
+    ```markdown
+    信息论由 Shannon 奠基 [@Shannon1948]。
+    
+    正如 @Shannon1948 所指出的...
+    ```
+
+    - `[@Shannon1948]` 渲染为：(Shannon 1948)
+    - `@Shannon1948` 渲染为：Shannon (1948)
+
+3.  **参考文献列表**：Quarto 会**自动在文章末尾生成参考文献列表**，无需额外配置。如果你想**自定义参考文献的位置**（比如放在文章中间或某个特定章节下），可以在希望出现的位置添加：
+
+    ```markdown
+    ## 参考文献
+    
+    ::: {#refs}
+    :::
+    ```
+
+> **提示**：
+> 
+> - 你可以使用 Google Scholar、Zotero 等工具导出 BibTeX 格式的文献条目，直接粘贴到 `references.bib` 中即可。
+> - 在 VS Code 中输入 `@` 时，Quarto 插件会自动弹出 `references.bib` 中的文献列表供你选择。
+
+
+
+
+## 发布流程
+
+写完文章后，只需三步即可发布：
+
+1.  **创建文章**：在 `content/zh/` 或 `content/en/` 下对应的子目录（如 `blog/`, `notes/`）新建 `.qmd` 文件，用你习惯的语言（中文或英文）撰写内容。
+
+2.  **提交更改**：你可以选择以下任意一种方式。
+
+    **方式 A：使用 VS Code Git（推荐）**
+    
+    在 VS Code 左侧源代码管理面板中，输入提交信息，点击 "Commit"，然后点击 "Sync Changes"。
+    
+    > *注意：这种方式不会在本地运行翻译，翻译将在推送到 GitHub 后由云端自动完成。*
+
+    **方式 B：使用命令行**
+    
+    如果你习惯使用终端，可以运行标准的 Git 命令：
+    ```bash
+    git add .
+    git commit -m "提交信息"
+    git push
+    ```
+
+3.  **等待部署**：推送后，GitHub Actions 会自动完成翻译、构建和发布。几分钟后刷新网站即可看到更新。
+
+### 本地翻译（可选）
+
+如果你希望在本地预览翻译结果，而不是等云端自动翻译，可以按以下步骤操作。
+
+> 以下命令均在 VS Code 终端（Terminal -> New Terminal）中运行，确保当前目录是项目根目录。
+
+**第一步：安装依赖**（只需执行一次）
+```bash
+pip install -r requirements.txt
+```
+
+**第二步：设置环境变量**
+
+*Windows PowerShell:*
+```powershell
+$env:DEEPSEEK_API_KEY = "sk-你的key"
+```
+
+*macOS / Linux:*
+```bash
+export DEEPSEEK_API_KEY="sk-你的key"
+```
+
+**第三步：运行翻译脚本**
+```bash
+python scripts/sync_deepseek.py
+```
+
+> **注意**：环境变量在终端关闭后会失效，下次需要重新设置。
+
+## 自动化流程
+
+当你推送代码后，GitHub Actions 会自动接管后续工作：
+
+1.  **检测变动**：识别你新增或修改了哪些 `.qmd` 文件。
+2.  **AI 翻译**：
+    - 如果你写了中文，它会自动翻译成英文。
+    - 如果你写了英文，它会自动翻译成中文。
+    - 翻译结果会自动提交回你的仓库（你会看到一个来自 `DeepSeek Bot` 的新 Commit）。
+3.  **构建网站**：运行 `quarto render` 生成静态网页。
+4.  **发布上线**：将网页推送到 `gh-pages` 分支，几分钟后你的网站就会更新。
+
+你可以在 GitHub 仓库的 **Actions** 标签页查看整个过程的实时日志。
+
+
+
+## 本地预览
+
+在 VS Code 终端中运行以下命令，可以实时预览网站效果：
+
+```bash
+quarto preview --render html
+```
+
+这会启动一个本地服务器，浏览器会自动打开预览页面。修改文件后保存，页面会自动刷新。
+
+# 问题 (FAQ)
+
+> **通用排查方法**：遇到部署问题时，第一步是去 GitHub 仓库的 **Actions** 标签页查看运行日志。点击最近一次运行记录，红色叉号表示失败，点进去可以看到具体报错信息。遇到看不懂的报错，可以把错误信息复制给 AI 帮你分析。
+
+## 为什么我的翻译没有生效？
+
+1.  检查 **GitHub Actions** 的日志：在仓库页面点击 "Actions"，查看最近一次运行的详情。
+2.  检查 **API Key**：确保你在 Secrets 中正确配置了 `DEEPSEEK_API_KEY`，并且该 Key 还有余额。
+3.  **本地调试**：如果你在本地运行脚本而翻译没有生效，确保设置了环境变量。
+
+## 部署后访问出现 404？
+请检查 **Settings -> Pages** 中的设置，确保 Source 分支选的是 `gh-pages`，而不是 `main`。
+
+## 我只想用单语言（例如只用中文），不想用双语功能怎么办？
+本模板设计灵活，可以切换到单语言模式。
+
+**步骤如下：**
+
+1.  **禁用翻译功能**：
+    *   进入 GitHub 仓库 -> **Settings** -> **Secrets and variables** -> **Actions**，删除 `DEEPSEEK_API_KEY`。
+    *   脚本检测不到 API Key 时会自动跳过翻译，不影响部署。
+
+2.  **清理多余文件**：
+    *   删除你不需要的语言文件夹（例如 `content/en`）。
+    *   同时检查 `_quarto.yml`，删除所有指向该文件夹的链接（如导航栏、侧边栏中的 `content/en/...` 路径）。
+
+3.  **移除语言切换器**：
+    *   打开 `_quarto.yml`，找到 `include-after-body` 部分，删除 `assets/html/include_lang_switch.html` 这一行。
+    *   在 `navbar` 设置中，删除 `icon: translate` 相关的导航项。
+
+4.  **验证配置**：
+    *   本地运行 `quarto preview` 确认没有报错。
+    *   推送后检查 GitHub Actions 是否成功。
+
+这样，你的网站就变成单语言网站了。
+
+# 附加工具：自动转换 LaTeX 到 Quarto Markdown
+
+如果你已经有大量的 LaTeX (.tex) 文档，本项目还提供了一个自动转换脚本，可以将 `.tex` 文件批量转换为 Quarto Markdown (`.qmd`) 格式，方便迁移和发布。
+
+你可以在 `scripts/README.md` 查看详细使用说明和示例。欢迎参考和使用该工具，提升内容迁移效率。不过这个脚本目前还在不断完善中，建议先在小范围内测试。
+
+---
+
+希望这个模板能帮助你搭建出色的个人主页！如有问题，欢迎在下方评论区留言或在 GitHub 提 Issue。

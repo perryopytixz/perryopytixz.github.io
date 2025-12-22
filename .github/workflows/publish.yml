@@ -1,0 +1,70 @@
+# .github/workflows/publish.yml
+# 自定义的GitHub Actions 工作流
+name: DeepSeek Build & Publish
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '_site/**' # 忽略构建产物
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 获取完整历史，用于恢复文件时间戳
+
+      # 根据 Git 提交历史恢复文件的修改时间
+      # 这样 date: last-modified 就能正确显示文件的真实最后修改时间
+      - name: Restore file timestamps
+        run: |
+          git ls-files -z | while IFS= read -r -d '' file; do
+            time=$(git log -1 --format='%ci' -- "$file" 2>/dev/null)
+            if [ -n "$time" ]; then
+              touch -d "$time" "$file" 2>/dev/null || true
+            fi
+          done
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true # 安装 TinyTeX 以支持 PDF 生成
+
+      # 运行 DeepSeek 翻译
+      - name: Run DeepSeek Sync
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: python scripts/sync_deepseek.py
+
+      # 提交翻译结果，这样可以拉取最新的翻译结果到本地
+      - name: Commit Translated Files
+        run: |
+          git config --global user.name 'DeepSeek Bot'
+          git config --global user.email 'bot@deepseek.com'
+          git add content/
+          # 如果有变动，提交并加上 [skip ci] 避免死循环
+          git diff --quiet && git diff --staged --quiet || \
+          git commit -m "Auto-translation by DeepSeek [skip ci]" && \
+          git push
+
+      # 编译并发布
+      - name: Render and Publish
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

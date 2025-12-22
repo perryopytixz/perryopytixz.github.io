@@ -1,0 +1,9 @@
+---
+title: "发表"
+listing:
+  contents: "*.qmd"
+  sort: "date desc"
+  type: default
+---
+
+这里是一些发表的内容。

@@ -1,0 +1,171 @@
+<!-- 语言切换按钮脚本 -->
+
+<script> 
+(function() {  // IIFE 封装，用来创建一个独立的代码块，避免变量污染全局作用域
+  document.addEventListener("DOMContentLoaded", function () {
+    // ========================================================================
+    // 1. 识别当前上下文 (Context Identification)
+    // ========================================================================
+    const path = window.location.pathname;
+    const langAttr = document.documentElement.lang || "en"; // 读取 HTML 标签的 lang 属性，如果没有则默认 "en"
+    
+    // 判断当前路径特征
+    const isEnPath = path.includes("/content/en/"); //判断是否在英文子目录
+    const isZhPath = path.includes("/content/zh/"); //判断是否在中文子目录
+    const isRootPath = !isEnPath && !isZhPath; //判断是否在根目录（既不在 en 也不在 zh）
+
+    // 确定当前页面的语言模式 (Current Language Mode)
+    let currentMode = "unknown"; 
+    if (isEnPath) {
+        currentMode = "en";
+    } else if (isZhPath) {
+        currentMode = "zh";
+    } else {
+        // 如果在根目录，依赖 HTML lang 属性判断
+        currentMode = langAttr.startsWith("zh") ? "zh" : "en";
+    }
+
+    // ========================================================================
+    // 2. 计算语言切换目标 (Calculate Switch Target)
+    // ========================================================================
+    let switchTarget = "";
+    let switchLabel = "";
+
+    // 辅助函数：获取路径的基础部分（去除文件名），因为我们需要在此基础上构造新的路径进行语言页面切换
+    // 例如 /repo/content/en/index.html -> /repo/content/en/
+    function getDir(p) { return p.substring(0, p.lastIndexOf('/') + 1); }
+
+    if (currentMode === "en") {
+        switchLabel = "中文";
+        if (isEnPath) {
+            // 场景：在英文子目录中
+            // 检查是否是英文首页 -> 翻译跳回根目录 (因为这时候中文首页在根目录)
+            if (path.endsWith("/content/en/index.html") || path.endsWith("/content/en/")) {
+                // 替换 /content/en/ 为 / (即回到项目根路径)
+                switchTarget = path.replace(/\/content\/en\/(index\.html)?$/, "/index.html");
+            } else {
+                // 普通页面 -> 切换到中文子目录
+                switchTarget = path.replace("/content/en/", "/content/zh/");
+            }
+        } else {
+            // 场景：在根目录 (且根目录被识别为英文) -> 去中文子目录首页
+            // 构造: 当前路径 + content/zh/index.html
+            // 注意处理 index.html 结尾的情况
+            let basePath = path.replace(/index\.html$/, "").replace(/\/$/, "");
+            switchTarget = basePath + "/content/zh/index.html";
+        }
+    } else {
+        // currentMode === "zh"
+        switchLabel = "English";
+        if (isZhPath) {
+            // 场景：在中文子目录中
+            // 检查是否是中文首页 -> 翻译跳回根目录 (因为这时候英文首页在根目录)
+            if (path.endsWith("/content/zh/index.html") || path.endsWith("/content/zh/")) {
+                switchTarget = path.replace(/\/content\/zh\/(index\.html)?$/, "/index.html");
+            } else {
+                // 普通页面 -> 切换到英文子目录
+                switchTarget = path.replace("/content/zh/", "/content/en/");
+            }
+        } else {
+            // 场景：在根目录 (且被识别为中文) -> 去英文子目录首页
+            let basePath = path.replace(/index\.html$/, "").replace(/\/$/, "");
+            switchTarget = basePath + "/content/en/index.html";
+        }
+    }
+
+    // 更新导航栏按钮
+    const switchBtn = document.querySelector('.navbar-nav .nav-link[href*="#lang-switch"]');
+    if (switchBtn) {
+        switchBtn.href = switchTarget;
+        const tip = "Switch to " + switchLabel;
+        switchBtn.setAttribute("title", tip);
+        switchBtn.setAttribute("aria-label", tip);
+    }
+
+    // ========================================================================
+    // 3. 导航栏链接修正 (Navigation Link Correction)
+    // 策略：强制所有导航链接停留在当前语言的“孤岛”中
+    // ========================================================================
+    const links = document.querySelectorAll('.navbar-nav .nav-link');
+    
+    links.forEach(link => {
+        if (link === switchBtn) return; // 跳过切换按钮
+
+        // 使用完整 URL 进行判断，避免相对路径的复杂性
+        let fullUrl = link.href; 
+        
+        // 只处理站内链接
+        if (!fullUrl.includes(window.location.host)) return;
+        // 跳过锚点链接
+        if (fullUrl.includes("#") && !fullUrl.includes(window.location.pathname)) return;
+
+        let newUrl = fullUrl;
+
+        if (currentMode === "en") {
+            // --- 英文模式：所有链接必须指向英文内容 ---
+            
+            // 1. 将中文子目录链接 (/content/zh/...) 修正为英文 (/content/en/...)
+            if (newUrl.includes("/content/zh/")) {
+                newUrl = newUrl.replace("/content/zh/", "/content/en/");
+            }
+            
+            // 2. 将根目录链接 (/) 修正为英文首页 (/content/en/index.html)
+            // 前提：我们当前不在根目录 (如果在根目录，根目录链接就是对的)
+            if (isEnPath) {
+                // 如果链接不包含 /content/en/ 也不包含 /content/zh/，那它在本网站设置下就是指向根目录的
+                if (!newUrl.includes("/content/en/") && !newUrl.includes("/content/zh/")) {
+                    // 构造英文版 URL
+                    // 逻辑：找到 URL 的根部，加上 /content/en/index.html
+                    // 这里的替换比较激进，假设根目录链接通常以 / 或 /index.html 结尾
+                    let cleanRoot = newUrl.replace(/\/index\.html$/, "").replace(/\/$/, "");
+                    newUrl = cleanRoot + "/content/en/index.html";
+                }
+            }
+        } else {
+            // --- 中文模式：所有链接必须指向中文内容 ---
+            
+            // 1. 将英文子目录链接 (/content/en/...) 修正为中文 (/content/zh/...)
+            if (newUrl.includes("/content/en/")) {
+                newUrl = newUrl.replace("/content/en/", "/content/zh/");
+            }
+            
+            // 2. 将根目录链接 (/) 修正为中文首页 (/content/zh/index.html)
+            if (isZhPath) {
+                if (!newUrl.includes("/content/en/") && !newUrl.includes("/content/zh/")) {
+                    let cleanRoot = newUrl.replace(/\/index\.html$/, "").replace(/\/$/, "");
+                    newUrl = cleanRoot + "/content/zh/index.html";
+                }
+            }
+        }
+
+        // 应用修改
+        if (newUrl !== fullUrl) {
+            link.href = newUrl;
+        }
+    });
+
+    // ========================================================================
+    // 4. 移动端优化 (Mobile Optimization)
+    // ========================================================================
+    const navbarContainer = document.querySelector('.navbar-container');
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    
+    if (navbarContainer && navbarToggler && switchBtn) {
+        // 克隆语言切换按钮
+        const mobileLangLink = switchBtn.cloneNode(true);
+        
+        // 添加一个特定的类以便 CSS 控制
+        mobileLangLink.classList.add('mobile-lang-switch');
+        
+        // 插入到 toggler 之前 (即汉堡菜单左侧)
+        navbarContainer.insertBefore(mobileLangLink, navbarToggler);
+        
+        // 动态添加 CSS 来控制显示/隐藏 (已移动到 assets/css/custom.css)
+        // const style = document.createElement('style');
+        // style.textContent = `...`;
+        // document.head.appendChild(style);
+    }
+
+  });
+})();
+</script>

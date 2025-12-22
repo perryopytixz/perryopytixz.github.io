@@ -1,0 +1,156 @@
+project:
+  type: website
+  output-dir: _site
+   
+bibliography: references.bib
+
+website:
+  title: "Perry's Page"
+  site-url: "https://perryopytixz.github.io"
+  description: "Academic website for Perry"
+  favicon: assets/images/avatar.jpg # icon of the website
+  search: true
+  reader-mode: true
+  open-graph: true
+  twitter-card: true
+  
+
+  comments:
+    giscus:
+      repo: perryopytixz/perryopytixz.github.io
+      repo-id: R_kgDOQtHljw
+      category: General
+      category-id: DIC_kwDOQtHlj84C0Hxj
+      mapping: title # Use the title of the article as the title of the discussion.
+      theme: # light, dark, transparent_dark, preferred_color_scheme, etc.
+        light: light
+        dark: dark
+      language: en 
+
+  navbar:
+    background: light
+
+    right:
+      - text: "CV"
+        href: content/zh/cv.qmd
+      - text: "Blog"
+        href: content/zh/blog/index.qmd
+      - text: "Notes"
+        href: content/zh/notes/index.qmd
+      - text: "Publications"
+        href: content/zh/publications/index.qmd
+      # - icon: github
+      #   href: https://github.com/perryopytixz
+      - icon: translate
+        href: "#lang-switch" # Placeholder for language switch
+        text: ""
+  # 侧边栏配置，每个id定义一组侧边栏
+  sidebar:
+    # # ==========================================
+    # #              中文侧边栏 (Chinese)
+    # # ==========================================
+    # --- 笔记 (Notes) ---
+    - id: "notes-zh"
+      title: "笔记"
+      style: docked
+      collapse-level: 1
+      contents:
+        - content/zh/notes/index.qmd
+        
+        # 主题 1: 数学
+        - section: "数学"
+          contents: 
+            - content/zh/notes/calculus.qmd
+            - content/zh/notes/math-topic-1.qmd
+            - content/zh/notes/linear-algebra.qmd
+            - content/zh/notes/mini-batch-SGD.qmd
+          
+            
+
+    # --- 博客 (Blog) ---
+    - id: "blog-zh"
+      title: "博客"
+      style: docked
+      collapse-level: 2
+      contents:
+        - content/zh/blog/index.qmd
+        - section: "教程"
+          contents:
+            - content/zh/blog/setup-guide.qmd
+        - section: "生活"
+          contents:
+            - content/zh/blog/life/hello.qmd
+
+    # ==========================================
+    #              English Sidebars
+    # ==========================================
+
+    # --- Notes (English) ---
+    - id: "notes-en"
+      title: "Notes"
+      style: docked
+      collapse-level: 1
+      contents:
+        - content/en/notes/index.qmd
+        # Topic 1: Mathematics
+        - section: "Mathematics"
+          contents: 
+            - content/en/notes/calculus.qmd
+            - content/en/notes/math-topic-1.qmd
+            - content/en/notes/linear-algebra.qmd
+            - content/en/notes/mini-batch-SGD.qmd
+            
+ 
+    # --- Blog (English) --- 
+    - id: "blog-en"
+      title: "Blog"
+      style: docked
+      contents:
+        - content/en/blog/index.qmd
+        - section: "Tutorials"
+          contents:
+            - content/en/blog/setup-guide.qmd
+        - section: "Life"
+          contents:
+            - content/en/blog/life/hello.qmd
+
+  # 这里配置全局页脚
+  page-footer:
+    border: true
+    center: |
+      <!-- 这里只留一个空盒子，内容全靠 /assets/html/footer.html 中的 JS 填入，可以去那里进行编辑 -->
+      <div id="global-footer"></div>
+
+# 网页页面格式设置
+format:
+  html:
+    lang: en
+    theme: 
+      light: cosmo # cerulean | cosmo | lumen | sandstone | united | yeti， 浅色主题
+      dark: darkly # cyborg | darkly | slate | superhero， 深色主题
+     
+    css: assets/css/custom.css # css样式文件，用于自定义一些样式
+
+    toc: true                  # 启用目录
+    toc-location: right      # 目录位置：right (右侧) / left (左侧) / float (浮动)
+    toc-depth: 3            # 目录深度
+    number-sections: true   # 启用章节编号
+    html-math-method: mathjax # 数学公式渲染方法：mathjax / katex / webtex
+    code-copy: true        # 启用代码复制按钮
+
+    # 页面布局设置
+    grid:
+      sidebar-width: 300px   # 左侧导航栏宽度 
+      # body-width: 900px      # 正文宽度
+      margin-width: 300px    # 右侧目录区域宽度 (设为与左侧一致)
+      gutter-width: 1.5rem   # 栏间距
+
+
+    include-after-body: 
+      - assets/html/include_lang_switch.html # 语言切换按钮
+      - assets/html/footer.html # 全局页脚内容 
+
+
+
+execute:
+  freeze: auto

@@ -1,0 +1,31 @@
+---
+title: "线性代数笔记"
+categories: [Math, Linear Algebra]
+description: "关于向量空间和特征值的核心概念总结。"
+---
+
+# 向量空间 (Vector Spaces)
+
+定义：一个向量空间 $V$ 是一个集合，配备了加法和标量乘法...
+
+## 子空间
+
+如果 $W \subseteq V$ 且 $W$ 也是一个向量空间，则称 $W$ 为 $V$ 的子空间。
+
+# 特征值与特征向量
+
+对于矩阵 $A \in \mathbb{R}^{n \times n}$，如果存在非零向量 $v$ 和标量 $\lambda$ 使得：
+
+$$
+Av = \lambda v
+$$
+
+则称 $\lambda$ 为特征值，$v$ 为对应的特征向量。
+
+## 特征方程
+
+特征值可以通过求解特征方程得到：
+
+$$
+\det(A - \lambda I) = 0
+$$

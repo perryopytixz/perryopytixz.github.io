@@ -1,0 +1,15 @@
+---
+title: "Blog"
+listing:
+  contents: "*.qmd"
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: true
+  filter-ui: true
+
+page-layout: full
+# title-block-banner: true
+---
+
+这里是我的一些博客内容。
