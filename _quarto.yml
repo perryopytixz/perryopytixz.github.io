@@ -18,9 +18,9 @@ website:
   comments:
     giscus:
       repo: perryopytixz/perryopytixz.github.io
-      repo-id: R_kgDOQtHljw
+      repo-id: R_kgDOQtIvGQ
       category: General
-      category-id: DIC_kwDOQtHlj84C0Hxj
+      category-id: DIC_kwDOQtIvGc4C0H18
       mapping: title # Use the title of the article as the title of the discussion.
       theme: # light, dark, transparent_dark, preferred_color_scheme, etc.
         light: light
