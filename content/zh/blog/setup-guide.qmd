@@ -1,6 +1,6 @@
 ---
 title: "如何配置本网站模板 (Setup Guide)"
-categories: [Tutorial, Quarto, GitHub Actions]
+categories: [Tutorial, Quarto]
 description: "一份详细的指南，教你如何根据这个项目模板配置你自己的个人学术网站。"
 ---
 
