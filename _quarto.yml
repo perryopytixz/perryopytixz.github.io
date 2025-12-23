@@ -131,6 +131,7 @@ format:
      
     css: assets/css/custom.css # css样式文件，用于自定义一些样式
 
+    back-to-top-navigation: true # 返回顶部按钮
     toc: true                  # 启用目录
     toc-location: right      # 目录位置：right (右侧) / left (左侧) / float (浮动)
     toc-depth: 3            # 目录深度

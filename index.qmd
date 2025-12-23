@@ -3,13 +3,15 @@ title: "Perry"
 image: assets/images/avatar.jpg
 comments: false 
 lang: zh
+author: []
+date: ""
 # 启用列表功能，自动抓取对应目录下的文章排成列表
 listing:
   # --- 第一个列表：博客文章 ---
   - id: blog-listings          # 给它起个名字，叫 blog-listings
     contents: content/zh/blog  # 抓取这里的内容
-    sort: "date desc"
-    type: default              # 默认列表样式
+    sort: "date desc"          # 按日期降序排列
+    type: default              # 默认列表样式，还有一种是 type: grid 网格样式
     max-items: 3
     fields: [date, title, description, categories]
     filter-ui: false
@@ -18,11 +20,9 @@ listing:
   # --- 第二个列表：笔记列表 ---
   - id: notes-listings       # 给它起个名字，叫 notes-listings
     contents: content/zh/notes         
-    sort: "date desc"
-    type: grid             # 网格列表样式
+    sort: "date desc"  # 按日期降序排列
+    type: default
     max-items: 3
-    grid-columns: 3
-    fields: [image, title]
 
 about:
   template: trestles
@@ -55,39 +55,17 @@ number-sections: false
 
 ### 👋 欢迎 / Welcome
 
-我是 **XXX**，一名专注于 **[具体研究方向，如：应用数学 / 人工智能]** 的科研工作者。
+欢迎来到我的个人主页！这里用于整理一些学术笔记、发布博客文章，以及一些经验分享。
 
-欢迎来到我的个人主页！这里用于整理学术笔记、分享科研成果、发布博客文章，以及记录折腾技术的一点新人经验。
-
-本站由 **Quarto** 构建，托管于 GitHub Pages。
+本站由 **Quarto** 构建，托管于 GitHub Pages。如果您也想搭建一个类似的网站，可以参考[Setup Guide](https://perryopytixz.github.io/content/zh/blog/setup-guide.html)。
 
 :::
 
 <!-- 主内容区 (Main Content) - 这里开始写详细内容-->
 
-## 📝 个人简介 / Biography
-
-我目前在 **[大学/机构名称]** 攻读 XX 学位/担任研究员。我的研究兴趣主要集中在利用数据驱动的方法解决现实世界的问题。
-
-在此之前，我在 **[本科/硕士学校]** 获得了 XX 学位。
-
-> "Stay hungry, stay foolish."
-
-## 🎓 教育背景 / Education
-
--   **博士 / Ph.D. in Computer Science** | [大学名称] | *2025 - Present*
--   **硕士 / M.S. in Data Science** | [大学名称] | *2023 - 2025*
--   **学士 / B.S. in Mathematics** | [大学名称] | *2019 - 2023*
-
-## 🔬 研究兴趣 / Research Interests
-*   **机器学习**（Machine Learning）
 
 ## 📰 最新动态 / News
-
--   **2025-11**: 🎉 这个基于 Quarto 的个人网站正式上线了！可以参考[Setup Guide](https://perryopytixz.github.io/content/zh/blog/setup-guide.html) 搭建您自己的学术网站。
--   **2024-03**: 📄 我们的一篇关于 [论文主题] 的论文被 [会议名称] 接收。
--   **2023-12**: ✈️ 参加了在 [地点] 举办的学术会议。
-
+-   **2025-11**: 🎉 这个基于 Quarto 的个人网站正式上线了！。
 ---
 
 ## 最新博客 / Recent Posts
@@ -107,7 +85,7 @@ number-sections: false
 
 
 ##  笔记/Notes
-这里是我的一些笔记：
+这里是我的一些笔记。更多内容请查看 [笔记列表页](content/zh/notes/index.qmd)。
 
 :::{#notes-listings}
 :::
