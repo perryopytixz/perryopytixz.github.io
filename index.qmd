@@ -3,8 +3,6 @@ title: "Perry"
 image: assets/images/avatar.jpg
 comments: false 
 lang: zh
-author: []
-date: ""
 # 启用列表功能，自动抓取对应目录下的文章排成列表
 listing:
   # --- 第一个列表：博客文章 ---
