@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Perry">
-<meta name="dcterms.date" content="2025-12-22">
+<meta name="dcterms.date" content="2025-12-23">
 
 <title>Introduction to Stochastic Gradient Descent – Perry’s Page</title>
 <style>
@@ -385,7 +385,6 @@ window.Quarto = {
   <div class="quarto-categories">
     <div class="quarto-category">Math</div>
     <div class="quarto-category">Optimization</div>
-    <div class="quarto-category">SGD</div>
     <div class="quarto-category">Machine-Learning</div>
   </div>
   </div>
@@ -404,7 +403,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 22, 2025</p>
+      <p class="date">December 23, 2025</p>
     </div>
   </div>
   
@@ -419,7 +418,7 @@ window.Quarto = {
 <p>This article provides a preliminary introduction to the Stochastic Gradient Descent (SGD) algorithm and its mini-batch variant, covering their basic principles, assumptions, and mathematical properties.</p>
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>Generally, the training process of a machine learning model can be modeled as the following <strong>Stochastic Optimization Problem</strong>, whose goal is to minimize the <strong>Expected Risk</strong> over the data distribution:</p>
+<p>Generally, the training process of a machine learning model can be modeled as the following <strong>Stochastic Optimization Problem</strong>, whose objective is to minimize the <strong>Expected Risk</strong> over the data distribution:</p>
 <p><span class="math display">\[
 \min_{\theta \in \mathbb{R}^d} F(\theta) = \mathbb{E}_{z \sim \mathcal{D}} [\ell(z; \theta)]
 \]</span></p>
@@ -430,19 +429,19 @@ window.Quarto = {
 <li><span class="math inline">\(\ell(\cdot; \theta)\)</span> is the per-sample loss function.</li>
 </ul>
 <p>Since the data distribution <span class="math inline">\(\mathcal{D}\)</span> is usually unknown or the dataset is extremely large, directly computing the above expectation is often infeasible. The traditional deterministic Gradient Descent Method requires iterating over all data to compute the exact gradient <span class="math inline">\(\nabla F(\theta)\)</span>, making it unsuitable for large-scale data scenarios.</p>
-<p>So, are there good methods to solve this type of optimization problem? Let’s look at this problem from a different perspective. We know that “minimizing the objective function” is often related to “finding the zero point of the objective function’s gradient.” That is, finding the root <span class="math inline">\(\theta^*\)</span> of the equation: <span class="math display">\[
+<p>So, is there a good way to solve this type of optimization problem? Let’s look at this problem from a different perspective. We know that “minimizing the objective function” is often related to “finding the zero point of the objective function’s gradient.” That is, finding the root <span class="math inline">\(\theta^*\)</span> of the equation: <span class="math display">\[
 M(\theta) \triangleq \nabla F(\theta) = 0
-\]</span> As mentioned above, since the data distribution <span class="math inline">\(\mathcal{D}\)</span> is usually unknown or the dataset is extremely large, we generally cannot obtain its analytical form or exact value directly, and general numerical methods for solving nonlinear equations cannot be directly applied.</p>
+\]</span> As mentioned above, since the data distribution <span class="math inline">\(\mathcal{D}\)</span> is usually unknown or the dataset is extremely large, we generally cannot obtain its analytical form or exact value, and general numerical methods for solving nonlinear equations cannot be directly applied.</p>
 <p>In 1951, Robbins and Monro proposed a <strong>Stochastic Approximation</strong> method to solve such problems <span class="citation" data-cites="robbinsStochasticApproximationMethod1951">(<a href="#ref-robbinsStochasticApproximationMethod1951" role="doc-biblioref">Robbins and Monro 1951</a>)</span>. This is the theoretical foundation of the <strong>Stochastic Gradient Descent (SGD)</strong> algorithm.</p>
-<p>To deepen understanding, we can first examine the original problem form in the paper and then map it back to our stochastic optimization problem. Specifically, for any given parameter <span class="math inline">\(\theta\in \mathbb{R}\)</span>, if it corresponds to a random variable <span class="math inline">\(Y= Y(\theta)\)</span> with distribution function <span class="math inline">\(H(y \mid \theta)\)</span>, we can define <span class="math display">\[
+<p>To deepen understanding, we can first look at the form of the original problem in the paper and then map it back to our stochastic optimization problem. Specifically, for any given parameter <span class="math inline">\(\theta\in \mathbb{R}\)</span>, if it corresponds to a random variable <span class="math inline">\(Y= Y(\theta)\)</span> with distribution function <span class="math inline">\(H(y \mid \theta)\)</span>, we can define <span class="math display">\[
 M(\theta) = \mathbb{E}[Y(\theta)] = \int_{-\infty}^{\infty} y  \, dH(y \mid \theta)
 \]</span> and then define a nonlinear equation <span class="math display">\[
 M(\theta) = \alpha
-\]</span> When we have limited knowledge about <span class="math inline">\(H(y \mid \theta)\)</span> and <span class="math inline">\(M(\theta)\)</span>, traditional numerical methods struggle to find the root of this equation. However, Robbins and Monro proposed an iterative algorithm and proved that, under certain assumptions, the parameter sequence generated by this algorithm converges in mean square to the root of the equation <span class="math inline">\(M(\theta) = \alpha\)</span>, and thus converges in probability. This algorithm first initializes a parameter value <span class="math inline">\(\theta_0\)</span> and a step size sequence <span class="math inline">\(\{\eta_t\}\)</span>, then updates the parameter via the following iterative formula: <span class="math display">\[  \theta_{t+1} = \theta_t + \eta_t(\alpha - y_t) \]</span> where <span class="math inline">\(y_t\)</span> satisfies <span class="math inline">\(\Pr\{y_t \leq y \mid \theta_t\} = H(y \mid \theta_t)\)</span>. In practice, <span class="math inline">\(y_t\)</span> can be obtained by sampling from the random variable <span class="math inline">\(Y(\theta_t)\)</span>.</p>
-<p>Applying this theoretical framework to the stochastic optimization problem in machine learning, we can make the following correspondence:</p>
+\]</span> When we have little knowledge about <span class="math inline">\(H(y \mid \theta)\)</span> and <span class="math inline">\(M(\theta)\)</span>, traditional numerical methods struggle to find the root of this equation. However, Robbins and Monro proposed an iterative algorithm and proved that, under certain assumptions, the parameter sequence generated by this algorithm converges in mean square to the root of the equation <span class="math inline">\(M(\theta) = \alpha\)</span>, and thus converges in probability. This algorithm first initializes a parameter value <span class="math inline">\(\theta_0\)</span> and a step size sequence <span class="math inline">\(\{\eta_t\}\)</span>, then updates the parameter via the following iterative formula: <span class="math display">\[  \theta_{t+1} = \theta_t + \eta_t(\alpha - y_t) \]</span> where <span class="math inline">\(y_t\)</span> satisfies <span class="math inline">\(\Pr\{y_t \leq y \mid \theta_t\} = H(y \mid \theta_t)\)</span>. In practical use, <span class="math inline">\(y_t\)</span> can be obtained by sampling from the random variable <span class="math inline">\(Y(\theta_t)\)</span>.</p>
+<p>Applying this theoretical framework to the stochastic optimization problem in machine learning, we can make the following correspondences:</p>
 <ul>
 <li><p>We aim to solve <span class="math inline">\(M(\theta) \triangleq \nabla F(\theta) =0\)</span>, where <span class="math inline">\(F(\theta) = \mathbb{E}_{z \sim \mathcal{D}} [\ell(z; \theta)]\)</span>.</p></li>
-<li><p>Since <span class="math inline">\(\nabla F(\theta) = \nabla_\theta \mathbb{E}_{z \sim \mathcal{D}} [\ell(z; \theta)] = \mathbb{E}_{z \sim \mathcal{D}} [\nabla_\theta \ell(z; \theta)]\)</span>, <span class="math inline">\(Y(\theta)\)</span> can correspond to the gradient of the loss function for a random sample <span class="math inline">\(\nabla \ell(z; \theta)\)</span>, and <span class="math inline">\(y_t\)</span> corresponds to a stochastic estimate of the gradient, i.e., <span class="math inline">\(y_t =\nabla \ell(z_t; \theta)\)</span>, where <span class="math inline">\(z_t\)</span> is a random sample drawn from the data distribution <span class="math inline">\(\mathcal{D}\)</span>.</p></li>
+<li><p>Since <span class="math inline">\(\nabla F(\theta) = \nabla_\theta \mathbb{E}_{z \sim \mathcal{D}} [\ell(z; \theta)] = \mathbb{E}_{z \sim \mathcal{D}} [\nabla_\theta \ell(z; \theta)]\)</span>, the random variable <span class="math inline">\(Y(\theta)\)</span> can correspond to the gradient of the loss function for a random sample <span class="math inline">\(\nabla \ell(z; \theta)\)</span>, and <span class="math inline">\(y_t\)</span> corresponds to a stochastic estimate of the gradient, i.e., <span class="math inline">\(y_t =\nabla \ell(z_t; \theta)\)</span>, where <span class="math inline">\(z_t\)</span> is a random sample drawn from the data distribution <span class="math inline">\(\mathcal{D}\)</span>.</p></li>
 </ul>
 <p>Under this correspondence, the iterative formula becomes: <span class="math display">\[
 \theta_{t+1} = \theta_t - \eta_t \nabla \ell(z_t; \theta_t)
@@ -458,10 +457,10 @@ F(\theta) \approx \hat{F}(\theta) = \frac{1}{N} \sum_{i=1}^N \ell(z_i; \theta)
 \sum_{t=0}^\infty \eta_t = \infty,\qquad
 \sum_{t=0}^\infty \eta_t^2 &lt; \infty.
 \]</span> among others. Under these conditions, classical stochastic approximation theory can prove that <span class="math inline">\(\{\theta_t\}\)</span> converges in mean square.</p>
-<p>Today, the dimensionality of problems to which the Stochastic Gradient Descent algorithm is applied is no longer limited to one dimension, and the statistical properties of data are far more complex than “uniform boundedness.” The stochastic gradient used at the <span class="math inline">\(t\)</span>-th iteration point <span class="math inline">\(\theta_t\)</span> is not limited to the gradient of a single sampled sample but is generalized to a concept called a gradient estimator (Oracle). It represents a mechanism that, given the <span class="math inline">\(t\)</span>-th iteration point <span class="math inline">\(\theta_t\)</span> and its corresponding randomness <span class="math inline">\(z_t\)</span> as input, returns an estimate. It can be the gradient of a single sample, a mini-batch gradient (see below), or other variants. We denote this mechanism as <span class="math inline">\(g(\theta_t;z_t)\)</span>. For notational simplicity, and when it does not cause confusion, we will sometimes use the symbol <span class="math inline">\(g(\theta_t)\)</span> in the following text.</p>
+<p>Today, the dimensionality of problems to which the Stochastic Gradient Descent algorithm is applied is no longer limited to one dimension, and the statistical properties of data are far more complex than “uniformly bounded”. The stochastic gradient used at the <span class="math inline">\(t\)</span>-th iteration point <span class="math inline">\(\theta_t\)</span> is also no longer limited to the gradient of a single sampled sample, but is generalized to a concept called a gradient estimator (Oracle). It represents a mechanism that, given the <span class="math inline">\(t\)</span>-th iteration point <span class="math inline">\(\theta_t\)</span> and its corresponding randomness <span class="math inline">\(z_t\)</span> as input, returns an estimate. It can be a single-sample gradient, a mini-batch gradient (see below), or other variants. We denote this mechanism as <span class="math inline">\(g(\theta_t;z_t)\)</span>. For notational simplicity, when no confusion arises, we will sometimes use the symbol <span class="math inline">\(g(\theta_t)\)</span> in the following text.</p>
 <p>To analyze the convergence of the SGD algorithm, the following assumptions are commonly used at present:</p>
 <ol type="1">
-<li><p><strong>Smoothness and (Strong) Convexity Assumptions for the Objective Function</strong>: <span class="math inline">\(F\)</span> is differentiable over the entire parameter space, and its gradient satisfies Lipschitz continuity. Sometimes <span class="math inline">\(F\)</span> is required to be a (strongly) convex function. In the strongly convex case, if a minimum exists, it is unique. It is worth noting that the gradient of a convex function satisfies the monotonicity condition, i.e., for any <span class="math inline">\(\theta_1, \theta_2 \in \mathbb{R}^d\)</span>, we have <span class="math display">\[
+<li><p><strong>Assumptions on Smoothness and (Strong) Convexity of the Objective Function</strong>: <span class="math inline">\(F\)</span> is differentiable over the entire parameter space, and its gradient satisfies Lipschitz continuity. Sometimes <span class="math inline">\(F\)</span> is required to be a (strongly) convex function. In the strongly convex case, if a minimum exists, it is unique. It is worth noting that the gradient of a convex function satisfies the monotonicity condition, i.e., for any <span class="math inline">\(\theta_1, \theta_2 \in \mathbb{R}^d\)</span>, we have <span class="math display">\[
 (\nabla F(\theta_1) - \nabla F(\theta_2))^\top (\theta_1 - \theta_2) \geq 0.
 \]</span></p></li>
 <li><p><strong>Unbiasedness Assumption for the Stochastic Gradient</strong>: Given the current parameter <span class="math inline">\(\theta_t\)</span>, the gradient estimator <span class="math inline">\(g(\theta_t)\)</span> satisfies <span class="math display">\[
@@ -475,19 +474,19 @@ F(\theta) \approx \hat{F}(\theta) = \frac{1}{N} \sum_{i=1}^N \ell(z_i; \theta)
 <p>The iterative formula of the Stochastic Gradient Descent algorithm can be written as: <span class="math display">\[
 \theta_{t+1} = \theta_t - \eta_t \, g(\theta_t),
 \]</span></p>
-<p>For example, in the classic single-sample SGD, the gradient estimator <span class="math inline">\(g(\theta_t)\)</span> is taken as the gradient of a single random sample: <span class="math display">\[
+<p>For example, in the classical single-sample SGD, the gradient estimator <span class="math inline">\(g(\theta_t)\)</span> is taken as the gradient of a single random sample: <span class="math display">\[
 g(\theta_t) = \nabla_\theta \ell(z_t; \theta_t),
 \]</span> where <span class="math inline">\(z_t\)</span> is a random sample drawn from the data distribution <span class="math inline">\(\mathcal{D}\)</span>.</p>
 <section id="mini-batch-sgd-the-case-of-sampling-with-replacement" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="mini-batch-sgd-the-case-of-sampling-with-replacement"><span class="header-section-number">2.1</span> Mini-batch SGD: The Case of Sampling with Replacement</h2>
-<p>Classical single-sample SGD uses only one sample per iteration to compute the gradient. While the computational cost is low, the introduced noise can be large (the variance <span class="math inline">\(\sigma^2\)</span> is large), which can easily cause the iterative trajectory to oscillate violently and makes it difficult to leverage the parallel computing capabilities of modern hardware. <strong>Mini-batch Stochastic Gradient Descent (Mini-batch SGD)</strong> is a natural generalization of single-sample SGD, using <span class="math inline">\(M\)</span> samples per iteration to compute the gradient.</p>
+<p>Classical single-sample SGD uses only one sample per iteration to compute the gradient. While the computational cost is low, the introduced noise can be large (variance <span class="math inline">\(\sigma^2\)</span> is large), which can easily lead to severe oscillations in the iterative trajectory and makes it difficult to leverage the parallel computing capabilities of modern hardware. <strong>Mini-batch Stochastic Gradient Descent (Mini-batch SGD)</strong> is a natural generalization of single-sample SGD, using <span class="math inline">\(M\)</span> samples per iteration to compute the gradient.</p>
 <p>Suppose at the <span class="math inline">\(t\)</span>-th iteration, <span class="math inline">\(M\)</span> samples are independently drawn with replacement: <span class="math display">\[
 \mathcal{B}_t = \{z_{t,1}, \ldots, z_{t,M}\},
 \]</span> where <span class="math inline">\(z_{t,1},\dots,z_{t,M} \overset{\text{i.i.d.}}{\sim} \mathcal{D}\)</span>. Define the gradient estimator as the average of the gradients of this batch of samples: <span class="math display">\[
 g^{(M)}(\theta_t)
 = \frac{1}{M} \sum_{i=1}^M \nabla_\theta \ell(z_{t,i}; \theta_t).
 \]</span></p>
-<p>We can prove: <strong>If the single-sample gradient satisfies the aforementioned unbiasedness and bounded variance assumptions, then the Mini-batch gradient estimator <span class="math inline">\(g^{(M)}(\theta_t)\)</span> must satisfy the same unbiasedness assumption, and its variance upper bound is smaller.</strong> To simplify notation, in the following derivation, without loss of generality, we fix a certain iteration step <span class="math inline">\(t\)</span> and parameter <span class="math inline">\(\theta_t\)</span>, and denote the single-sample gradient and the full gradient as: <span class="math display">\[
+<p>We can prove: <strong>If the single-sample gradient satisfies the aforementioned unbiasedness and bounded variance assumptions, then the Mini-batch gradient estimator <span class="math inline">\(g^{(M)}(\theta_t)\)</span> necessarily satisfies the same unbiasedness assumption, and its variance upper bound is smaller.</strong> To simplify notation, in the following derivation, without loss of generality, we fix a certain iteration step <span class="math inline">\(t\)</span> and parameter <span class="math inline">\(\theta_t\)</span>, and denote the single-sample gradient and the full gradient as: <span class="math display">\[
 g(z) \triangleq \nabla_\theta \ell(z;\theta_t),\qquad
 \nabla F \triangleq \nabla F(\theta_t).
 \]</span> Thus, <span class="math display">\[
@@ -569,22 +568,22 @@ g_t^{(M)}(\theta_t) - \nabla F(\theta_t)
 \le \frac{\sigma^2}{M}.
 }
 \]</span></p>
-<p>Since <span class="math inline">\(M \ge 1\)</span>, clearly <span class="math inline">\(\frac{\sigma^2}{M} \le \sigma^2\)</span>. This shows that Mini-batch SGD not only satisfies the bounded variance assumption but also reduces the variance of the gradient estimate by a factor of <span class="math inline">\(M\)</span>. This implies that, for the same number of iterations, the Mini-batch algorithm can provide a more stable gradient direction, thereby allowing the use of larger step sizes <span class="math inline">\(\eta_t\)</span> and accelerating convergence.</p>
+<p>Since <span class="math inline">\(M \ge 1\)</span>, clearly <span class="math inline">\(\frac{\sigma^2}{M} \le \sigma^2\)</span>. This shows that Mini-batch SGD not only satisfies the bounded variance assumption but also reduces the variance of the gradient estimate by a factor of <span class="math inline">\(M\)</span>. This means that for the same number of iterations, the Mini-batch algorithm can provide a more stable gradient direction, thereby allowing the use of larger step sizes <span class="math inline">\(\eta_t\)</span> and accelerating convergence.</p>
 </section>
 </section>
 <section id="sampling-without-replacement-and-finite-population-correction-fpc" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="sampling-without-replacement-and-finite-population-correction-fpc"><span class="header-section-number">2.2</span> Sampling Without Replacement and Finite Population Correction (FPC)</h2>
-<p>The variance bound <span class="math inline">\(\frac{\sigma^2}{M}\)</span> above is widely used in theoretical analysis, but it implicitly relies on the assumption of <strong>sampling with replacement</strong>, meaning that each sampled data point is independent of the others.</p>
+<p>The variance bound <span class="math inline">\(\frac{\sigma^2}{M}\)</span> above is widely used in theoretical analysis, but it implicitly relies on the assumption of <strong>sampling with replacement</strong>, meaning the samples drawn each time are independent of each other.</p>
 <p>As mentioned earlier, in practical scenarios, data is usually given as a finite dataset <span class="math inline">\(\mathcal{D} = \{z_i\}_{i=1}^N\)</span> (but of large scale). In this case, we typically consider the empirical risk: <span class="math display">\[
 F(\theta) \approx \hat{F}(\theta) = \frac{1}{N} \sum_{i=1}^N \ell(z_i; \theta)
-\]</span> In the engineering implementations of mainstream deep learning frameworks (such as PyTorch and TensorFlow), a <strong>sampling without replacement</strong> strategy is usually adopted: the dataset is shuffled at the beginning of each epoch and then partitioned into several non-overlapping mini-batches.</p>
+\]</span> In the engineering implementations of mainstream deep learning frameworks (such as PyTorch, TensorFlow), a <strong>sampling without replacement</strong> strategy is usually adopted: the dataset is shuffled (shuffle) at the beginning of each epoch and then split into several non-overlapping mini-batches.</p>
 <p>This leads to the following observation:</p>
 <blockquote class="blockquote">
-<p>If we strictly apply the formula <span class="math inline">\(\frac{\sigma^2}{M}\)</span>, when the batch size <span class="math inline">\(M\)</span> equals the dataset size <span class="math inline">\(N\)</span>, the variance bound for the gradient estimate becomes <span class="math inline">\(\frac{\sigma^2}{N}\)</span>. Since <span class="math inline">\(\sigma^2 &gt; 0\)</span>, this implies that the variance upper bound for the full batch gradient is still greater than zero. However, in fact, the full batch gradient <span class="math display">\[
+<p>If we strictly apply the formula <span class="math inline">\(\frac{\sigma^2}{M}\)</span>, when the batch size <span class="math inline">\(M\)</span> equals the dataset size <span class="math inline">\(N\)</span>, the variance bound for the gradient estimate becomes <span class="math inline">\(\frac{\sigma^2}{N}\)</span>. Since <span class="math inline">\(\sigma^2 &gt; 0\)</span>, this implies the variance upper bound for the full batch gradient is still greater than zero. However, in fact, the full batch gradient <span class="math display">\[
 \nabla \hat F(\theta) = \frac{1}{N}\sum_{i=1}^N \nabla \ell(z_i;\theta)
 \]</span> is a deterministic vector, and its variance should be <strong>0</strong>.</p>
 </blockquote>
-<p>This discrepancy arises because, under sampling without replacement, the sampled data points are not independent. To more accurately describe the behavior of Mini-batch SGD in practical engineering, we need to introduce the statistical concept of <strong>Finite Population Correction (FPC)</strong>.</p>
+<p>This discrepancy arises because, under sampling without replacement, the sampled points are not independent. To more accurately describe the behavior of Mini-batch SGD in practical engineering, we need to introduce the statistical concept of <strong>Finite Population Correction (FPC)</strong>.</p>
 <section id="mathematical-setup" class="level3" data-number="2.2.1">
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="mathematical-setup"><span class="header-section-number">2.2.1</span> Mathematical Setup</h3>
 <p>Consider a finite dataset <span class="math display">\[
@@ -612,7 +611,7 @@ x_1,\dots,x_N,
 \]</span> and the sample (unbiased) variance <span class="math display">\[
 S^2 = \frac{1}{N-1}\sum_{i=1}^N (x_i - \bar{x})^2.
 \]</span></p>
-<p>From this set, we draw without replacement <span class="math inline">\(M\)</span> indices to form a subset <span class="math inline">\(S\)</span>. The sample mean is <span class="math display">\[
+<p>From these, we draw without replacement <span class="math inline">\(M\)</span> indices to form a subset <span class="math inline">\(S\)</span>. The sample mean is <span class="math display">\[
 \bar X = \frac{1}{M}\sum_{i\in S} x_i.
 \]</span></p>
 <p>Introduce indicator variables <span class="math display">\[
@@ -654,7 +653,7 @@ y_i \triangleq x_i - \bar{x},\qquad \sum_{i=1}^N y_i = 0,
 + 2\sum_{i&lt;j} \mathbb{E}[\xi_i\xi_j] y_i y_j
 \right).
 \]</span></p>
-<p>We already know <span class="math inline">\(\mathbb{E}[\xi_i]=\frac{M}{N}\)</span>. For <span class="math inline">\(i\neq j\)</span>, <span class="math inline">\(\xi_i\xi_j=1\)</span> if and only if both <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are selected. Note that under equal-probability sampling without replacement, the probability that any two specified elements are both selected is <span class="math display">\[
+<p>We already know <span class="math inline">\(\mathbb{E}[\xi_i]=\frac{M}{N}\)</span>. For <span class="math inline">\(i\neq j\)</span>, <span class="math inline">\(\xi_i\xi_j=1\)</span> if and only if both <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are selected. Note that under simple random sampling without replacement, the probability that any two specified elements are both selected is <span class="math display">\[
 \Pr(i\in S,\;j\in S)
 = \frac{\binom{N-2}{M-2}}{\binom{N}{M}}
 = \frac{M(M-1)}{N(N-1)},
@@ -700,7 +699,7 @@ S^2 = \frac{1}{N-1}\sum_{i=1}^N (x_i - \bar{x})^2 = \frac{1}{N-1}\sum_i y_i^2,
 = \frac{1}{M}\left(1 - \frac{M}{N}\right)\,S^2.
 }
 \]</span></p>
-<p>Compared with the <span class="math inline">\(\frac{S^2}{M}\)</span> from sampling with replacement, here there is an additional correction factor <span class="math display">\[
+<p>Compared with the <span class="math inline">\(\frac{S^2}{M}\)</span> under sampling with replacement, here there is an additional correction factor <span class="math display">\[
 1 - \frac{M}{N} \in (0,1].
 \]</span> When <span class="math inline">\(M\ll N\)</span>, this factor is close to <span class="math inline">\(1\)</span>, and sampling without replacement is almost indistinguishable from sampling with replacement; when <span class="math inline">\(M\to N\)</span>, the factor approaches <span class="math inline">\(0\)</span>, and the variance also tends to <span class="math inline">\(0\)</span>, which is fully consistent with the fact that “the full-batch gradient is deterministic.”</p>
 </section>
@@ -712,9 +711,9 @@ g_i \triangleq \nabla \ell(z_i;\theta),\qquad
 \]</span> Let <span class="math inline">\(S\)</span> be a sample set of size <span class="math inline">\(M\)</span> drawn without replacement. Then the mini-batch gradient is <span class="math display">\[
 g_t^{(M)} = \frac{1}{M}\sum_{i\in S} g_i.
 \]</span></p>
-<p>We are interested in the form of <span class="math display">\[
-\mathbb{E}\bigl[\|g_t^{(M)} - \nabla \hat F(\theta)\|^2\bigr].
-\]</span></p>
+<p>We are interested in what form <span class="math display">\[
+\mathbb{E}\bigl[\|g_t^{(M)} - \nabla \hat F(\theta)\|^2\bigr]
+\]</span> takes.</p>
 <p>Note that <span class="math display">\[
 \|g_t^{(M)} - \nabla \hat F\|^2
 = \sum_{k=1}^d \bigl((g_t^{(M)})_k - \nabla \hat F_k\bigr)^2,
@@ -724,7 +723,7 @@ g_t^{(M)} = \frac{1}{M}\sum_{i\in S} g_i.
 \]</span></p>
 <p>Without loss of generality, consider the <span class="math inline">\(k\)</span>-th coordinate component. Let <span class="math display">\[
 x_i = (g_i)_{k},\qquad \bar{x}_k = \frac{1}{N}\sum_{i=1}^N x_i = \nabla \hat F_k,
-\]</span> and apply the one-dimensional result from the previous section to obtain <span class="math display">\[
+\]</span> Applying the one-dimensional result from the previous section, we obtain <span class="math display">\[
 \mathbb{E}\bigl[((g_t^{(M)})_k - \nabla \hat F_k)^2\bigr]
 = \frac{1}{M}\left(1 - \frac{M}{N}\right) S_k^2,
 \]</span> where <span class="math display">\[
@@ -758,7 +757,7 @@ S_k^2 = \frac{1}{N-1}\sum_{i=1}^N (g_i^{(k)} - \nabla \hat F_k)^2.
 \le \frac{1}{M}\left(1 - \frac{M}{N}\right)\sigma^2.
 }
 \]</span></p>
-<p>Compared with the <span class="math inline">\(\frac{\sigma^2}{M}\)</span> from sampling with replacement, sampling without replacement has an additional finite population correction factor <span class="math display">\[
+<p>Compared with the <span class="math inline">\(\frac{\sigma^2}{M}\)</span> under sampling with replacement, sampling without replacement has an additional finite population correction factor <span class="math display">\[
 \left(1 - \frac{M}{N}\right).
 \]</span> It has three direct implications:</p>
 <ul>
@@ -779,7 +778,7 @@ S_k^2 = \frac{1}{N-1}\sum_{i=1}^N (g_i^{(k)} - \nabla \hat F_k)^2.
 \]</span></li>
 </ul>
 <!-- Auto-generated by DeepSeek. DO NOT EDIT. -->
-<!-- Source Hash: ea4e666b0d682968a9c730204ae24334 -->
+<!-- Source Hash: 3a514a1bbea39534424e39c5039cb7b2 -->
 
 
 
