@@ -756,84 +756,42 @@
     "href": "content/en/index.html",
     "title": "Perry",
     "section": "",
-    "text": "GitHub\n  \n  \n    \n     Email\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\nI am XXX, a researcher focused on [Specific research area, e.g., Applied Mathematics / Artificial Intelligence].\nWelcome to my personal homepage! This site is used to organize academic notes, share research findings, publish blog posts, and document some beginner experiences with tinkering with technology.\nThis site is built with Quarto and hosted on GitHub Pages."
+    "text": "GitHub\n  \n  \n    \n     Email\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\nWelcome to my personal homepage! This site is used to organize academic notes, publish blog posts, and share some experiences.\nThis site is built with Quarto and hosted on GitHub Pages. If you would like to build a similar website, you can refer to the Setup Guide."
   },
   {
-    "objectID": "content/en/index.html#biography",
-    "href": "content/en/index.html#biography",
+    "objectID": "content/en/index.html#latest-news-news",
+    "href": "content/en/index.html#latest-news-news",
     "title": "Perry",
-    "section": "📝 Biography",
-    "text": "📝 Biography\nI am currently pursuing a XX degree/working as a researcher at [University/Institution Name]. My research interests primarily focus on using data-driven methods to solve real-world problems.\nPrior to this, I obtained a XX degree from [Undergraduate/Master’s University].\n\n“Stay hungry, stay foolish.”"
+    "section": "📰 Latest News / News",
+    "text": "📰 Latest News / News\n\n2025-11: 🎉 This personal website based on Quarto is officially live!."
   },
   {
-    "objectID": "content/en/index.html#education",
-    "href": "content/en/index.html#education",
+    "objectID": "content/en/index.html#recent-posts-recent-posts",
+    "href": "content/en/index.html#recent-posts-recent-posts",
     "title": "Perry",
-    "section": "🎓 Education",
-    "text": "🎓 Education\n\nPh.D. in Computer Science | [University Name] | 2025 - Present\nM.S. in Data Science | [University Name] | 2023 - 2025\nB.S. in Mathematics | [University Name] | 2019 - 2023"
+    "section": "Recent Posts / Recent Posts",
+    "text": "Recent Posts / Recent Posts\nHere are my most recently published articles. For more content, please visit the Blog List Page.\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\n\n\nDec 22, 2025\n\n\n\n\n\n\n\nHello, World\n\n\n\n\n\n\n\n\nDec 22, 2025\n\n\n\n\n\n\n\nHow to Configure This Website Template (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\nGitHub Actions\n\n\n\nA detailed guide on how to configure your own personal academic website based on this project template.\n\n\n\n\n\nDec 22, 2025\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "content/en/index.html#research-interests",
-    "href": "content/en/index.html#research-interests",
+    "objectID": "content/en/index.html#notes-notes",
+    "href": "content/en/index.html#notes-notes",
     "title": "Perry",
-    "section": "🔬 Research Interests",
-    "text": "🔬 Research Interests\n\nMachine Learning"
-  },
-  {
-    "objectID": "content/en/index.html#news",
-    "href": "content/en/index.html#news",
-    "title": "Perry",
-    "section": "📰 News",
-    "text": "📰 News\n\n2025-11: 🎉 This personal website based on Quarto is officially live! You can refer to the Setup Guide to build your own academic website.\n2024-03: 📄 Our paper on [Paper Topic] was accepted by [Conference Name].\n2023-12: ✈️ Attended an academic conference held in [Location]."
-  },
-  {
-    "objectID": "content/en/index.html#recent-posts",
-    "href": "content/en/index.html#recent-posts",
-    "title": "Perry",
-    "section": "Recent Posts",
-    "text": "Recent Posts\nThis lists my most recently published articles. For more content, please visit the Blog List Page.\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\n\n\nDec 22, 2025\n\n\n\n\n\n\n\nHello, World\n\n\n\n\n\n\n\n\nDec 22, 2025\n\n\n\n\n\n\n\nHow to Configure This Website Template (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\nGitHub Actions\n\n\n\nA detailed guide on how to configure your own personal academic website based on this project template.\n\n\n\n\n\nDec 22, 2025\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "content/en/index.html#notes",
-    "href": "content/en/index.html#notes",
-    "title": "Perry",
-    "section": "Notes",
-    "text": "Notes\nHere are some of my notes:\n\n\n\n\n\n\n\n\nLinear Algebra Notes\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\n\n\n\n\n\n\n\nCalculus Review\n\n\n\n\n\nNo matching items"
+    "section": "Notes / Notes",
+    "text": "Notes / Notes\nHere are some of my notes. For more content, please visit the Notes List Page.\n\n\n\n\n\n\n\n\n\n\nLinear Algebra Notes\n\n\nA summary of core concepts on vector spaces and eigenvalues.\n\n\n\n\n\nDec 22, 2025\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\n\n\n\n\n\nDec 22, 2025\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\nCalculus Review\n\n\nFundamental theorems of limits, derivatives, and integrals.\n\n\n\n\n\nDec 22, 2025\n\n\nPerry\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Perry",
     "section": "",
-    "text": "GitHub\n  \n  \n    \n     Email\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\n我是 XXX，一名专注于 [具体研究方向，如：应用数学 / 人工智能] 的科研工作者。\n欢迎来到我的个人主页！这里用于整理学术笔记、分享科研成果、发布博客文章，以及记录折腾技术的一点新人经验。\n本站由 Quarto 构建，托管于 GitHub Pages。"
-  },
-  {
-    "objectID": "index.html#个人简介-biography",
-    "href": "index.html#个人简介-biography",
-    "title": "Perry",
-    "section": "📝 个人简介 / Biography",
-    "text": "📝 个人简介 / Biography\n我目前在 [大学/机构名称] 攻读 XX 学位/担任研究员。我的研究兴趣主要集中在利用数据驱动的方法解决现实世界的问题。\n在此之前，我在 [本科/硕士学校] 获得了 XX 学位。\n\n“Stay hungry, stay foolish.”"
-  },
-  {
-    "objectID": "index.html#教育背景-education",
-    "href": "index.html#教育背景-education",
-    "title": "Perry",
-    "section": "🎓 教育背景 / Education",
-    "text": "🎓 教育背景 / Education\n\n博士 / Ph.D. in Computer Science | [大学名称] | 2025 - Present\n硕士 / M.S. in Data Science | [大学名称] | 2023 - 2025\n学士 / B.S. in Mathematics | [大学名称] | 2019 - 2023"
-  },
-  {
-    "objectID": "index.html#研究兴趣-research-interests",
-    "href": "index.html#研究兴趣-research-interests",
-    "title": "Perry",
-    "section": "🔬 研究兴趣 / Research Interests",
-    "text": "🔬 研究兴趣 / Research Interests\n\n机器学习（Machine Learning）"
+    "text": "GitHub\n  \n  \n    \n     Email\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\n欢迎来到我的个人主页！这里用于整理一些学术笔记、发布博客文章，以及一些经验分享。\n本站由 Quarto 构建，托管于 GitHub Pages。如果您也想搭建一个类似的网站，可以参考Setup Guide。"
   },
   {
     "objectID": "index.html#最新动态-news",
     "href": "index.html#最新动态-news",
     "title": "Perry",
     "section": "📰 最新动态 / News",
-    "text": "📰 最新动态 / News\n\n2025-11: 🎉 这个基于 Quarto 的个人网站正式上线了！可以参考Setup Guide 搭建您自己的学术网站。\n2024-03: 📄 我们的一篇关于 [论文主题] 的论文被 [会议名称] 接收。\n2023-12: ✈️ 参加了在 [地点] 举办的学术会议。"
+    "text": "📰 最新动态 / News\n\n2025-11: 🎉 这个基于 Quarto 的个人网站正式上线了！。"
   },
   {
     "objectID": "index.html#最新博客-recent-posts",
@@ -847,28 +805,14 @@
     "href": "index.html#笔记notes",
     "title": "Perry",
     "section": "笔记/Notes",
-    "text": "笔记/Notes\n这里是我的一些笔记：\n\n\n\n\n\n\n\n\n线性代数笔记\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\n\n\n\n\n\n\n\n微积分回顾\n\n\n\n\n\n无匹配项"
+    "text": "笔记/Notes\n这里是我的一些笔记。更多内容请查看 笔记列表页。\n\n\n\n\n\n\n\n\n\n\n线性代数笔记\n\n\n关于向量空间和特征值的核心概念总结。\n\n\n\n\n\n2025年12月22日\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\n\n\n\n\n\n2025年12月22日\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\n微积分回顾\n\n\n极限、导数与积分的基本定理。\n\n\n\n\n\n2025年12月22日\n\n\nPerry\n\n\n\n\n\n无匹配项"
   },
   {
     "objectID": "content/en/cv.html",
     "href": "content/en/cv.html",
     "title": "Curriculum Vitae",
     "section": "",
-    "text": "Personal introduction.\n\n\n\nSchool of Automation, Some University\n\nPh.D. Candidate, Control Science and Engineering (2025 - )\n\nDepartment of Computer Science, Some University\n\nMaster of Science (2023 - 2025)\n\nDepartment of Electronics, Some University\n\nBachelor of Engineering (2019 - 2023)\n\n\n\n\n\n\nMachine Learning"
-  },
-  {
-    "objectID": "content/en/cv.html#education",
-    "href": "content/en/cv.html#education",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "School of Automation, Some University\n\nPh.D. Candidate, Control Science and Engineering (2025 - )\n\nDepartment of Computer Science, Some University\n\nMaster of Science (2023 - 2025)\n\nDepartment of Electronics, Some University\n\nBachelor of Engineering (2019 - 2023)"
-  },
-  {
-    "objectID": "content/en/cv.html#research-interests",
-    "href": "content/en/cv.html#research-interests",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "Machine Learning"
+    "text": "1 Curriculum Vitae\nThis space is reserved for future content."
   },
   {
     "objectID": "content/en/blog/life/hello.html",
@@ -976,21 +920,7 @@
     "href": "content/zh/cv.html",
     "title": "个人简历",
     "section": "",
-    "text": "个人介绍。\n\n\n\n某高校自动化学院\n\n博士研究生，控制科学与工程（2025 - ）\n\n某高校计算机系\n\n理学硕士（2023 - 2025）\n\n某大学电子系\n\n工学学士（2019 - 2023）\n\n\n\n\n\n\n机器学习"
-  },
-  {
-    "objectID": "content/zh/cv.html#教育经历",
-    "href": "content/zh/cv.html#教育经历",
-    "title": "个人简历",
-    "section": "",
-    "text": "某高校自动化学院\n\n博士研究生，控制科学与工程（2025 - ）\n\n某高校计算机系\n\n理学硕士（2023 - 2025）\n\n某大学电子系\n\n工学学士（2019 - 2023）"
-  },
-  {
-    "objectID": "content/zh/cv.html#研究兴趣",
-    "href": "content/zh/cv.html#研究兴趣",
-    "title": "个人简历",
-    "section": "",
-    "text": "机器学习"
+    "text": "1 个人简历\n先占个位置，以后再来填。"
   },
   {
     "objectID": "content/zh/blog/life/hello.html",

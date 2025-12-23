@@ -112,9 +112,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-image','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -396,9 +396,6 @@ window.Quarto = {
    
   <ul>
   <li><a href="#欢迎-welcome" id="toc-欢迎-welcome" class="nav-link active" data-scroll-target="#欢迎-welcome">👋 欢迎 / Welcome</a></li>
-  <li><a href="#个人简介-biography" id="toc-个人简介-biography" class="nav-link" data-scroll-target="#个人简介-biography">📝 个人简介 / Biography</a></li>
-  <li><a href="#教育背景-education" id="toc-教育背景-education" class="nav-link" data-scroll-target="#教育背景-education">🎓 教育背景 / Education</a></li>
-  <li><a href="#研究兴趣-research-interests" id="toc-研究兴趣-research-interests" class="nav-link" data-scroll-target="#研究兴趣-research-interests">🔬 研究兴趣 / Research Interests</a></li>
   <li><a href="#最新动态-news" id="toc-最新动态-news" class="nav-link" data-scroll-target="#最新动态-news">📰 最新动态 / News</a></li>
   <li><a href="#最新博客-recent-posts" id="toc-最新博客-recent-posts" class="nav-link" data-scroll-target="#最新博客-recent-posts">最新博客 / Recent Posts</a></li>
   <li><a href="#笔记notes" id="toc-笔记notes" class="nav-link" data-scroll-target="#笔记notes">笔记/Notes</a></li>
@@ -442,44 +439,18 @@ window.Quarto = {
   <div class="about-contents"><div id="hero-heading">
 <section id="欢迎-welcome" class="level3">
 <h3 data-anchor-id="欢迎-welcome">👋 欢迎 / Welcome</h3>
-<p>我是 <strong>XXX</strong>，一名专注于 <strong>[具体研究方向，如：应用数学 / 人工智能]</strong> 的科研工作者。</p>
-<p>欢迎来到我的个人主页！这里用于整理学术笔记、分享科研成果、发布博客文章，以及记录折腾技术的一点新人经验。</p>
-<p>本站由 <strong>Quarto</strong> 构建，托管于 GitHub Pages。</p>
+<p>欢迎来到我的个人主页！这里用于整理一些学术笔记、发布博客文章，以及一些经验分享。</p>
+<p>本站由 <strong>Quarto</strong> 构建，托管于 GitHub Pages。如果您也想搭建一个类似的网站，可以参考<a href="https://perryopytixz.github.io/content/zh/blog/setup-guide.html">Setup Guide</a>。</p>
 </section>
 </div></div>
 </div>
 
 <!-- 主内容区 (Main Content) - 这里开始写详细内容-->
-<section id="个人简介-biography" class="level2">
-<h2 data-anchor-id="个人简介-biography">📝 个人简介 / Biography</h2>
-<p>我目前在 <strong>[大学/机构名称]</strong> 攻读 XX 学位/担任研究员。我的研究兴趣主要集中在利用数据驱动的方法解决现实世界的问题。</p>
-<p>在此之前，我在 <strong>[本科/硕士学校]</strong> 获得了 XX 学位。</p>
-<blockquote class="blockquote">
-<p>“Stay hungry, stay foolish.”</p>
-</blockquote>
-</section>
-<section id="教育背景-education" class="level2">
-<h2 data-anchor-id="教育背景-education">🎓 教育背景 / Education</h2>
-<ul>
-<li><strong>博士 / Ph.D.&nbsp;in Computer Science</strong> | [大学名称] | <em>2025 - Present</em></li>
-<li><strong>硕士 / M.S. in Data Science</strong> | [大学名称] | <em>2023 - 2025</em></li>
-<li><strong>学士 / B.S. in Mathematics</strong> | [大学名称] | <em>2019 - 2023</em></li>
-</ul>
-</section>
-<section id="研究兴趣-research-interests" class="level2">
-<h2 data-anchor-id="研究兴趣-research-interests">🔬 研究兴趣 / Research Interests</h2>
-<ul>
-<li><strong>机器学习</strong>（Machine Learning）</li>
-</ul>
-</section>
 <section id="最新动态-news" class="level2">
 <h2 data-anchor-id="最新动态-news">📰 最新动态 / News</h2>
 <ul>
-<li><strong>2025-11</strong>: 🎉 这个基于 Quarto 的个人网站正式上线了！可以参考<a href="https://perryopytixz.github.io/content/zh/blog/setup-guide.html">Setup Guide</a> 搭建您自己的学术网站。</li>
-<li><strong>2024-03</strong>: 📄 我们的一篇关于 [论文主题] 的论文被 [会议名称] 接收。</li>
-<li><strong>2023-12</strong>: ✈️ 参加了在 [地点] 举办的学术会议。</li>
+<li><h2 id="这个基于-quarto-的个人网站正式上线了"><strong>2025-11</strong>: 🎉 这个基于 Quarto 的个人网站正式上线了！。</h2></li>
 </ul>
-<hr>
 </section>
 <section id="最新博客-recent-posts" class="level2">
 <h2 data-anchor-id="最新博客-recent-posts">最新博客 / Recent Posts</h2>
@@ -556,41 +527,83 @@ window.Quarto = {
 </section>
 <section id="笔记notes" class="level2">
 <h2 data-anchor-id="笔记notes">笔记/Notes</h2>
-<p>这里是我的一些笔记：</p>
-<div id="listing-notes-listings" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="TWF0aCUyQ0xpbmVhciUyMEFsZ2VicmE=" data-listing-date-sort="1766404751000" data-listing-file-modified-sort="1766404751000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="36">
-<a href="./content/zh/notes/linear-algebra.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-线性代数笔记
-</h5>
+<p>这里是我的一些笔记。更多内容请查看 <a href="./content/zh/notes/index.html">笔记列表页</a>。</p>
+<div id="listing-notes-listings" class="quarto-listing quarto-listing-container-default">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="TWF0aCUyQ0xpbmVhciUyMEFsZ2VicmE=" data-listing-date-sort="1766404751000" data-listing-file-modified-sort="1766404751000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="36">
+<div class="thumbnail"><a href="./content/zh/notes/linear-algebra.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/zh/notes/linear-algebra.html" class="no-external">线性代数笔记</a>
+</h3>
+<div class="delink listing-description"><a href="./content/zh/notes/linear-algebra.html" class="no-external">
+<p>关于向量空间和特征值的核心概念总结。</p>
+</a></div>
 </div>
-</div></a>
+<div class="metadata">
+<a href="./content/zh/notes/linear-algebra.html" class="no-external">
+<div class="listing-date">
+2025年12月22日
 </div>
-<div class="g-col-1" data-index="1" data-listing-date-sort="1766404751000" data-listing-file-modified-sort="1766404751000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<a href="./content/zh/notes/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Notes
-</h5>
+<div class="listing-author">
+Perry
 </div>
-</div></a>
+</a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="TWF0aCUyQ0NhbGN1bHVz" data-listing-date-sort="1766404751000" data-listing-file-modified-sort="1766404751000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="36">
-<a href="./content/zh/notes/calculus.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-微积分回顾
-</h5>
 </div>
-</div></a>
+<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1766404751000" data-listing-file-modified-sort="1766404751000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail"><a href="./content/zh/notes/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/zh/notes/index.html" class="no-external">Notes</a>
+</h3>
+<div class="delink listing-description"><a href="./content/zh/notes/index.html" class="no-external">
+这里是一些笔记内容。
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/zh/notes/index.html" class="no-external">
+<div class="listing-date">
+2025年12月22日
+</div>
+<div class="listing-author">
+Perry
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="TWF0aCUyQ0NhbGN1bHVz" data-listing-date-sort="1766404751000" data-listing-file-modified-sort="1766404751000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="36">
+<div class="thumbnail"><a href="./content/zh/notes/calculus.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./content/zh/notes/calculus.html" class="no-external">微积分回顾</a>
+</h3>
+<div class="delink listing-description"><a href="./content/zh/notes/calculus.html" class="no-external">
+<p>极限、导数与积分的基本定理。</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./content/zh/notes/calculus.html" class="no-external">
+<div class="listing-date">
+2025年12月22日
+</div>
+<div class="listing-author">
+Perry
+</div>
+</a>
+</div>
 </div>
 </div>
 <div class="listing-no-matching d-none">无匹配项</div>

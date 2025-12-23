@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Perry">
-<meta name="dcterms.date" content="2025-12-22">
+<meta name="dcterms.date" content="2025-12-23">
 
 <title>Perry – Perry’s Page</title>
 <style>
@@ -114,9 +114,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-image','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -398,12 +398,9 @@ window.Quarto = {
    
   <ul>
   <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">👋 Welcome</a></li>
-  <li><a href="#biography" id="toc-biography" class="nav-link" data-scroll-target="#biography">📝 Biography</a></li>
-  <li><a href="#education" id="toc-education" class="nav-link" data-scroll-target="#education">🎓 Education</a></li>
-  <li><a href="#research-interests" id="toc-research-interests" class="nav-link" data-scroll-target="#research-interests">🔬 Research Interests</a></li>
-  <li><a href="#news" id="toc-news" class="nav-link" data-scroll-target="#news">📰 News</a></li>
-  <li><a href="#recent-posts" id="toc-recent-posts" class="nav-link" data-scroll-target="#recent-posts">Recent Posts</a></li>
-  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#latest-news-news" id="toc-latest-news-news" class="nav-link" data-scroll-target="#latest-news-news">📰 Latest News / News</a></li>
+  <li><a href="#recent-posts-recent-posts" id="toc-recent-posts-recent-posts" class="nav-link" data-scroll-target="#recent-posts-recent-posts">Recent Posts / Recent Posts</a></li>
+  <li><a href="#notes-notes" id="toc-notes-notes" class="nav-link" data-scroll-target="#notes-notes">Notes / Notes</a></li>
   </ul>
 </nav>
     </div>
@@ -433,7 +430,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 22, 2025</p>
+      <p class="date">December 23, 2025</p>
     </div>
   </div>
   </div>
@@ -456,48 +453,22 @@ window.Quarto = {
   <div class="about-contents"><div id="hero-heading">
 <section id="welcome" class="level3">
 <h3 data-anchor-id="welcome">👋 Welcome</h3>
-<p>I am <strong>XXX</strong>, a researcher focused on <strong>[Specific research area, e.g., Applied Mathematics / Artificial Intelligence]</strong>.</p>
-<p>Welcome to my personal homepage! This site is used to organize academic notes, share research findings, publish blog posts, and document some beginner experiences with tinkering with technology.</p>
-<p>This site is built with <strong>Quarto</strong> and hosted on GitHub Pages.</p>
+<p>Welcome to my personal homepage! This site is used to organize academic notes, publish blog posts, and share some experiences.</p>
+<p>This site is built with <strong>Quarto</strong> and hosted on GitHub Pages. If you would like to build a similar website, you can refer to the <a href="https://perryopytixz.github.io/content/en/blog/setup-guide.html">Setup Guide</a>.</p>
 </section>
 </div></div>
 </div>
 
 <!-- Main Content Area - Detailed content starts here -->
-<section id="biography" class="level2">
-<h2 data-anchor-id="biography">📝 Biography</h2>
-<p>I am currently pursuing a XX degree/working as a researcher at <strong>[University/Institution Name]</strong>. My research interests primarily focus on using data-driven methods to solve real-world problems.</p>
-<p>Prior to this, I obtained a XX degree from <strong>[Undergraduate/Master’s University]</strong>.</p>
-<blockquote class="blockquote">
-<p>“Stay hungry, stay foolish.”</p>
-</blockquote>
-</section>
-<section id="education" class="level2">
-<h2 data-anchor-id="education">🎓 Education</h2>
+<section id="latest-news-news" class="level2">
+<h2 data-anchor-id="latest-news-news">📰 Latest News / News</h2>
 <ul>
-<li><strong>Ph.D.&nbsp;in Computer Science</strong> | [University Name] | <em>2025 - Present</em></li>
-<li><strong>M.S. in Data Science</strong> | [University Name] | <em>2023 - 2025</em></li>
-<li><strong>B.S. in Mathematics</strong> | [University Name] | <em>2019 - 2023</em></li>
+<li><h2 id="this-personal-website-based-on-quarto-is-officially-live."><strong>2025-11</strong>: 🎉 This personal website based on Quarto is officially live!.</h2></li>
 </ul>
 </section>
-<section id="research-interests" class="level2">
-<h2 data-anchor-id="research-interests">🔬 Research Interests</h2>
-<ul>
-<li><strong>Machine Learning</strong></li>
-</ul>
-</section>
-<section id="news" class="level2">
-<h2 data-anchor-id="news">📰 News</h2>
-<ul>
-<li><strong>2025-11</strong>: 🎉 This personal website based on Quarto is officially live! You can refer to the <a href="https://perryopytixz.github.io/content/en/blog/setup-guide.html">Setup Guide</a> to build your own academic website.</li>
-<li><strong>2024-03</strong>: 📄 Our paper on [Paper Topic] was accepted by [Conference Name].</li>
-<li><strong>2023-12</strong>: ✈️ Attended an academic conference held in [Location].</li>
-</ul>
-<hr>
-</section>
-<section id="recent-posts" class="level2">
-<h2 data-anchor-id="recent-posts">Recent Posts</h2>
-<p>This lists my most recently published articles. For more content, please visit the <a href="../../content/en/blog/index.html">Blog List Page</a>.</p>
+<section id="recent-posts-recent-posts" class="level2">
+<h2 data-anchor-id="recent-posts-recent-posts">Recent Posts / Recent Posts</h2>
+<p>Here are my most recently published articles. For more content, please visit the <a href="../../content/en/blog/index.html">Blog List Page</a>.</p>
 <!--
   The Div below will be automatically populated by the listing configuration in the YAML.
   Note: You need to ensure there is a 'posts' folder in your project root directory containing .qmd articles.
@@ -568,49 +539,91 @@ Dec 22, 2025
 <div class="listing-no-matching d-none">No matching items</div>
 </div>
 </section>
-<section id="notes" class="level2">
-<h2 data-anchor-id="notes">Notes</h2>
-<p>Here are some of my notes:</p>
-<div id="listing-notes-listings" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="TWF0aCUyQ0xpbmVhciUyMEFsZ2VicmE=" data-listing-date-sort="1766404751000" data-listing-file-modified-sort="1766404751000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="96">
-<a href="../../content/en/notes/linear-algebra.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Linear Algebra Notes
-</h5>
+<section id="notes-notes" class="level2">
+<h2 data-anchor-id="notes-notes">Notes / Notes</h2>
+<p>Here are some of my notes. For more content, please visit the <a href="../../content/en/notes/index.html">Notes List Page</a>.</p>
+<div id="listing-notes-listings" class="quarto-listing quarto-listing-container-default">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="TWF0aCUyQ0xpbmVhciUyMEFsZ2VicmE=" data-listing-date-sort="1766404751000" data-listing-file-modified-sort="1766404751000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="96">
+<div class="thumbnail"><a href="../../content/en/notes/linear-algebra.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../content/en/notes/linear-algebra.html" class="no-external">Linear Algebra Notes</a>
+</h3>
+<div class="delink listing-description"><a href="../../content/en/notes/linear-algebra.html" class="no-external">
+<p>A summary of core concepts on vector spaces and eigenvalues.</p>
+</a></div>
 </div>
-</div></a>
+<div class="metadata">
+<a href="../../content/en/notes/linear-algebra.html" class="no-external">
+<div class="listing-date">
+Dec 22, 2025
 </div>
-<div class="g-col-1" data-index="1" data-listing-date-sort="1766404751000" data-listing-file-modified-sort="1766404751000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="15">
-<a href="../../content/en/notes/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Notes
-</h5>
+<div class="listing-author">
+Perry
 </div>
-</div></a>
+</a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="TWF0aCUyQ0NhbGN1bHVz" data-listing-date-sort="1766404751000" data-listing-file-modified-sort="1766404751000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="62">
-<a href="../../content/en/notes/calculus.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Calculus Review
-</h5>
 </div>
-</div></a>
+<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1766404751000" data-listing-file-modified-sort="1766404751000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="15">
+<div class="thumbnail"><a href="../../content/en/notes/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../content/en/notes/index.html" class="no-external">Notes</a>
+</h3>
+<div class="delink listing-description"><a href="../../content/en/notes/index.html" class="no-external">
+Here are some notes.
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../content/en/notes/index.html" class="no-external">
+<div class="listing-date">
+Dec 22, 2025
+</div>
+<div class="listing-author">
+Perry
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="TWF0aCUyQ0NhbGN1bHVz" data-listing-date-sort="1766404751000" data-listing-file-modified-sort="1766404751000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="62">
+<div class="thumbnail"><a href="../../content/en/notes/calculus.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../content/en/notes/calculus.html" class="no-external">Calculus Review</a>
+</h3>
+<div class="delink listing-description"><a href="../../content/en/notes/calculus.html" class="no-external">
+<p>Fundamental theorems of limits, derivatives, and integrals.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../content/en/notes/calculus.html" class="no-external">
+<div class="listing-date">
+Dec 22, 2025
+</div>
+<div class="listing-author">
+Perry
+</div>
+</a>
+</div>
 </div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div>
 <!-- Auto-generated by DeepSeek. DO NOT EDIT. -->
-<!-- Source Hash: a6ef23cbcadc19bb443933f52cfbffb6 -->
+<!-- Source Hash: f5d3f2d6f90c3cbee428e2d5124345c5 -->
 
 
 
