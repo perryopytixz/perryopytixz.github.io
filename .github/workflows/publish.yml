@@ -31,38 +31,21 @@ jobs:
             fi
           done
 
+      # 开启 pip 缓存
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-          cache: 'pip' # 开启 pip 缓存
+          cache: 'pip'
 
       - name: Install Dependencies
         run: pip install -r requirements.txt
 
-      # 1. 尝试从缓存中恢复 TinyTeX (生成 PDF 需要)
-      # 这样可以避免每次都下载LaTeX 引擎
-      - name: Cache TinyTeX
-        uses: actions/cache@v4
-        id: cache-tinytex
-        with:
-          path: ~/.TinyTeX
-          key: tinytex-${{ runner.os }}-v1
-
-      # 2. 安装 Quarto (注意：tinytex 设为 false，由我们手动控制缓存)
+      # TinyTeX 相关内容已取消，改为手动上传PDF文件
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
           tinytex: false 
-
-      # 3. 如果没命中缓存，则安装 TinyTeX
-      - name: Install TinyTeX (if not cached)
-        if: steps.cache-tinytex.outputs.cache-hit != 'true'
-        run: quarto install tinytex --update-path --quiet
-
-      # 4. 确保系统能找到 TinyTeX 的二进制文件
-      - name: Add TinyTeX to PATH
-        run: echo "$HOME/.TinyTeX/bin/x86_64-linux" >> $GITHUB_PATH
 
       # 运行 DeepSeek 翻译
       - name: Run DeepSeek Sync
@@ -70,35 +53,36 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/sync_deepseek.py
 
-      # 显式渲染
-      # 在 Actions 环境中生成 _freeze 缓存，从而实现增量编译
+      # 渲染网站
       - name: Render Site
         run: quarto render
 
-      # 提交翻译结果，这样可以拉取最新的翻译结果到本地
-      # 增加了检查逻辑，防止因为没有 _freeze 文件夹而报错
-      - name: Commit Translated Files and Freeze Cache
+      # 提交逻辑
+      # 同时保存翻译结果(content) 和 计算缓存(_freeze)
+      - name: Commit Changes
         run: |
           git config --global user.name 'DeepSeek Bot'
           git config --global user.email 'bot@deepseek.com'
           
-          # 安全地添加目录：如果目录存在，才进行 git add
+          # 安全添加：先检查文件夹是否存在，避免报错
           [ -d "content" ] && git add content/
           [ -d "_freeze" ] && git add _freeze/
           
-          # 检查是否有变动需要提交
+          # 只有检测到变动才提交，防止死循环
           if ! git diff --quiet || ! git diff --staged --quiet; then
-            git commit -m "Auto-translation & Update Freeze Cache [skip ci]"
+            git commit -m "Auto: Update content & cache [skip ci]"
             git push
           else
             echo "No changes to commit"
           fi
 
-      # 发布
-      - name: Render and Publish
+      # 直接发布
+      # render: false 直接发布上面生成的 _site
+      - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
-          render: false
+          render: false 
+          path: _site
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
