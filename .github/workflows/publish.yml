@@ -21,7 +21,6 @@ jobs:
           fetch-depth: 0  # 获取完整历史，用于恢复文件时间戳
 
       # 根据 Git 提交历史恢复文件的修改时间
-      # 这样 date: last-modified 就能正确显示文件的真实最后修改时间
       - name: Restore file timestamps
         run: |
           git ls-files -z | while IFS= read -r -d '' file; do
@@ -35,14 +34,35 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
+          cache: 'pip' # 优化：开启 pip 缓存
 
       - name: Install Dependencies
         run: pip install -r requirements.txt
 
+      # 尝试从缓存中恢复 TinyTeX
+      # 这样可以避免每次都下载LaTeX 引擎
+      - name: Cache TinyTeX
+        uses: actions/cache@v4
+        id: cache-tinytex
+        with:
+          path: ~/.TinyTeX
+          key: tinytex-${{ runner.os }}-v1
+
+      # 安装 Quarto (注意：tinytex 设为 false，由我们手动控制缓存)
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          tinytex: true # 安装 TinyTeX 以支持 PDF 生成
+          tinytex: false 
+
+      # 如果没命中缓存，则安装 TinyTeX
+      - name: Install TinyTeX (if not cached)
+        if: steps.cache-tinytex.outputs.cache-hit != 'true'
+        run: quarto install tinytex --update-path --quiet
+
+      # 将 TinyTeX 的二进制路径加入系统环境，确保 Quarto 能找到它生成 PDF
+      # 对于 Ubuntu 系统，路径通常如下：
+      - name: Add TinyTeX to PATH
+        run: echo "$HOME/.TinyTeX/bin/x86_64-linux" >> $GITHUB_PATH
 
       # 运行 DeepSeek 翻译
       - name: Run DeepSeek Sync
@@ -50,21 +70,26 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/sync_deepseek.py
 
-      # 提交翻译结果，这样可以拉取最新的翻译结果到本地
-      - name: Commit Translated Files
+      # 显式渲染
+      # 此时 Quarto 会根据 geometry/papersize 等参数调用 TinyTeX 生成 PDF
+      - name: Render Site (Build HTML & PDF)
+        run: quarto render
+
+      # 提交翻译结果和缓存
+      - name: Commit Translated Files and Freeze Cache
         run: |
           git config --global user.name 'DeepSeek Bot'
           git config --global user.email 'bot@deepseek.com'
-          git add content/
-          # 如果有变动，提交并加上 [skip ci] 避免死循环
+          git add content/ _freeze/
           git diff --quiet && git diff --staged --quiet || \
-          git commit -m "Auto-translation by DeepSeek [skip ci]" && \
+          git commit -m "Auto-translation & Update Freeze Cache [skip ci]" && \
           git push
 
-      # 编译并发布
+      # 发布到 GitHub Pages
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
+          render: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
