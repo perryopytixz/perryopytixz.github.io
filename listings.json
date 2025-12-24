@@ -1,12 +1,21 @@
 [
   {
     "listing": "/content/zh/publications/index.html",
-    "items": []
+    "items": [
+      "/content/zh/publications/example.html"
+    ]
   },
   {
-    "listing": "/content/en/notes/index.html",
+    "listing": "/content/zh/blog/index.html",
     "items": [
-      "/content/en/notes/mini-batch-SGD.html"
+      "/content/zh/blog/life/hello.html",
+      "/content/zh/blog/setup-guide.html"
+    ]
+  },
+  {
+    "listing": "/content/en/publications/index.html",
+    "items": [
+      "/content/en/publications/example.html"
     ]
   },
   {
@@ -37,17 +46,9 @@
     ]
   },
   {
-    "listing": "/content/en/publications/index.html",
+    "listing": "/content/en/notes/index.html",
     "items": [
-      "/content/en/publications/paper2.html",
-      "/content/en/publications/paper1.html"
-    ]
-  },
-  {
-    "listing": "/content/zh/blog/index.html",
-    "items": [
-      "/content/zh/blog/life/hello.html",
-      "/content/zh/blog/setup-guide.html"
+      "/content/en/notes/mini-batch-SGD.html"
     ]
   },
   {
