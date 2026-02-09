@@ -134,6 +134,14 @@ def convert_tex_to_qmd(tex_file_path, lang='zh'):
                 clean = 'eq-' + clean
         return clean
 
+    def clean_figure_id(label):
+        clean = label.strip().replace(':', '-')
+        if clean.startswith('fig-'):
+            return clean
+        if clean.startswith('fig') and len(clean) > 3 and clean[3] in ['-', '_']:
+            return 'fig-' + clean[4:]
+        return f'fig-{clean}'
+
     # A. 修复公式块中的 label
     # Pandoc 输出: $$ \label{eq:foo} ... $$
     # 目标: $$ ... $$ {#eq-foo}
@@ -302,7 +310,7 @@ def convert_tex_to_qmd(tex_file_path, lang='zh'):
             width_percent = int(width_val * 100)
             width_str = f'{{width="{width_percent}%"}}'
         
-        return f'![]{{{path}}}{width_str}'
+        return f'![]({path}){width_str}'
     
     # 匹配 \includegraphics[...]{...} 或 \includegraphics{...}
     md_output = re.sub(
@@ -327,26 +335,35 @@ def convert_tex_to_qmd(tex_file_path, lang='zh'):
         label = ""
         if label_match:
             raw_label = label_match.group(1)
-            clean = raw_label.replace(':', '-')
-            if not clean.startswith('fig-'):
-                if clean.startswith('fig'):
-                    clean = f'fig-{clean[3:]}'
-                else:
-                    clean = f'fig-{clean}'
-            label = clean
+            label = clean_figure_id(raw_label)
         
         # 提取图片（已经转换过的 ![](path) 格式）
-        img_match = re.search(r'!\[\]\(([^)]+)\)(\{[^}]*\})?', content)
+        img_match = re.search(r'!\[([^\]]*)\]\(([^)]+)\)(\{[^}]*\})?', content)
         if img_match:
-            img_path = img_match.group(1)
-            img_opts = img_match.group(2) or ""
-            
+            img_alt = img_match.group(1)
+            img_path = img_match.group(2)
+            img_opts = img_match.group(3) or ""
+
+            # 若图片本身已有 ID，做兼容兜底
+            inline_label_match = re.search(r'#([^\s}]+)', img_opts)
+            if inline_label_match and not label:
+                label = clean_figure_id(inline_label_match.group(1))
+
+            # 清理已有 ID，避免重复
+            opts_inner = img_opts.strip()[1:-1].strip() if img_opts else ""
+            if opts_inner:
+                opts_inner = re.sub(r'#\S+', '', opts_inner).strip()
+
             # 构建 Quarto 图片格式
-            label_str = f'{{#fig-{label}}}' if label else ""
-            if caption:
-                return f'![{caption}]({img_path}){label_str}'
-            else:
-                return f'![]({img_path}){label_str}'
+            attr_parts = []
+            if label:
+                attr_parts.append(f'#{label}')
+            if opts_inner:
+                attr_parts.append(opts_inner)
+
+            attr_str = f'{{{" ".join(attr_parts)}}}' if attr_parts else ""
+            alt_text = caption if caption else img_alt
+            return f'![{alt_text}]({img_path}){attr_str}'
         
         # 如果没找到图片，返回原内容
         return content
@@ -358,7 +375,21 @@ def convert_tex_to_qmd(tex_file_path, lang='zh'):
         flags=re.DOTALL
     )
 
-    # I. 移除第一个标题 (如果它和 YAML title 重复)
+    # I. 修复 Pandoc 的图编号写法（fig:foo -> fig-foo）
+    md_output = re.sub(
+        r'\{#fig:([^\s}]+)',
+        lambda m: '{#' + clean_figure_id('fig:' + m.group(1)),
+        md_output
+    )
+
+    # J. 将 Pandoc 生成的图引用链接统一为 Quarto 交叉引用语法
+    md_output = re.sub(
+        r'\[[^\]]*\]\(#(fig[:\-][^)]+)\)\{[^}]*reference-type="[^"]+"[^}]*\}',
+        lambda m: f'@{clean_figure_id(m.group(1))}',
+        md_output
+    )
+
+    # K. 移除第一个标题 (如果它和 YAML title 重复)
     # 简单的启发式：如果第一行是 # Title，且 Title 与 YAML title 相似，则移除
     lines = md_output.lstrip().split('\n')
     if lines and lines[0].startswith('# '):

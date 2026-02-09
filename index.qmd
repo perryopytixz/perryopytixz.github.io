@@ -33,9 +33,9 @@ about:
     - icon: github
       text: GitHub
       href: https://github.com/perryopytixz
-    - icon: envelope
-      text: Email
-      href: "mailto:your-email@example.com"
+    - icon: chat-dots
+      text: Contact
+      href: https://github.com/perryopytixz/perryopytixz.github.io/issues
     - icon: google
       text: Google Scholar
       href: https://scholar.google.com/
