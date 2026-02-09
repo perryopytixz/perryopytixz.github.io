@@ -396,21 +396,21 @@
     "href": "content/en/index.html",
     "title": "Perry",
     "section": "",
-    "text": "GitHub\n  \n  \n    \n     Email\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\nWelcome to my personal homepage! This site is used to organize academic notes, publish blog posts, and share some experiences.\nThis site is built with Quarto and hosted on GitHub Pages. If you would like to build a similar website, you can refer to the Setup Guide."
+    "text": "GitHub\n  \n  \n    \n     Contact\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\nWelcome to my personal homepage! This site is used to organize academic notes, publish blog posts, and share some experiences.\nThis site is built with Quarto and hosted on GitHub Pages. If you would like to build a similar website, you can refer to the Setup Guide."
   },
   {
     "objectID": "content/en/index.html#latest-news-news",
     "href": "content/en/index.html#latest-news-news",
     "title": "Perry",
     "section": "📰 Latest News / News",
-    "text": "📰 Latest News / News\n\n2025-12: 🎉 This personal website based on Quarto is officially live!."
+    "text": "📰 Latest News / News\n\n2025-12: 🎉 This personal website based on Quarto is officially live!"
   },
   {
-    "objectID": "content/en/index.html#recent-posts-recent-posts",
-    "href": "content/en/index.html#recent-posts-recent-posts",
+    "objectID": "content/en/index.html#recent-blog-posts-recent-posts",
+    "href": "content/en/index.html#recent-blog-posts-recent-posts",
     "title": "Perry",
-    "section": "Recent Posts / Recent Posts",
-    "text": "Recent Posts / Recent Posts\nThis section lists my most recently published articles. For more content, please visit the Blog List Page.\n\n\n\n\n\n\nHello, World\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\n\n\nHow to Configure This Website Template (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\nA detailed guide on how to configure your own personal academic website based on this project template.\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\nNo matching items"
+    "section": "Recent Blog Posts / Recent Posts",
+    "text": "Recent Blog Posts / Recent Posts\nHere are my most recently published articles. For more content, please visit the Blog List Page.\n\n\n\n\n\n\nHello, World\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\n\n\nHow to Configure This Website Template (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\nA detailed guide on how to configure your own personal academic website based on this project template.\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "content/en/index.html#notes-notes",
@@ -424,7 +424,7 @@
     "href": "index.html",
     "title": "Perry",
     "section": "",
-    "text": "GitHub\n  \n  \n    \n     Email\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\n欢迎来到我的个人主页！这里用于整理一些学术笔记、发布博客文章，以及一些经验分享。\n本站由 Quarto 构建，托管于 GitHub Pages。如果您也想搭建一个类似的网站，可以参考Setup Guide。"
+    "text": "GitHub\n  \n  \n    \n     Contact\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\n欢迎来到我的个人主页！这里用于整理一些学术笔记、发布博客文章，以及一些经验分享。\n本站由 Quarto 构建，托管于 GitHub Pages。如果您也想搭建一个类似的网站，可以参考Setup Guide。"
   },
   {
     "objectID": "index.html#最新动态-news",
