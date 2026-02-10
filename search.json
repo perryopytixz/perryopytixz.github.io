@@ -396,35 +396,35 @@
     "href": "content/en/index.html",
     "title": "Perry",
     "section": "",
-    "text": "GitHub\n  \n  \n    \n     Contact\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\nWelcome to my academic homepage. Here, I primarily share:\n\nAcademic notes and methodological derivations\nThoughts on machine learning and optimization\nBlog posts and website-building experiences\n\n\nResearch Keywords: Optimization / Machine Learning / Deep Learning\n\nView CV View Publications"
+    "text": "GitHub\n  \n  \n    \n     Contact\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\nWelcome to my academic homepage. Here, I primarily share:\n\nAcademic notes and methodological derivations\nThoughts related to machine learning and optimization\nOther content related to research\n\n\nResearch Keywords: Optimization / Machine Learning / Deep Learning\n\nView CV View Publications"
   },
   {
     "objectID": "content/en/index.html#homepage-guide",
     "href": "content/en/index.html#homepage-guide",
     "title": "Perry",
     "section": "Homepage Guide",
-    "text": "Homepage Guide\n\n\n\n\n\n\n\n\nTipBlog\n\n\n\nDocumenting the learning process, project experiences, and tool insights.\nGo to Blog\n\n\n\n\n\n\n\n\n\nNoteNotes\n\n\n\nOrganizing knowledge points, formulas, and proofs from courses and research.\nGo to Notes\n\n\n\n\n\n\n\n\n\nImportantPublications\n\n\n\nCollecting papers, preprints, and related academic outputs.\nGo to Publications"
+    "text": "Homepage Guide\n\n\n\n\n\n\n\n\nTipBlog\n\n\n\nRecords of the learning process, project experiences, and tool insights.\nGo to Blog\n\n\n\n\n\n\n\n\n\nNoteNotes\n\n\n\nOrganizing knowledge points, formulas, and proofs from courses and research.\nGo to Notes\n\n\n\n\n\n\n\n\n\nImportantPublications\n\n\n\nA collection of papers, preprints, and related academic outputs.\nGo to Publications"
   },
   {
     "objectID": "content/en/index.html#latest-updates",
     "href": "content/en/index.html#latest-updates",
     "title": "Perry",
     "section": "Latest Updates",
-    "text": "Latest Updates\n\n2025-12: Personal website officially launched, starting continuous updates on learning and research content."
+    "text": "Latest Updates\n\n2025-12: Personal website officially launched, beginning continuous updates on learning and research content."
   },
   {
     "objectID": "content/en/index.html#latest-blog-posts",
     "href": "content/en/index.html#latest-blog-posts",
     "title": "Perry",
     "section": "Latest Blog Posts",
-    "text": "Latest Blog Posts\nThe most recently published blog posts are below. For more content, please visit the Blog Archive.\n\n\n\n\n\nNo matching items"
+    "text": "Latest Blog Posts\nThe most recently published blog posts are listed below. For more content, please visit the Blog Archive.\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "content/en/index.html#latest-notes",
     "href": "content/en/index.html#latest-notes",
     "title": "Perry",
     "section": "Latest Notes",
-    "text": "Latest Notes\nThe most recently updated notes are below. For more content, please visit the Notes Archive.\n\n\n\n\n\nNo matching items"
+    "text": "Latest Notes\nThe most recently updated notes are listed below. For more content, please visit the Notes Archive.\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n\n\n\n\nHello, I’m Perry\nWelcome to my academic homepage. Here, I primarily share:\n\nAcademic notes and methodological derivations\nThoughts related to machine learning and optimization\nOther content related to research\n\n\nResearch Keywords: Optimization / Machine Learning / Deep Learning\n\nView CV View Publications"
   },
   {
     "objectID": "index.html",
@@ -516,5 +516,33 @@
     "title": "Notes",
     "section": "",
     "text": "这里是笔记归档页。\n\n\n\n\n\n\n   \n    \n    \n      排序方式\n      默认\n      \n        日期 - 日期升序\n      \n      \n        日期 - 日期降序\n      \n      \n        标题\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n日期\n\n\n\n标题\n\n\n\n分类\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\n随机梯度下降初步\n\n\nMath, Optimization, Machine-Learning\n\n\n\n\n\n\n无匹配项"
+  },
+  {
+    "objectID": "content/en/index.html#homepage-guide-1",
+    "href": "content/en/index.html#homepage-guide-1",
+    "title": "Perry",
+    "section": "Homepage Guide",
+    "text": "Homepage Guide\n\n\n\n\n\n\n\n\nTipBlog\n\n\n\nRecords of the learning process, project experiences, and tool insights.\nGo to Blog\n\n\n\n\n\n\n\n\n\nNoteNotes\n\n\n\nOrganizing knowledge points, formulas, and proofs from courses and research.\nGo to Notes\n\n\n\n\n\n\n\n\n\nImportantPublications\n\n\n\nA collection of papers, preprints, and related academic outputs.\nGo to Publications"
+  },
+  {
+    "objectID": "content/en/index.html#latest-updates-1",
+    "href": "content/en/index.html#latest-updates-1",
+    "title": "Perry",
+    "section": "Latest Updates",
+    "text": "Latest Updates\n\n2025-12: Personal website officially launched, beginning continuous updates on learning and research content."
+  },
+  {
+    "objectID": "content/en/index.html#latest-blog-posts-1",
+    "href": "content/en/index.html#latest-blog-posts-1",
+    "title": "Perry",
+    "section": "Latest Blog Posts",
+    "text": "Latest Blog Posts\nThe most recently published blog posts are listed below. For more content, please visit the Blog Archive."
+  },
+  {
+    "objectID": "content/en/index.html#latest-notes-1",
+    "href": "content/en/index.html#latest-notes-1",
+    "title": "Perry",
+    "section": "Latest Notes",
+    "text": "Latest Notes\nThe most recently updated notes are listed below. For more content, please visit the Notes Archive."
   }
 ]
