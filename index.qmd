@@ -57,7 +57,7 @@ number-sections: false
 
 欢迎来到我的个人主页！这里用于整理一些学术笔记、发布博客文章，以及一些经验分享。
 
-本站由 **Quarto** 构建，托管于 GitHub Pages。如果您也想搭建一个类似的网站，可以参考[Setup Guide](https://perryopytixz.github.io/content/zh/blog/setup-guide.html)。
+本站由 **Quarto** 构建，目前托管于 GitHub Pages。如果您也想搭建一个类似的网站，可以参考[Setup Guide](https://perryopytixz.github.io/content/zh/blog/setup-guide.html)。
 
 :::
 
