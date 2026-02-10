@@ -87,7 +87,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-date','listing-title','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -113,9 +113,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -388,30 +388,19 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">该页面内容</h2>
-   
-  <ul>
-  <li><a href="#欢迎-welcome" id="toc-欢迎-welcome" class="nav-link active" data-scroll-target="#欢迎-welcome">👋 欢迎 / Welcome</a></li>
-  <li><a href="#最新动态-news" id="toc-最新动态-news" class="nav-link" data-scroll-target="#最新动态-news">📰 最新动态 / News</a></li>
-  <li><a href="#最新博客-recent-posts" id="toc-最新博客-recent-posts" class="nav-link" data-scroll-target="#最新博客-recent-posts">最新博客 / Recent Posts</a></li>
-  <li><a href="#笔记notes" id="toc-笔记notes" class="nav-link" data-scroll-target="#笔记notes">笔记/Notes</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 
 
 
 
 <!-- 左侧栏 (Sidebar) - 由 #hero-heading 定义 -->
-<div class="quarto-about-trestles">
+<div class="quarto-about-trestles column-page">
   <div class="about-entity">
     <img src="assets/images/avatar.jpg" class="about-image
   rounded " style="width: 10em;">
@@ -419,7 +408,7 @@ window.Quarto = {
 <div class="quarto-title">
 <h1 class="title">Perry</h1>
 </div>
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page">
     <div>
     <div class="quarto-title-meta-heading">作者</div>
     <div class="quarto-title-meta-contents">
@@ -429,7 +418,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">发布于</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026年2月9日</p>
+      <p class="date">2026年2月10日</p>
     </div>
   </div>
   </div>
@@ -450,53 +439,111 @@ window.Quarto = {
 </div>
   </div>
   <div class="about-contents"><div id="hero-heading">
-<section id="欢迎-welcome" class="level3">
-<h3 data-anchor-id="欢迎-welcome">👋 欢迎 / Welcome</h3>
-<p>欢迎来到我的个人主页！这里用于整理一些学术笔记、发布博客文章，以及一些经验分享。</p>
-<p>本站由 <strong>Quarto</strong> 构建，托管于 GitHub Pages。如果您也想搭建一个类似的网站，可以参考<a href="https://perryopytixz.github.io/content/zh/blog/setup-guide.html">Setup Guide</a>。</p>
+<section id="你好我是-perry" class="level3">
+<h3 data-anchor-id="你好我是-perry">你好，我是 Perry</h3>
+<p>欢迎来到我的学术主页。这里主要分享：</p>
+<ul>
+<li>学术笔记与方法推导</li>
+<li>机器学习与优化相关思考</li>
+<li>博客文章与建站经验</li>
+</ul>
+<blockquote class="blockquote">
+<p>研究关键词：Optimization / Machine Learning / Academic Writing</p>
+</blockquote>
+<p><a href="./content/zh/cv.html" class="btn btn-primary btn-sm me-2">查看简历</a> <a href="./content/zh/publications/index.html" class="btn btn-outline-secondary btn-sm">查看发表</a></p>
 </section>
 </div></div>
 </div>
 
-<!-- 主内容区 (Main Content) - 这里开始写详细内容-->
-<section id="最新动态-news" class="level2">
-<h2 data-anchor-id="最新动态-news">📰 最新动态 / News</h2>
-<ul>
-<li><strong>2025-12</strong>: 🎉 这个基于 Quarto 的个人网站正式上线了！。</li>
-</ul>
-<hr>
-</section>
-<section id="最新博客-recent-posts" class="level2">
-<h2 data-anchor-id="最新博客-recent-posts">最新博客 / Recent Posts</h2>
-<p>这里列出了我最近发布的文章。更多内容请查看 <a href="./content/zh/blog/index.html">博客列表页</a>。</p>
-<!-- 
-  下面这个 Div 会被 YAML 中的 listing 配置自动填充 
-  注意：你需要确保你的项目根目录下有一个 'posts' 文件夹，里面有 .qmd 文章
--->
-<div id="listing-blog-listings" class="quarto-listing quarto-listing-container-default">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1766495165000" data-listing-file-modified-sort="1766495165000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./content/zh/blog/life/hello.html" class="no-external">你好，世界</a>
-</h3>
-<div class="delink listing-description"><a href="./content/zh/blog/life/hello.html" class="no-external">
-欢迎来到我的个人博客！这是我的第一篇博客。
-</a></div>
+<!-- 主内容区 (Main Content) -->
+<section id="主页导览" class="level2">
+<h2 data-anchor-id="主页导览">主页导览</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="metadata">
-<a href="./content/zh/blog/life/hello.html" class="no-external">
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">提示</span>博客
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>记录学习过程、项目经验与工具心得。</p>
+<p><a href="./content/zh/blog/index.html" class="btn btn-outline-primary btn-sm">进入博客</a></p>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>笔记
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>整理课程与研究中的知识点、公式和证明。</p>
+<p><a href="./content/zh/notes/index.html" class="btn btn-outline-primary btn-sm">进入笔记</a></p>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">重要</span>发表
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>汇总论文、预印本与相关学术输出。</p>
+<p><a href="./content/zh/publications/index.html" class="btn btn-outline-primary btn-sm">进入发表</a></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="最新动态" class="level2">
+<h2 data-anchor-id="最新动态">最新动态</h2>
+<ul>
+<li><strong>2025-12</strong>：个人网站正式上线，开始持续更新学习与研究内容。</li>
+</ul>
+</section>
+<section id="最新博客" class="level2">
+<h2 data-anchor-id="最新博客">最新博客</h2>
+<p>最近发布的博客如下，更多内容请查看<a href="./content/zh/blog/index.html">博客归档页</a>。</p>
+<!-- 下面这个 Div 会被 YAML 中的 listing 配置自动填充 -->
+<div id="listing-blog-listings" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-listing-date-sort="1766495165000" data-listing-file-modified-sort="1766495165000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<a href="./content/zh/blog/life/hello.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+你好，世界
+</h5>
+<div class="card-text listing-description delink">
+欢迎来到我的个人博客！这是我的第一篇博客。
+</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 2025年12月23日
 </div>
-</a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="VHV0b3JpYWwlMkNRdWFydG8=" data-listing-date-sort="1766495165000" data-listing-file-modified-sort="1766495165000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2740">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./content/zh/blog/setup-guide.html" class="no-external">如何配置本网站模板 (Setup Guide)</a>
-</h3>
+</div></a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="VHV0b3JpYWwlMkNRdWFydG8=" data-listing-date-sort="1766495165000" data-listing-file-modified-sort="1766495165000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2740">
+<a href="./content/zh/blog/setup-guide.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+如何配置本网站模板 (Setup Guide)
+</h5>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('VHV0b3JpYWw='); return false;">Tutorial</div>
@@ -504,93 +551,83 @@ window.Quarto = {
 <div class="listing-category" onclick="window.quartoListingCategory('UXVhcnRv'); return false;">Quarto</div>
 
 </div>
-<div class="delink listing-description"><a href="./content/zh/blog/setup-guide.html" class="no-external">
+<div class="card-text listing-description delink">
 <p>一份详细的指南，教你如何根据这个项目模板配置你自己的个人学术网站。</p>
-</a></div>
 </div>
-<div class="metadata">
-<a href="./content/zh/blog/setup-guide.html" class="no-external">
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 2025年12月23日
 </div>
-</a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1766494801000" data-listing-file-modified-sort="1766494801000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./content/zh/blog/index.html" class="no-external">Blog</a>
-</h3>
-<div class="delink listing-description"><a href="./content/zh/blog/index.html" class="no-external">
+</div></a>
+</div>
+<div class="g-col-1" data-index="2" data-listing-date-sort="1766494801000" data-listing-file-modified-sort="1766494801000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<a href="./content/zh/blog/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Blog
+</h5>
+<div class="card-text listing-description delink">
 这里是博客归档页。
-</a></div>
 </div>
-<div class="metadata">
-<a href="./content/zh/blog/index.html" class="no-external">
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 2025年12月23日
 </div>
-</a>
 </div>
+</div>
+</div></a>
 </div>
 </div>
 <div class="listing-no-matching d-none">无匹配项</div>
 </div>
 </section>
-<section id="笔记notes" class="level2">
-<h2 data-anchor-id="笔记notes">笔记/Notes</h2>
-<p>这里是我的一些笔记。更多内容请查看 <a href="./content/zh/notes/index.html">笔记列表页</a>。</p>
-<div id="listing-notes-listings" class="quarto-listing quarto-listing-container-default">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="TWF0aCUyQ09wdGltaXphdGlvbiUyQ01hY2hpbmUtTGVhcm5pbmc=" data-listing-date-sort="1766495165000" data-listing-file-modified-sort="1766495165000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="988">
-<div class="thumbnail"><a href="./content/zh/notes/mini-batch-SGD.html" class="no-external">
+<section id="最新笔记" class="level2">
+<h2 data-anchor-id="最新笔记">最新笔记</h2>
+<p>最近更新的笔记如下，更多内容请查看<a href="./content/zh/notes/index.html">笔记归档页</a>。</p>
+<!-- 下面这个 Div 会被 YAML 中的 listing 配置自动填充 -->
+<div id="listing-notes-listings" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="TWF0aCUyQ09wdGltaXphdGlvbiUyQ01hY2hpbmUtTGVhcm5pbmc=" data-listing-date-sort="1766495165000" data-listing-file-modified-sort="1766495165000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="988">
+<a href="./content/zh/notes/mini-batch-SGD.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+随机梯度下降初步
+</h5>
+<div class="listing-categories">
 
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+<div class="listing-category" onclick="window.quartoListingCategory('TWF0aA=='); return false;">Math</div>
 
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./content/zh/notes/mini-batch-SGD.html" class="no-external">随机梯度下降初步</a>
-</h3>
-<div class="delink listing-description"><a href="./content/zh/notes/mini-batch-SGD.html" class="no-external">
-本文主要初步介绍随机梯度下降（Stochastic Gradient Descent, SGD）算法及其 mini-batch 变种的基本原理、假设与数学性质。
-</a></div>
+<div class="listing-category" onclick="window.quartoListingCategory('T3B0aW1pemF0aW9u'); return false;">Optimization</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TWFjaGluZS1MZWFybmluZw=='); return false;">Machine-Learning</div>
+
 </div>
-<div class="metadata">
-<a href="./content/zh/notes/mini-batch-SGD.html" class="no-external">
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 2025年12月23日
 </div>
-<div class="listing-author">
-Perry
-</div>
-</a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1766494518000" data-listing-file-modified-sort="1766494518000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail"><a href="./content/zh/notes/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./content/zh/notes/index.html" class="no-external">Notes</a>
-</h3>
-<div class="delink listing-description"><a href="./content/zh/notes/index.html" class="no-external">
-这里是笔记归档页。
-</a></div>
+</div></a>
 </div>
-<div class="metadata">
-<a href="./content/zh/notes/index.html" class="no-external">
+<div class="g-col-1" data-index="1" data-listing-date-sort="1766494518000" data-listing-file-modified-sort="1766494518000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<a href="./content/zh/notes/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Notes
+</h5>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 2025年12月23日
 </div>
-<div class="listing-author">
-Perry
 </div>
-</a>
 </div>
+</div></a>
 </div>
 </div>
 <div class="listing-no-matching d-none">无匹配项</div>

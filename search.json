@@ -396,56 +396,70 @@
     "href": "content/en/index.html",
     "title": "Perry",
     "section": "",
-    "text": "GitHub\n  \n  \n    \n     Contact\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\nWelcome to my personal homepage! This site is used to organize academic notes, publish blog posts, and share some experiences.\nThis site is built with Quarto and hosted on GitHub Pages. If you would like to build a similar website, you can refer to the Setup Guide."
+    "text": "GitHub\n  \n  \n    \n     Contact\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\nWelcome to my academic homepage. Here, I primarily share:\n\nAcademic notes and method derivations\nThoughts on machine learning and optimization\nBlog posts and website-building experiences\n\n\nResearch Keywords: Optimization / Machine Learning / Academic Writing\n\nView CV View Publications"
   },
   {
-    "objectID": "content/en/index.html#latest-news-news",
-    "href": "content/en/index.html#latest-news-news",
+    "objectID": "content/en/index.html#homepage-guide",
+    "href": "content/en/index.html#homepage-guide",
     "title": "Perry",
-    "section": "📰 Latest News / News",
-    "text": "📰 Latest News / News\n\n2025-12: 🎉 This personal website based on Quarto is officially live!"
+    "section": "Homepage Guide",
+    "text": "Homepage Guide\n\n\n\n\n\n\n\n\nTipBlog\n\n\n\nRecords of learning processes, project experiences, and tool insights.\nGo to Blog\n\n\n\n\n\n\n\n\n\nNoteNotes\n\n\n\nOrganized knowledge points, formulas, and proofs from courses and research.\nGo to Notes\n\n\n\n\n\n\n\n\n\nImportantPublications\n\n\n\nA collection of papers, preprints, and related academic outputs.\nGo to Publications"
   },
   {
-    "objectID": "content/en/index.html#recent-blog-posts-recent-posts",
-    "href": "content/en/index.html#recent-blog-posts-recent-posts",
+    "objectID": "content/en/index.html#latest-updates",
+    "href": "content/en/index.html#latest-updates",
     "title": "Perry",
-    "section": "Recent Blog Posts / Recent Posts",
-    "text": "Recent Blog Posts / Recent Posts\nHere are my most recently published articles. For more content, please visit the Blog List Page.\n\n\n\n\n\n\nHello, World\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\n\n\nHow to Configure This Website Template (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\nA detailed guide on how to configure your own personal academic website based on this project template.\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\nNo matching items"
+    "section": "Latest Updates",
+    "text": "Latest Updates\n\n2025-12: Personal website officially launched, beginning continuous updates on learning and research content."
   },
   {
-    "objectID": "content/en/index.html#notes-notes",
-    "href": "content/en/index.html#notes-notes",
+    "objectID": "content/en/index.html#latest-blog-posts",
+    "href": "content/en/index.html#latest-blog-posts",
     "title": "Perry",
-    "section": "Notes / Notes",
-    "text": "Notes / Notes\nHere are some of my notes. For more content, please visit the Notes List Page.\n\n\n\n\n\n\n\n\n\n\nIntroduction to Stochastic Gradient Descent\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\nPerry\n\n\n\n\n\nNo matching items"
+    "section": "Latest Blog Posts",
+    "text": "Latest Blog Posts\nThe most recently published blog posts are listed below. For more content, please visit the Blog Archive.\n\n\n\n\n\n\n\n\nHello, World\n\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\n\n\n\n\n\nHow to Configure This Website Template (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\nA detailed guide on how to configure your own personal academic website based on this project template.\n\n\n\nDec 23, 2025\n\n\n\n\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "content/en/index.html#latest-notes",
+    "href": "content/en/index.html#latest-notes",
+    "title": "Perry",
+    "section": "Latest Notes",
+    "text": "Latest Notes\nThe most recently updated notes are listed below. For more content, please visit the Notes Archive.\n\n\n\n\n\n\n\n\nIntroduction to Stochastic Gradient Descent\n\n\n\nMath\n\nOptimization\n\nMachine-Learning\n\n\n\n\nDec 23, 2025\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\nDec 23, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Perry",
     "section": "",
-    "text": "GitHub\n  \n  \n    \n     Contact\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\n欢迎来到我的个人主页！这里用于整理一些学术笔记、发布博客文章，以及一些经验分享。\n本站由 Quarto 构建，托管于 GitHub Pages。如果您也想搭建一个类似的网站，可以参考Setup Guide。"
+    "text": "GitHub\n  \n  \n    \n     Contact\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\n欢迎来到我的学术主页。这里主要分享：\n\n学术笔记与方法推导\n机器学习与优化相关思考\n博客文章与建站经验\n\n\n研究关键词：Optimization / Machine Learning / Academic Writing\n\n查看简历 查看发表"
   },
   {
-    "objectID": "index.html#最新动态-news",
-    "href": "index.html#最新动态-news",
+    "objectID": "index.html#主页导览",
+    "href": "index.html#主页导览",
     "title": "Perry",
-    "section": "📰 最新动态 / News",
-    "text": "📰 最新动态 / News\n\n2025-12: 🎉 这个基于 Quarto 的个人网站正式上线了！。"
+    "section": "主页导览",
+    "text": "主页导览\n\n\n\n\n\n\n\n\n提示博客\n\n\n\n记录学习过程、项目经验与工具心得。\n进入博客\n\n\n\n\n\n\n\n\n\n注记笔记\n\n\n\n整理课程与研究中的知识点、公式和证明。\n进入笔记\n\n\n\n\n\n\n\n\n\n重要发表\n\n\n\n汇总论文、预印本与相关学术输出。\n进入发表"
   },
   {
-    "objectID": "index.html#最新博客-recent-posts",
-    "href": "index.html#最新博客-recent-posts",
+    "objectID": "index.html#最新动态",
+    "href": "index.html#最新动态",
     "title": "Perry",
-    "section": "最新博客 / Recent Posts",
-    "text": "最新博客 / Recent Posts\n这里列出了我最近发布的文章。更多内容请查看 博客列表页。\n\n\n\n\n\n\n你好，世界\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\n\n\n\n\n\n如何配置本网站模板 (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\n一份详细的指南，教你如何根据这个项目模板配置你自己的个人学术网站。\n\n\n\n\n\n2025年12月23日\n\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\n\n\n\n无匹配项"
+    "section": "最新动态",
+    "text": "最新动态\n\n2025-12：个人网站正式上线，开始持续更新学习与研究内容。"
   },
   {
-    "objectID": "index.html#笔记notes",
-    "href": "index.html#笔记notes",
+    "objectID": "index.html#最新博客",
+    "href": "index.html#最新博客",
     "title": "Perry",
-    "section": "笔记/Notes",
-    "text": "笔记/Notes\n这里是我的一些笔记。更多内容请查看 笔记列表页。\n\n\n\n\n\n\n\n\n\n\n随机梯度下降初步\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\nPerry\n\n\n\n\n\n无匹配项"
+    "section": "最新博客",
+    "text": "最新博客\n最近发布的博客如下，更多内容请查看博客归档页。\n\n\n\n\n\n\n\n\n你好，世界\n\n\n\n\n\n\n2025年12月23日\n\n\n\n\n\n\n\n\n\n\n如何配置本网站模板 (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\n一份详细的指南，教你如何根据这个项目模板配置你自己的个人学术网站。\n\n\n\n2025年12月23日\n\n\n\n\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\n2025年12月23日\n\n\n\n\n\n\n无匹配项"
+  },
+  {
+    "objectID": "index.html#最新笔记",
+    "href": "index.html#最新笔记",
+    "title": "Perry",
+    "section": "最新笔记",
+    "text": "最新笔记\n最近更新的笔记如下，更多内容请查看笔记归档页。\n\n\n\n\n\n\n\n\n随机梯度下降初步\n\n\n\nMath\n\nOptimization\n\nMachine-Learning\n\n\n\n\n2025年12月23日\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\n2025年12月23日\n\n\n\n\n\n\n无匹配项"
   },
   {
     "objectID": "content/en/cv.html",
