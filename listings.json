@@ -1,31 +1,5 @@
 [
   {
-    "listing": "/content/zh/publications/index.html",
-    "items": [
-      "/content/zh/publications/example.html"
-    ]
-  },
-  {
-    "listing": "/content/zh/blog/index.html",
-    "items": [
-      "/content/zh/blog/life/hello.html",
-      "/content/zh/blog/setup-guide.html"
-    ]
-  },
-  {
-    "listing": "/content/en/publications/index.html",
-    "items": [
-      "/content/en/publications/example.html"
-    ]
-  },
-  {
-    "listing": "/content/en/blog/index.html",
-    "items": [
-      "/content/en/blog/life/hello.html",
-      "/content/en/blog/setup-guide.html"
-    ]
-  },
-  {
     "listing": "/content/en/index.html",
     "items": [
       "/content/en/blog/life/hello.html",
@@ -33,28 +7,6 @@
       "/content/en/blog/index.html",
       "/content/en/notes/mini-batch-SGD.html",
       "/content/en/notes/index.html"
-    ]
-  },
-  {
-    "listing": "/index.html",
-    "items": [
-      "/content/zh/blog/life/hello.html",
-      "/content/zh/blog/setup-guide.html",
-      "/content/zh/blog/index.html",
-      "/content/zh/notes/mini-batch-SGD.html",
-      "/content/zh/notes/index.html"
-    ]
-  },
-  {
-    "listing": "/content/en/notes/index.html",
-    "items": [
-      "/content/en/notes/mini-batch-SGD.html"
-    ]
-  },
-  {
-    "listing": "/content/zh/notes/index.html",
-    "items": [
-      "/content/zh/notes/mini-batch-SGD.html"
     ]
   }
 ]
