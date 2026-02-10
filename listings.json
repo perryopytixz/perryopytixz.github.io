@@ -8,8 +8,8 @@
   {
     "listing": "/content/zh/blog/index.html",
     "items": [
-      "/content/zh/blog/setup-guide.html",
-      "/content/zh/blog/life/hello.html"
+      "/content/zh/blog/life/hello.html",
+      "/content/zh/blog/setup-guide.html"
     ]
   },
   {
@@ -21,19 +21,28 @@
   {
     "listing": "/content/en/blog/index.html",
     "items": [
-      "/content/en/blog/setup-guide.html",
-      "/content/en/blog/life/hello.html"
+      "/content/en/blog/life/hello.html",
+      "/content/en/blog/setup-guide.html"
     ]
   },
   {
     "listing": "/content/en/index.html",
-    "items": []
+    "items": [
+      "/content/en/blog/life/hello.html",
+      "/content/en/blog/setup-guide.html",
+      "/content/en/blog/index.html",
+      "/content/en/notes/mini-batch-SGD.html",
+      "/content/en/notes/index.html"
+    ]
   },
   {
     "listing": "/index.html",
     "items": [
+      "/content/zh/blog/life/hello.html",
       "/content/zh/blog/setup-guide.html",
-      "/content/zh/notes/mini-batch-SGD.html"
+      "/content/zh/blog/index.html",
+      "/content/zh/notes/mini-batch-SGD.html",
+      "/content/zh/notes/index.html"
     ]
   },
   {

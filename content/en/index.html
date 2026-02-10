@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Perry">
+<meta name="dcterms.date" content="2026-02-10">
 
 <title>Perry – Perry’s Page</title>
 <style>
@@ -87,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-date','listing-title','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: [],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -113,9 +114,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: [],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -388,19 +389,30 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">👋 Welcome</a></li>
+  <li><a href="#latest-news-news" id="toc-latest-news-news" class="nav-link" data-scroll-target="#latest-news-news">📰 Latest News / News</a></li>
+  <li><a href="#recent-posts-recent-posts" id="toc-recent-posts-recent-posts" class="nav-link" data-scroll-target="#recent-posts-recent-posts">Recent Posts / Recent Posts</a></li>
+  <li><a href="#notes-notes" id="toc-notes-notes" class="nav-link" data-scroll-target="#notes-notes">Notes / Notes</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 
 
 
 
-<!-- Sidebar - Defined by #hero-heading -->
-<div class="quarto-about-trestles column-page">
+<!-- Left Sidebar - Defined by #hero-heading -->
+<div class="quarto-about-trestles">
   <div class="about-entity">
     <img src="../../assets/images/avatar.jpg" class="about-image
   rounded " style="width: 10em;">
@@ -408,7 +420,7 @@ window.Quarto = {
 <div class="quarto-title">
 <h1 class="title">Perry</h1>
 </div>
-<div class="quarto-title-meta column-page">
+<div class="quarto-title-meta">
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
@@ -418,7 +430,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">last-modified</p>
+      <p class="date">February 10, 2026</p>
     </div>
   </div>
   </div>
@@ -439,199 +451,157 @@ window.Quarto = {
 </div>
   </div>
   <div class="about-contents"><div id="hero-heading">
-<section id="hello-im-perry" class="level3">
-<h3 data-anchor-id="hello-im-perry">Hello, I’m Perry</h3>
-<p>Welcome to my academic homepage. Here, I primarily share:</p>
-<ul>
-<li>Academic notes and methodological derivations</li>
-<li>Thoughts related to machine learning and optimization</li>
-<li>Other content related to research</li>
-</ul>
-<blockquote class="blockquote">
-<p>Research Keywords: Optimization / Machine Learning / Deep Learning</p>
-</blockquote>
-<p><a href="../../content/en/cv.html" class="btn btn-primary btn-sm me-2">View CV</a> <a href="../../content/en/publications/index.html" class="btn btn-outline-secondary btn-sm">View Publications</a></p>
+<section id="welcome" class="level3">
+<h3 data-anchor-id="welcome">👋 Welcome</h3>
+<p>Welcome to my personal homepage! This site is used to organize academic notes, publish blog posts, and share some experiences.</p>
+<p>This site is built with <strong>Quarto</strong> and currently hosted on GitHub Pages. If you would also like to build a similar website, you can refer to the <a href="https://perryopytixz.github.io/content/en/blog/setup-guide.html">Setup Guide</a>.</p>
 </section>
 </div></div>
 </div>
 
-<!-- Main Content Area -->
-<section id="homepage-guide" class="level2">
-<h2 data-anchor-id="homepage-guide">Homepage Guide</h2>
-<div class="columns">
-<div class="column" style="width:33%;">
-<div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Blog
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Records of the learning process, project experiences, and tool insights.</p>
-<p><a href="../../content/en/blog/index.html" class="btn btn-outline-primary btn-sm">Go to Blog</a></p>
-</div>
-</div>
-</div><div class="column" style="width:33%;">
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Notes
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Organizing knowledge points, formulas, and proofs from courses and research.</p>
-<p><a href="../../content/en/notes/index.html" class="btn btn-outline-primary btn-sm">Go to Notes</a></p>
-</div>
-</div>
-</div><div class="column" style="width:33%;">
-<div class="callout callout-style-simple callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Publications
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A collection of papers, preprints, and related academic outputs.</p>
-<p><a href="../../content/en/publications/index.html" class="btn btn-outline-primary btn-sm">Go to Publications</a></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="latest-updates" class="level2">
-<h2 data-anchor-id="latest-updates">Latest Updates</h2>
+<!-- Main Content Area - Detailed content starts here -->
+<section id="latest-news-news" class="level2">
+<h2 data-anchor-id="latest-news-news">📰 Latest News / News</h2>
 <ul>
-<li><strong>2025-12</strong>: Personal website officially launched, beginning continuous updates on learning and research content.</li>
+<li><strong>2025-12</strong>: 🎉 This personal website based on Quarto is officially live!</li>
 </ul>
+<hr>
 </section>
-<section id="latest-blog-posts" class="level2">
-<h2 data-anchor-id="latest-blog-posts">Latest Blog Posts</h2>
-<p>The most recently published blog posts are listed below. For more content, please visit the <a href="../../content/en/blog/index.html">Blog Archive</a>.</p>
-<!-- The following Div will be automatically populated by the listing configuration in the YAML -->
-<div id="listing-blog-listings" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-3">
+<section id="recent-posts-recent-posts" class="level2">
+<h2 data-anchor-id="recent-posts-recent-posts">Recent Posts / Recent Posts</h2>
+<p>Here are my most recently published articles. For more content, please visit the <a href="../../content/en/blog/index.html">Blog List Page</a>.</p>
+<!--
+  The Div below will be automatically populated by the listing configuration in the YAML.
+  Note: You need to ensure there is a 'posts' folder in your project root directory containing .qmd articles.
+-->
+<div id="listing-blog-listings" class="quarto-listing quarto-listing-container-default">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1766495777000" data-listing-file-modified-sort="1766495777000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="22">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../content/en/blog/life/hello.html" class="no-external">Hello, World</a>
+</h3>
+<div class="delink listing-description"><a href="../../content/en/blog/life/hello.html" class="no-external">
+Welcome to my personal blog! This is my first blog post.
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../content/en/blog/life/hello.html" class="no-external">
+<div class="listing-date">
+Dec 23, 2025
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="VHV0b3JpYWwlMkNRdWFydG8=" data-listing-date-sort="1766495777000" data-listing-file-modified-sort="1766495777000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="35" data-listing-word-count-sort="6911">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../content/en/blog/setup-guide.html" class="no-external">How to Configure This Website Template (Setup Guide)</a>
+</h3>
+<div class="listing-categories">
 
+<div class="listing-category" onclick="window.quartoListingCategory('VHV0b3JpYWw='); return false;">Tutorial</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UXVhcnRv'); return false;">Quarto</div>
+
+</div>
+<div class="delink listing-description"><a href="../../content/en/blog/setup-guide.html" class="no-external">
+<p>A detailed guide on how to configure your own personal academic website based on this project template.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../content/en/blog/setup-guide.html" class="no-external">
+<div class="listing-date">
+Dec 23, 2025
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1766494873000" data-listing-file-modified-sort="1766494873000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="17">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../content/en/blog/index.html" class="no-external">Blog</a>
+</h3>
+<div class="delink listing-description"><a href="../../content/en/blog/index.html" class="no-external">
+This is the blog archive page.
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../content/en/blog/index.html" class="no-external">
+<div class="listing-date">
+Dec 23, 2025
+</div>
+</a>
+</div>
+</div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div>
 </section>
-<section id="latest-notes" class="level2">
-<h2 data-anchor-id="latest-notes">Latest Notes</h2>
-<p>The most recently updated notes are listed below. For more content, please visit the <a href="../../content/en/notes/index.html">Notes Archive</a>.</p>
-<!-- The following Div will be automatically populated by the listing configuration in the YAML -->
-<div id="listing-notes-listings" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-3">
+<section id="notes-notes" class="level2">
+<h2 data-anchor-id="notes-notes">Notes / Notes</h2>
+<p>Here are some of my notes. For more content, please visit the <a href="../../content/en/notes/index.html">Notes List Page</a>.</p>
+<div id="listing-notes-listings" class="quarto-listing quarto-listing-container-default">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="TWF0aCUyQ09wdGltaXphdGlvbiUyQ01hY2hpbmUtTGVhcm5pbmc=" data-listing-date-sort="1766495777000" data-listing-file-modified-sort="1766495777000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2701">
+<div class="thumbnail"><a href="../../content/en/notes/mini-batch-SGD.html" class="no-external">
 
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../content/en/notes/mini-batch-SGD.html" class="no-external">Introduction to Stochastic Gradient Descent</a>
+</h3>
+<div class="delink listing-description"><a href="../../content/en/notes/mini-batch-SGD.html" class="no-external">
+This article provides a preliminary introduction to the Stochastic Gradient Descent (SGD) algorithm and its mini-batch variant, covering their basic principles, assumptions…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../content/en/notes/mini-batch-SGD.html" class="no-external">
+<div class="listing-date">
+Dec 23, 2025
+</div>
+<div class="listing-author">
+Perry
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1766494573000" data-listing-file-modified-sort="1766494573000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="17">
+<div class="thumbnail"><a href="../../content/en/notes/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../../content/en/notes/index.html" class="no-external">Notes</a>
+</h3>
+<div class="delink listing-description"><a href="../../content/en/notes/index.html" class="no-external">
+This is the notes archive page.
+</a></div>
+</div>
+<div class="metadata">
+<a href="../../content/en/notes/index.html" class="no-external">
+<div class="listing-date">
+Dec 23, 2025
+</div>
+<div class="listing-author">
+Perry
+</div>
+</a>
+</div>
+</div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div>
 <!-- Auto-generated by DeepSeek. DO NOT EDIT. -->
-<!-- Source Hash: 6a4eff08aec0b7825563096d6c6002d5 -->
+<!-- Source Hash: 537fcc58db96d8a8f567c4a0d7918eb8 -->
 
 
 
 
-<!-- Sidebar - Defined by #hero-heading -->
-<div id="hero-heading">
-<section id="hello-im-perry-1" class="level3">
-<h3 data-anchor-id="hello-im-perry-1">Hello, I’m Perry</h3>
-<p>Welcome to my academic homepage. Here, I primarily share:</p>
-<ul>
-<li>Academic notes and methodological derivations</li>
-<li>Thoughts related to machine learning and optimization</li>
-<li>Other content related to research</li>
-</ul>
-<blockquote class="blockquote">
-<p>Research Keywords: Optimization / Machine Learning / Deep Learning</p>
-</blockquote>
-<p><a href="../../content/en/cv.html" class="btn btn-primary btn-sm me-2">View CV</a> <a href="../../content/en/publications/index.html" class="btn btn-outline-secondary btn-sm">View Publications</a></p>
-</section>
-</div>
-<!-- Main Content Area -->
-</section>
-<section id="homepage-guide-1" class="level2">
-<h2 data-anchor-id="homepage-guide-1">Homepage Guide</h2>
-<div class="columns">
-<div class="column" style="width:33%;">
-<div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Blog
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Records of the learning process, project experiences, and tool insights.</p>
-<p><a href="../../content/en/blog/index.html" class="btn btn-outline-primary btn-sm">Go to Blog</a></p>
-</div>
-</div>
-</div><div class="column" style="width:33%;">
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Notes
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Organizing knowledge points, formulas, and proofs from courses and research.</p>
-<p><a href="../../content/en/notes/index.html" class="btn btn-outline-primary btn-sm">Go to Notes</a></p>
-</div>
-</div>
-</div><div class="column" style="width:33%;">
-<div class="callout callout-style-simple callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Publications
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A collection of papers, preprints, and related academic outputs.</p>
-<p><a href="../../content/en/publications/index.html" class="btn btn-outline-primary btn-sm">Go to Publications</a></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="latest-updates-1" class="level2">
-<h2 data-anchor-id="latest-updates-1">Latest Updates</h2>
-<ul>
-<li><strong>2025-12</strong>: Personal website officially launched, beginning continuous updates on learning and research content.</li>
-</ul>
-</section>
-<section id="latest-blog-posts-1" class="level2">
-<h2 data-anchor-id="latest-blog-posts-1">Latest Blog Posts</h2>
-<p>The most recently published blog posts are listed below. For more content, please visit the <a href="../../content/en/blog/index.html">Blog Archive</a>.</p>
-<!-- The following Div will be automatically populated by the listing configuration in the YAML -->
-<div id="blog-listings">
-
-</div>
-</section>
-<section id="latest-notes-1" class="level2">
-<h2 data-anchor-id="latest-notes-1">Latest Notes</h2>
-<p>The most recently updated notes are listed below. For more content, please visit the <a href="../../content/en/notes/index.html">Notes Archive</a>.</p>
-<!-- The following Div will be automatically populated by the listing configuration in the YAML -->
-<div id="notes-listings">
-
-</div>
-<!-- Auto-generated by DeepSeek. DO NOT EDIT. -->
-<!-- Source Hash: 6a4eff08aec0b7825563096d6c6002d5 -->
 </section>
 
 </main> <!-- /main -->
