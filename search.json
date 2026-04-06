@@ -1,5 +1,61 @@
 [
   {
+    "objectID": "content/en/notes/index.html",
+    "href": "content/en/notes/index.html",
+    "title": "Notes",
+    "section": "",
+    "text": "This is the notes archive page.\n\n\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nCategories\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\nIntroduction to Stochastic Gradient Descent\n\n\nMath, Optimization, Machine-Learning\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "content/en/publications/example.html",
+    "href": "content/en/publications/example.html",
+    "title": "Publication Entry Example",
+    "section": "",
+    "text": "1 Abstract\nThis is a placeholder example entry."
+  },
+  {
+    "objectID": "content/en/index.html",
+    "href": "content/en/index.html",
+    "title": "Perry",
+    "section": "",
+    "text": "GitHub\n  \n  \n    \n     Contact\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\nWelcome to my personal homepage! This site is used to organize academic notes, publish blog posts, and share some experiences.\nThis site is built with Quarto and currently hosted on GitHub Pages. If you would also like to build a similar website, you can refer to the Setup Guide."
+  },
+  {
+    "objectID": "content/en/index.html#latest-news-news",
+    "href": "content/en/index.html#latest-news-news",
+    "title": "Perry",
+    "section": "📰 Latest News / News",
+    "text": "📰 Latest News / News\n\n2025-12: 🎉 This personal website based on Quarto is officially live!"
+  },
+  {
+    "objectID": "content/en/index.html#recent-posts-recent-posts",
+    "href": "content/en/index.html#recent-posts-recent-posts",
+    "title": "Perry",
+    "section": "Recent Posts / Recent Posts",
+    "text": "Recent Posts / Recent Posts\nHere are my most recently published articles. For more content, please visit the Blog List Page.\n\n\n\n\n\n\nHello, World\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\n\n\nHow to Configure This Website Template (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\nA detailed guide on how to configure your own personal academic website based on this project template.\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "content/en/index.html#notes-notes",
+    "href": "content/en/index.html#notes-notes",
+    "title": "Perry",
+    "section": "Notes / Notes",
+    "text": "Notes / Notes\nHere are some of my notes. For more content, please visit the Notes List Page.\n\n\n\n\n\n\n\n\n\n\nIntroduction to Stochastic Gradient Descent\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\nPerry\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "content/en/blog/index.html",
+    "href": "content/en/blog/index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "This is the blog archive page.\n\n\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nHello, World\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\nHow to Configure This Website Template (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\nA detailed guide on how to configure your own personal academic website based on this project template.\n\n\n\n\n\nDec 23, 2025\n\n\nPerry\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "content/en/cv.html",
+    "href": "content/en/cv.html",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "1 Curriculum Vitae\nThis space is reserved for future content."
+  },
+  {
     "objectID": "content/zh/notes/mini-batch-SGD.html",
     "href": "content/zh/notes/mini-batch-SGD.html",
     "title": "随机梯度下降初步",
@@ -26,6 +82,55 @@
     "title": "发表",
     "section": "",
     "text": "这里是发表内容的归档页，期待我未来的论文能在这里亮相！\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n发表条目示例\n\n\n这是一个用于占位的示例条目。\n\n\n\n\n\n2024年1月1日\n\n\nPerry\n\n\n\n\n\n无匹配项"
+  },
+  {
+    "objectID": "content/zh/blog/index.html",
+    "href": "content/zh/blog/index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "这里是博客归档页。\n\n\n\n\n\n\n   \n    \n    \n      排序方式\n      默认\n      \n        标题\n      \n      \n        日期 - 日期升序\n      \n      \n        日期 - 日期降序\n      \n      \n        作者\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\n你好，世界\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\n如何配置本网站模板 (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\n一份详细的指南，教你如何根据这个项目模板配置你自己的个人学术网站。\n\n\n\n\n\n2025年12月23日\n\n\nPerry\n\n\n\n\n\n无匹配项"
+  },
+  {
+    "objectID": "content/zh/cv.html",
+    "href": "content/zh/cv.html",
+    "title": "个人简历",
+    "section": "",
+    "text": "1 个人简历\n先占个位置，以后再来填。"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Perry",
+    "section": "",
+    "text": "GitHub\n  \n  \n    \n     Contact\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\n欢迎来到我的个人主页！这里用于整理一些学术笔记、发布博客文章，以及一些经验分享。\n本站由 Quarto 构建，目前托管于 GitHub Pages。如果您也想搭建一个类似的网站，可以参考Setup Guide。"
+  },
+  {
+    "objectID": "index.html#最新动态-news",
+    "href": "index.html#最新动态-news",
+    "title": "Perry",
+    "section": "📰 最新动态 / News",
+    "text": "📰 最新动态 / News\n\n2025-12: 🎉 这个基于 Quarto 的个人网站正式上线了！。"
+  },
+  {
+    "objectID": "index.html#最新博客-recent-posts",
+    "href": "index.html#最新博客-recent-posts",
+    "title": "Perry",
+    "section": "最新博客 / Recent Posts",
+    "text": "最新博客 / Recent Posts\n这里列出了我最近发布的文章。更多内容请查看 博客列表页。\n\n\n\n\n\n\n你好，世界\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\n\n\n\n\n\n如何配置本网站模板 (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\n一份详细的指南，教你如何根据这个项目模板配置你自己的个人学术网站。\n\n\n\n\n\n2025年12月23日\n\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\n\n\n\n无匹配项"
+  },
+  {
+    "objectID": "index.html#笔记notes",
+    "href": "index.html#笔记notes",
+    "title": "Perry",
+    "section": "笔记/Notes",
+    "text": "笔记/Notes\n这里是我的一些笔记。更多内容请查看 笔记列表页。\n\n\n\n\n\n\n\n\n\n\n随机梯度下降初步\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\nPerry\n\n\n\n\n\n无匹配项"
+  },
+  {
+    "objectID": "content/zh/blog/life/hello.html",
+    "href": "content/zh/blog/life/hello.html",
+    "title": "你好，世界",
+    "section": "",
+    "text": "欢迎来到我的个人博客！这是我的第一篇博客。"
   },
   {
     "objectID": "content/zh/blog/setup-guide.html",
@@ -189,39 +294,25 @@
     "text": "6.3 我只想用单语言（例如只用中文），不想用双语功能怎么办？\n本模板设计灵活，可以切换到单语言模式。\n步骤如下：\n\n禁用翻译功能：\n\n进入 GitHub 仓库 -&gt; Settings -&gt; Secrets and variables -&gt; Actions，删除 DEEPSEEK_API_KEY。\n脚本检测不到 API Key 时会自动跳过翻译，不影响部署。\n\n清理多余文件：\n\n删除你不需要的语言文件夹（例如 content/en）。\n同时检查 _quarto.yml，删除所有指向该文件夹的链接（如导航栏、侧边栏中的 content/en/... 路径）。\n\n移除语言切换器：\n\n打开 _quarto.yml，找到 include-after-body 部分，删除 assets/html/include_lang_switch.html 这一行。\n在 navbar 设置中，删除 icon: translate 相关的导航项。\n\n验证配置：\n\n本地运行 quarto preview 确认没有报错。\n推送后检查 GitHub Actions 是否成功。\n\n\n这样，你的网站就变成单语言网站了。"
   },
   {
-    "objectID": "content/zh/blog/index.html",
-    "href": "content/zh/blog/index.html",
-    "title": "Blog",
+    "objectID": "content/zh/publications/example.html",
+    "href": "content/zh/publications/example.html",
+    "title": "发表条目示例",
     "section": "",
-    "text": "这里是博客归档页。\n\n\n\n\n\n\n   \n    \n    \n      排序方式\n      默认\n      \n        标题\n      \n      \n        日期 - 日期升序\n      \n      \n        日期 - 日期降序\n      \n      \n        作者\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\n你好，世界\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\n如何配置本网站模板 (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\n一份详细的指南，教你如何根据这个项目模板配置你自己的个人学术网站。\n\n\n\n\n\n2025年12月23日\n\n\nPerry\n\n\n\n\n\n无匹配项"
+    "text": "1 摘要\n这里是一个用于占位的示例条目。"
   },
   {
-    "objectID": "content/en/notes/mini-batch-SGD.html",
-    "href": "content/en/notes/mini-batch-SGD.html",
-    "title": "Introduction to Stochastic Gradient Descent",
+    "objectID": "content/zh/notes/index.html",
+    "href": "content/zh/notes/index.html",
+    "title": "Notes",
     "section": "",
-    "text": "This article provides a preliminary introduction to the Stochastic Gradient Descent (SGD) algorithm and its mini-batch variant, covering their basic principles, assumptions, and mathematical properties."
+    "text": "这里是笔记归档页。\n\n\n\n\n\n\n   \n    \n    \n      排序方式\n      默认\n      \n        日期 - 日期升序\n      \n      \n        日期 - 日期降序\n      \n      \n        标题\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n日期\n\n\n\n标题\n\n\n\n分类\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\n随机梯度下降初步\n\n\nMath, Optimization, Machine-Learning\n\n\n\n\n\n\n无匹配项"
   },
   {
-    "objectID": "content/en/notes/mini-batch-SGD.html#mini-batch-sgd-the-case-of-sampling-with-replacement",
-    "href": "content/en/notes/mini-batch-SGD.html#mini-batch-sgd-the-case-of-sampling-with-replacement",
-    "title": "Introduction to Stochastic Gradient Descent",
-    "section": "2.1 Mini-batch SGD: The Case of Sampling with Replacement",
-    "text": "2.1 Mini-batch SGD: The Case of Sampling with Replacement\nClassical single-sample SGD uses only one sample per iteration to compute the gradient. While the computational cost is low, the introduced noise can be large (variance \\(\\sigma^2\\) is large), which can easily lead to severe oscillations in the iterative trajectory and makes it difficult to leverage the parallel computing capabilities of modern hardware. Mini-batch Stochastic Gradient Descent (Mini-batch SGD) is a natural generalization of single-sample SGD, using \\(M\\) samples per iteration to compute the gradient.\nSuppose at the \\(t\\)-th iteration, \\(M\\) samples are independently drawn with replacement: \\[\n\\mathcal{B}_t = \\{z_{t,1}, \\ldots, z_{t,M}\\},\n\\] where \\(z_{t,1},\\dots,z_{t,M} \\overset{\\text{i.i.d.}}{\\sim} \\mathcal{D}\\). Define the gradient estimator as the average of the gradients of this batch of samples: \\[\ng^{(M)}(\\theta_t)\n= \\frac{1}{M} \\sum_{i=1}^M \\nabla_\\theta \\ell(z_{t,i}; \\theta_t).\n\\]\nWe can prove: If the single-sample gradient satisfies the aforementioned unbiasedness and bounded variance assumptions, then the Mini-batch gradient estimator \\(g^{(M)}(\\theta_t)\\) necessarily satisfies the same unbiasedness assumption, and its variance upper bound is smaller. To simplify notation, in the following derivation, without loss of generality, we fix a certain iteration step \\(t\\) and parameter \\(\\theta_t\\), and denote the single-sample gradient and the full gradient as: \\[\ng(z) \\triangleq \\nabla_\\theta \\ell(z;\\theta_t),\\qquad\n\\nabla F \\triangleq \\nabla F(\\theta_t).\n\\] Thus, \\[\ng^{(M)}(\\theta_t) = \\frac{1}{M}\\sum_{i=1}^M g(z_{t,i}).\n\\]\n\n2.1.1 Preservation of Unbiasedness\nAssume the single-sample gradient is unbiased, i.e., \\[\n\\mathbb{E}_{z\\sim\\mathcal{D}}[g(z)] = \\nabla F.\n\\] Since expectation is linear and the samples \\(z_{t,1},\\dots,z_{t,M}\\) are independent and identically distributed according to \\(\\mathcal{D}\\), we have: \\[\n\\begin{aligned}\n\\mathbb{E}[g^{(M)}(\\theta_t)]\n&= \\mathbb{E}\\left[ \\frac{1}{M} \\sum_{i=1}^M g(z_{t,i}) \\right] \\\\\n&= \\frac{1}{M} \\sum_{i=1}^M \\mathbb{E}[g(z_{t,i})] \\\\\n&= \\frac{1}{M} \\cdot M \\cdot \\nabla F \\\\\n&= \\nabla F.\n\\end{aligned}\n\\]\nThis shows that the Mini-batch gradient inherits unbiasedness and remains a correct estimator of the true gradient: \\[\n\\boxed{\\mathbb{E}[g_t^{(M)}(\\theta_t)] = \\nabla F(\\theta_t).}\n\\]\n\n\n2.1.2 Boundedness of Variance\nAssume the noise variance of the single-sample gradient is bounded, i.e., there exists a constant \\(\\sigma^2\\) such that \\[\n\\mathbb{E}\\bigl[\\|g(z) - \\nabla F(\\theta_t)\\|^2\\bigr] \\leq \\sigma^2.\n\\]\nDefine the gradient noise of the \\(i\\)-th sample as \\[\nX_i \\triangleq g(z_{t,i}) - \\nabla F(\\theta_t).\n\\] Then \\(\\mathbb{E}[X_i]=0\\), and \\(X_1,\\dots,X_M\\) are independent and identically distributed. In this case, \\[\ng_t^{(M)}(\\theta_t) - \\nabla F(\\theta_t)\n= \\frac1M \\sum_{i=1}^M X_i.\n\\]\nWe are concerned with\n\\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla F\\|^2\\bigr]\n= \\mathbb{E}\\left\\|\\frac1M \\sum_{i=1}^M X_i\\right\\|^2.\n\\]\nNote the identity \\[\n\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n= \\sum_{i=1}^M \\|X_i\\|^2 + 2\\sum_{i&lt;j} \\langle X_i,X_j\\rangle.\n\\]\nTaking expectation on both sides: \\[\n\\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n= \\sum_{i=1}^M \\mathbb{E}\\|X_i\\|^2\n+ 2\\sum_{i&lt;j} \\mathbb{E}\\langle X_i,X_j\\rangle.\n\\]\nSince \\(X_i\\) and \\(X_j\\) are independent and \\(\\mathbb{E}[X_i]=0\\), we have \\[\n\\mathbb{E}\\langle X_i,X_j\\rangle\n= \\mathbb{E}\\bigl[X_i^\\top X_j\\bigr]\n= \\mathbb{E}\\bigl[X_i^\\top \\mathbb{E}(X_j\\mid X_i)\\bigr]\n= \\mathbb{E}\\bigl[X_i^\\top \\mathbb{E}(X_j)\\bigr]\n= \\mathbb{E}\\bigl[X_i^\\top 0\\bigr] = 0.\n\\] Thus, the expectations of all cross terms are \\(0\\), and hence \\[\n\\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n= \\sum_{i=1}^M \\mathbb{E}\\|X_i\\|^2.\n\\]\nSince all \\(X_i\\) are identically distributed, \\[\n\\mathbb{E}\\|X_i\\|^2 = \\mathbb{E}\\|X_1\\|^2\n= \\mathbb{E}\\|g(z)-\\nabla F(\\theta_t)\\|^2 \\le \\sigma^2.\n\\] Therefore, \\[\n\\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n\\le M \\sigma^2.\n\\]\nReturning to the quantity we want to compute: \\[\n\\begin{aligned}\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla F(\\theta_t)\\|^2\\bigr]\n&= \\mathbb{E}\\left\\|\\frac1M \\sum_{i=1}^M X_i\\right\\|^2 \\\\\n&= \\frac{1}{M^2} \\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2 \\\\\n&\\le \\frac{1}{M^2}\\cdot M \\sigma^2 \\\\\n&= \\frac{\\sigma^2}{M}.\n\\end{aligned}\n\\]\nThus, under sampling with replacement, if the single-sample gradient noise satisfies \\[\n\\mathbb{E}\\bigl[\\|g(z)- \\nabla F(\\theta_t)\\|^2\\bigr] \\le \\sigma^2,\n\\] then the corresponding mini-batch gradient estimator satisfies \\[\n\\boxed{\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla F(\\theta_t)\\|^2 \\mid \\theta_t\\bigr]\n\\le \\frac{\\sigma^2}{M}.\n}\n\\]\nSince \\(M \\ge 1\\), clearly \\(\\frac{\\sigma^2}{M} \\le \\sigma^2\\). This shows that Mini-batch SGD not only satisfies the bounded variance assumption but also reduces the variance of the gradient estimate by a factor of \\(M\\). This means that for the same number of iterations, the Mini-batch algorithm can provide a more stable gradient direction, thereby allowing the use of larger step sizes \\(\\eta_t\\) and accelerating convergence."
-  },
-  {
-    "objectID": "content/en/notes/mini-batch-SGD.html#sampling-without-replacement-and-finite-population-correction-fpc",
-    "href": "content/en/notes/mini-batch-SGD.html#sampling-without-replacement-and-finite-population-correction-fpc",
-    "title": "Introduction to Stochastic Gradient Descent",
-    "section": "2.2 Sampling Without Replacement and Finite Population Correction (FPC)",
-    "text": "2.2 Sampling Without Replacement and Finite Population Correction (FPC)\nThe variance bound \\(\\frac{\\sigma^2}{M}\\) above is widely used in theoretical analysis, but it implicitly relies on the assumption of sampling with replacement, meaning the samples drawn each time are independent of each other.\nAs mentioned earlier, in practical scenarios, data is usually given as a finite dataset \\(\\mathcal{D} = \\{z_i\\}_{i=1}^N\\) (but of large scale). In this case, we typically consider the empirical risk: \\[\nF(\\theta) \\approx \\hat{F}(\\theta) = \\frac{1}{N} \\sum_{i=1}^N \\ell(z_i; \\theta)\n\\] In the engineering implementations of mainstream deep learning frameworks (such as PyTorch, TensorFlow), a sampling without replacement strategy is usually adopted: the dataset is shuffled (shuffle) at the beginning of each epoch and then split into several non-overlapping mini-batches.\nThis leads to the following observation:\n\nIf we strictly apply the formula \\(\\frac{\\sigma^2}{M}\\), when the batch size \\(M\\) equals the dataset size \\(N\\), the variance bound for the gradient estimate becomes \\(\\frac{\\sigma^2}{N}\\). Since \\(\\sigma^2 &gt; 0\\), this implies the variance upper bound for the full batch gradient is still greater than zero. However, in fact, the full batch gradient \\[\n\\nabla \\hat F(\\theta) = \\frac{1}{N}\\sum_{i=1}^N \\nabla \\ell(z_i;\\theta)\n\\] is a deterministic vector, and its variance should be 0.\n\nThis discrepancy arises because, under sampling without replacement, the sampled points are not independent. To more accurately describe the behavior of Mini-batch SGD in practical engineering, we need to introduce the statistical concept of Finite Population Correction (FPC).\n\n2.2.1 Mathematical Setup\nConsider a finite dataset \\[\n\\mathcal{D} = \\{z_1,\\dots,z_N\\}.\n\\] For fixed parameters \\(\\theta\\), the gradients of all samples constitute a finite population: \\[\n\\mathcal{G} = \\{g_1,\\dots,g_N\\}, \\qquad g_i \\triangleq \\nabla \\ell(z_i;\\theta).\n\\]\nDefine the sample mean (i.e., the full batch gradient of the empirical risk) as \\[\n\\nabla \\hat F(\\theta) = \\frac{1}{N}\\sum_{i=1}^N g_i,\n\\] and define the sample variance as (here using the unbiased variance): \\[\n\\sigma^2(\\theta) \\triangleq \\frac{1}{N-1}\\sum_{i=1}^N \\|g_i - \\nabla \\hat F(\\theta)\\|^2.\n\\]\nWe are now interested in: from \\(\\{1,\\dots,N\\}\\), we without replacement draw a subset \\(S\\) of size \\(M\\), and define the mini-batch gradient as \\[\ng_t^{(M)} = \\frac{1}{M}\\sum_{i\\in S} g_i,\n\\] then what is the exact form of \\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n\\]\n\n\n2.2.2 Finite Population Correction in the Scalar Case\nSince sample gradients often exist in vector form (\\(d&gt;1\\)), to clarify the reasoning, we first examine the one-dimensional scalar case. Suppose we have fixed samples (scalars): \\[\nx_1,\\dots,x_N,\n\\] Define the sample mean \\[\n\\bar{x} = \\frac{1}{N}\\sum_{i=1}^N x_i,\n\\] and the sample (unbiased) variance \\[\nS^2 = \\frac{1}{N-1}\\sum_{i=1}^N (x_i - \\bar{x})^2.\n\\]\nFrom these, we draw without replacement \\(M\\) indices to form a subset \\(S\\). The sample mean is \\[\n\\bar X = \\frac{1}{M}\\sum_{i\\in S} x_i.\n\\]\nIntroduce indicator variables \\[\n\\xi_i \\triangleq\n\\begin{cases}\n1, & i\\in S,\\\\\n0, & i\\notin S,\n\\end{cases}\n\\qquad i=1,\\dots,N.\n\\] Then \\[\n\\bar X = \\frac{1}{M}\\sum_{i=1}^N \\xi_i x_i.\n\\]\nNote that \\[\n\\mathbb{E}[\\xi_i] = \\Pr(i\\in S) = \\frac{M}{N}.\n\\] A simple calculation verifies unbiasedness: \\[\n\\mathbb{E}[\\bar X]\n= \\frac{1}{M}\\sum_{i=1}^N x_i\\,\\mathbb{E}[\\xi_i]\n= \\frac{1}{M}\\cdot\\frac{M}{N}\\sum_{i=1}^N x_i\n= \\bar{x}.\n\\]\nNow we compute \\(\\mathbb{E}[(\\bar X - \\bar{x})^2]\\). Let \\[\ny_i \\triangleq x_i - \\bar{x},\\qquad \\sum_{i=1}^N y_i = 0,\n\\] then \\[\n\\bar X - \\bar{x}\n= \\frac{1}{M}\\sum_{i=1}^N \\xi_i y_i.\n\\]\nThus, \\[\n(\\bar X - \\bar{x})^2\n= \\frac{1}{M^2}\\left(\\sum_{i=1}^N \\xi_i y_i\\right)^2\n= \\frac{1}{M^2}\\left(\n  \\sum_{i=1}^N \\xi_i y_i^2\n+ 2\\sum_{1\\le i&lt;j\\le N} \\xi_i\\xi_j y_i y_j\n\\right).\n\\]\nTaking the expectation of the above: \\[\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n= \\frac{1}{M^2}\\left(\n  \\sum_{i=1}^N \\mathbb{E}[\\xi_i] y_i^2\n+ 2\\sum_{i&lt;j} \\mathbb{E}[\\xi_i\\xi_j] y_i y_j\n\\right).\n\\]\nWe already know \\(\\mathbb{E}[\\xi_i]=\\frac{M}{N}\\). For \\(i\\neq j\\), \\(\\xi_i\\xi_j=1\\) if and only if both \\(i\\) and \\(j\\) are selected. Note that under simple random sampling without replacement, the probability that any two specified elements are both selected is \\[\n\\Pr(i\\in S,\\;j\\in S)\n= \\frac{\\binom{N-2}{M-2}}{\\binom{N}{M}}\n= \\frac{M(M-1)}{N(N-1)},\n\\] Therefore, \\[\n\\mathbb{E}[\\xi_i\\xi_j]= \\mathbb{E}[\\mathbb{1}_{\\{i\\in S,j\\in S\\}}] =  \\Pr(i\\in S,\\;j\\in S) = \\frac{M(M-1)}{N(N-1)},\\qquad i\\neq j.\n\\]\nSubstituting, we get \\[\n\\begin{aligned}\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n&= \\frac{1}{M^2}\\left(\n  \\frac{M}{N}\\sum_{i=1}^N y_i^2\n+ 2\\cdot\\frac{M(M-1)}{N(N-1)}\\sum_{i&lt;j} y_i y_j\n\\right).\n\\end{aligned}\n\\]\nUsing the identity \\[\n\\left(\\sum_{i=1}^N y_i\\right)^2\n= \\sum_{i=1}^N y_i^2 + 2\\sum_{i&lt;j} y_i y_j\n= 0,\n\\] we obtain \\[\n\\sum_{i&lt;j} y_i y_j = -\\frac12\\sum_{i=1}^N y_i^2.\n\\]\nSubstituting back: \\[\n\\begin{aligned}\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n&= \\frac{1}{M^2}\\left(\n  \\frac{M}{N}\\sum_i y_i^2\n+ 2\\cdot\\frac{M(M-1)}{N(N-1)}\\cdot\\left(-\\frac12\\sum_i y_i^2\\right)\n\\right) \\\\\n&= \\frac{1}{M^2}\\left[\n  \\frac{M}{N} - \\frac{M(M-1)}{N(N-1)}\n\\right]\\sum_i y_i^2 \\\\\n&= \\frac{1}{M^2}\\cdot\\frac{M}{N}\\cdot\\frac{N-M}{N-1}\\sum_i y_i^2 \\\\\n&= \\frac{1}{M}\\cdot\\frac{N-M}{N}\\cdot\\frac{1}{N-1}\\sum_i y_i^2.\n\\end{aligned}\n\\]\nNote that\n\\[\nS^2 = \\frac{1}{N-1}\\sum_{i=1}^N (x_i - \\bar{x})^2 = \\frac{1}{N-1}\\sum_i y_i^2,\n\\] thus we obtain the well-known finite population correction formula: \\[\n\\boxed{\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\,S^2.\n}\n\\]\nCompared with the \\(\\frac{S^2}{M}\\) under sampling with replacement, here there is an additional correction factor \\[\n1 - \\frac{M}{N} \\in (0,1].\n\\] When \\(M\\ll N\\), this factor is close to \\(1\\), and sampling without replacement is almost indistinguishable from sampling with replacement; when \\(M\\to N\\), the factor approaches \\(0\\), and the variance also tends to \\(0\\), which is fully consistent with the fact that “the full-batch gradient is deterministic.”\n\n\n2.2.3 Finite Population Correction for the Vector Gradient Case\nReturning to the vector gradient case. Recall that we defined \\[\ng_i \\triangleq \\nabla \\ell(z_i;\\theta),\\qquad\n\\nabla \\hat F(\\theta) = \\frac{1}{N}\\sum_{i=1}^N g_i.\n\\] Let \\(S\\) be a sample set of size \\(M\\) drawn without replacement. Then the mini-batch gradient is \\[\ng_t^{(M)} = \\frac{1}{M}\\sum_{i\\in S} g_i.\n\\]\nWe are interested in what form \\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n\\] takes.\nNote that \\[\n\\|g_t^{(M)} - \\nabla \\hat F\\|^2\n= \\sum_{k=1}^d \\bigl((g_t^{(M)})_k - \\nabla \\hat F_k\\bigr)^2,\n\\] where the subscript \\(k\\) denotes the \\(k\\)-th coordinate of the vector. Therefore, \\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F\\|^2\\bigr]\n= \\sum_{k=1}^d \\mathbb{E}\\bigl[((g_t^{(M)})_k - \\nabla \\hat F_k)^2\\bigr].\n\\]\nWithout loss of generality, consider the \\(k\\)-th coordinate component. Let \\[\nx_i = (g_i)_{k},\\qquad \\bar{x}_k = \\frac{1}{N}\\sum_{i=1}^N x_i = \\nabla \\hat F_k,\n\\] Applying the one-dimensional result from the previous section, we obtain \\[\n\\mathbb{E}\\bigl[((g_t^{(M)})_k - \\nabla \\hat F_k)^2\\bigr]\n= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right) S_k^2,\n\\] where \\[\nS_k^2 = \\frac{1}{N-1}\\sum_{i=1}^N (g_i^{(k)} - \\nabla \\hat F_k)^2.\n\\]\nThus, \\[\n\\begin{aligned}\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F\\|^2\\bigr]\n&= \\sum_{k=1}^d \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right) S_k^2 \\\\\n&= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\sum_{k=1}^d S_k^2.\n\\end{aligned}\n\\]\nNow, \\[\n\\sum_{k=1}^d S_k^2\n= \\sum_{k=1}^d \\frac{1}{N-1}\\sum_{i=1}^N (g_i^{(k)} - \\nabla \\hat F_k)^2\n= \\frac{1}{N-1}\\sum_{i=1}^N \\sum_{k=1}^d (g_i^{(k)} - \\nabla \\hat F_k)^2\n= \\frac{1}{N-1}\\sum_{i=1}^N \\|g_i - \\nabla \\hat F\\|^2.\n\\]\nTherefore, we obtain the vector version of the finite population correction formula: \\[\n\\boxed{\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\n   \\cdot \\frac{1}{N-1}\\sum_{i=1}^N \\|g_i - \\nabla \\hat F(\\theta)\\|^2.\n}\n\\]\nIf we assume that the variance of the sample population gradients has a uniform upper bound, i.e., there exists a constant \\(\\sigma^2\\) such that for all \\(\\theta\\), \\[\n\\frac{1}{N-1}\\sum_{i=1}^N \\|\\nabla \\ell(z_i;\\theta) - \\nabla \\hat F(\\theta)\\|^2 \\le \\sigma^2,\n\\] then the mini-batch gradient without replacement satisfies \\[\n\\boxed{\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n\\le \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\sigma^2.\n}\n\\]\nCompared with the \\(\\frac{\\sigma^2}{M}\\) under sampling with replacement, sampling without replacement has an additional finite population correction factor \\[\n\\left(1 - \\frac{M}{N}\\right).\n\\] It has three direct implications:\n\nWhen \\(M=1\\), the correction factor is \\(1\\), reducing to the variance \\(\\sigma^2\\) of single-sample SGD;\nWhen \\(M\\ll N\\), \\(\\frac{M}{N}\\) is small, the correction factor is close to \\(1\\), and sampling without replacement is almost indistinguishable from sampling with replacement, which is a common approximation in big-data scenarios;\nWhen \\(M=N\\), the correction factor is \\(0\\), so \\(\\mathbb{E}\\|g_t^{(N)} - \\nabla \\hat F(\\theta)\\|^2 = 0\\), meaning the full-batch gradient is deterministic with no randomness, which more accurately describes the behavior of Mini-batch SGD in practical engineering.\n\nIn summary, we can unify the unbiasedness and variance assumptions of mini-batch SGD in the finite sample case as follows:\n\nFor sampling with replacement: \\[\n\\mathbb{E}[g_t^{(M)}(\\theta_t)] = \\nabla \\hat F(\\theta_t), \\qquad\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla \\hat F(\\theta_t)\\|^2\\bigr] \\le \\frac{\\sigma^2}{M};\n\\]\nFor sampling without replacement: \\[\n\\mathbb{E}[g_t^{(M)}(\\theta_t)] = \\nabla \\hat F(\\theta_t), \\qquad\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla \\hat F(\\theta_t)\\|^2\\bigr]\n\\le \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\sigma^2.\n\\]"
-  },
-  {
-    "objectID": "content/en/publications/index.html",
-    "href": "content/en/publications/index.html",
-    "title": "Publications",
+    "objectID": "content/en/blog/life/hello.html",
+    "href": "content/en/blog/life/hello.html",
+    "title": "Hello, World",
     "section": "",
-    "text": "This is the archive page for publications. Looking forward to having my future papers showcased here!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPublication Entry Example\n\n\nThis is a placeholder example entry.\n\n\n\n\n\nJan 1, 2024\n\n\nPerry\n\n\n\n\n\nNo matching items"
+    "text": "Welcome to my personal blog! This is my first blog post."
   },
   {
     "objectID": "content/en/blog/setup-guide.html",
@@ -385,122 +476,31 @@
     "text": "6.3 What if I only want to use a single language (e.g., only Chinese) and don’t want the bilingual feature?\nThis template is designed flexibly and can be switched to single-language mode.\nSteps:\n\nDisable the translation feature:\n\nGo to your GitHub repository -&gt; Settings -&gt; Secrets and variables -&gt; Actions, and delete DEEPSEEK_API_KEY.\nWhen the script detects no API Key, it will automatically skip translation without affecting deployment.\n\nClean up unnecessary files:\n\nDelete the language folder you don’t need (e.g., content/en).\nAlso check _quarto.yml and remove all links pointing to that folder (e.g., paths like content/en/... in the navbar or sidebar).\n\nRemove the language switcher:\n\nOpen _quarto.yml, find the include-after-body section, and delete the line assets/html/include_lang_switch.html.\nIn the navbar settings, delete the navigation item related to icon: translate.\n\nVerify the configuration:\n\nRun quarto preview locally to confirm there are no errors.\nAfter pushing, check if the GitHub Actions run is successful.\n\n\nThis way, your website becomes a single-language site."
   },
   {
-    "objectID": "content/en/blog/index.html",
-    "href": "content/en/blog/index.html",
-    "title": "Blog",
+    "objectID": "content/en/publications/index.html",
+    "href": "content/en/publications/index.html",
+    "title": "Publications",
     "section": "",
-    "text": "This is the blog archive page.\n\n\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nHello, World\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\nHow to Configure This Website Template (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\nA detailed guide on how to configure your own personal academic website based on this project template.\n\n\n\n\n\nDec 23, 2025\n\n\nPerry\n\n\n\n\n\nNo matching items"
+    "text": "This is the archive page for publications. Looking forward to having my future papers showcased here!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPublication Entry Example\n\n\nThis is a placeholder example entry.\n\n\n\n\n\nJan 1, 2024\n\n\nPerry\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "content/en/index.html",
-    "href": "content/en/index.html",
-    "title": "Perry",
+    "objectID": "content/en/notes/mini-batch-SGD.html",
+    "href": "content/en/notes/mini-batch-SGD.html",
+    "title": "Introduction to Stochastic Gradient Descent",
     "section": "",
-    "text": "GitHub\n  \n  \n    \n     Contact\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\nWelcome to my personal homepage! This site is used to organize academic notes, publish blog posts, and share some experiences.\nThis site is built with Quarto and currently hosted on GitHub Pages. If you would also like to build a similar website, you can refer to the Setup Guide."
+    "text": "This article provides a preliminary introduction to the Stochastic Gradient Descent (SGD) algorithm and its mini-batch variant, covering their basic principles, assumptions, and mathematical properties."
   },
   {
-    "objectID": "content/en/index.html#latest-news-news",
-    "href": "content/en/index.html#latest-news-news",
-    "title": "Perry",
-    "section": "📰 Latest News / News",
-    "text": "📰 Latest News / News\n\n2025-12: 🎉 This personal website based on Quarto is officially live!"
+    "objectID": "content/en/notes/mini-batch-SGD.html#mini-batch-sgd-the-case-of-sampling-with-replacement",
+    "href": "content/en/notes/mini-batch-SGD.html#mini-batch-sgd-the-case-of-sampling-with-replacement",
+    "title": "Introduction to Stochastic Gradient Descent",
+    "section": "2.1 Mini-batch SGD: The Case of Sampling with Replacement",
+    "text": "2.1 Mini-batch SGD: The Case of Sampling with Replacement\nClassical single-sample SGD uses only one sample per iteration to compute the gradient. While the computational cost is low, the introduced noise can be large (variance \\(\\sigma^2\\) is large), which can easily lead to severe oscillations in the iterative trajectory and makes it difficult to leverage the parallel computing capabilities of modern hardware. Mini-batch Stochastic Gradient Descent (Mini-batch SGD) is a natural generalization of single-sample SGD, using \\(M\\) samples per iteration to compute the gradient.\nSuppose at the \\(t\\)-th iteration, \\(M\\) samples are independently drawn with replacement: \\[\n\\mathcal{B}_t = \\{z_{t,1}, \\ldots, z_{t,M}\\},\n\\] where \\(z_{t,1},\\dots,z_{t,M} \\overset{\\text{i.i.d.}}{\\sim} \\mathcal{D}\\). Define the gradient estimator as the average of the gradients of this batch of samples: \\[\ng^{(M)}(\\theta_t)\n= \\frac{1}{M} \\sum_{i=1}^M \\nabla_\\theta \\ell(z_{t,i}; \\theta_t).\n\\]\nWe can prove: If the single-sample gradient satisfies the aforementioned unbiasedness and bounded variance assumptions, then the Mini-batch gradient estimator \\(g^{(M)}(\\theta_t)\\) necessarily satisfies the same unbiasedness assumption, and its variance upper bound is smaller. To simplify notation, in the following derivation, without loss of generality, we fix a certain iteration step \\(t\\) and parameter \\(\\theta_t\\), and denote the single-sample gradient and the full gradient as: \\[\ng(z) \\triangleq \\nabla_\\theta \\ell(z;\\theta_t),\\qquad\n\\nabla F \\triangleq \\nabla F(\\theta_t).\n\\] Thus, \\[\ng^{(M)}(\\theta_t) = \\frac{1}{M}\\sum_{i=1}^M g(z_{t,i}).\n\\]\n\n2.1.1 Preservation of Unbiasedness\nAssume the single-sample gradient is unbiased, i.e., \\[\n\\mathbb{E}_{z\\sim\\mathcal{D}}[g(z)] = \\nabla F.\n\\] Since expectation is linear and the samples \\(z_{t,1},\\dots,z_{t,M}\\) are independent and identically distributed according to \\(\\mathcal{D}\\), we have: \\[\n\\begin{aligned}\n\\mathbb{E}[g^{(M)}(\\theta_t)]\n&= \\mathbb{E}\\left[ \\frac{1}{M} \\sum_{i=1}^M g(z_{t,i}) \\right] \\\\\n&= \\frac{1}{M} \\sum_{i=1}^M \\mathbb{E}[g(z_{t,i})] \\\\\n&= \\frac{1}{M} \\cdot M \\cdot \\nabla F \\\\\n&= \\nabla F.\n\\end{aligned}\n\\]\nThis shows that the Mini-batch gradient inherits unbiasedness and remains a correct estimator of the true gradient: \\[\n\\boxed{\\mathbb{E}[g_t^{(M)}(\\theta_t)] = \\nabla F(\\theta_t).}\n\\]\n\n\n2.1.2 Boundedness of Variance\nAssume the noise variance of the single-sample gradient is bounded, i.e., there exists a constant \\(\\sigma^2\\) such that \\[\n\\mathbb{E}\\bigl[\\|g(z) - \\nabla F(\\theta_t)\\|^2\\bigr] \\leq \\sigma^2.\n\\]\nDefine the gradient noise of the \\(i\\)-th sample as \\[\nX_i \\triangleq g(z_{t,i}) - \\nabla F(\\theta_t).\n\\] Then \\(\\mathbb{E}[X_i]=0\\), and \\(X_1,\\dots,X_M\\) are independent and identically distributed. In this case, \\[\ng_t^{(M)}(\\theta_t) - \\nabla F(\\theta_t)\n= \\frac1M \\sum_{i=1}^M X_i.\n\\]\nWe are concerned with\n\\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla F\\|^2\\bigr]\n= \\mathbb{E}\\left\\|\\frac1M \\sum_{i=1}^M X_i\\right\\|^2.\n\\]\nNote the identity \\[\n\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n= \\sum_{i=1}^M \\|X_i\\|^2 + 2\\sum_{i&lt;j} \\langle X_i,X_j\\rangle.\n\\]\nTaking expectation on both sides: \\[\n\\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n= \\sum_{i=1}^M \\mathbb{E}\\|X_i\\|^2\n+ 2\\sum_{i&lt;j} \\mathbb{E}\\langle X_i,X_j\\rangle.\n\\]\nSince \\(X_i\\) and \\(X_j\\) are independent and \\(\\mathbb{E}[X_i]=0\\), we have \\[\n\\mathbb{E}\\langle X_i,X_j\\rangle\n= \\mathbb{E}\\bigl[X_i^\\top X_j\\bigr]\n= \\mathbb{E}\\bigl[X_i^\\top \\mathbb{E}(X_j\\mid X_i)\\bigr]\n= \\mathbb{E}\\bigl[X_i^\\top \\mathbb{E}(X_j)\\bigr]\n= \\mathbb{E}\\bigl[X_i^\\top 0\\bigr] = 0.\n\\] Thus, the expectations of all cross terms are \\(0\\), and hence \\[\n\\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n= \\sum_{i=1}^M \\mathbb{E}\\|X_i\\|^2.\n\\]\nSince all \\(X_i\\) are identically distributed, \\[\n\\mathbb{E}\\|X_i\\|^2 = \\mathbb{E}\\|X_1\\|^2\n= \\mathbb{E}\\|g(z)-\\nabla F(\\theta_t)\\|^2 \\le \\sigma^2.\n\\] Therefore, \\[\n\\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2\n\\le M \\sigma^2.\n\\]\nReturning to the quantity we want to compute: \\[\n\\begin{aligned}\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla F(\\theta_t)\\|^2\\bigr]\n&= \\mathbb{E}\\left\\|\\frac1M \\sum_{i=1}^M X_i\\right\\|^2 \\\\\n&= \\frac{1}{M^2} \\mathbb{E}\\left\\|\\sum_{i=1}^M X_i\\right\\|^2 \\\\\n&\\le \\frac{1}{M^2}\\cdot M \\sigma^2 \\\\\n&= \\frac{\\sigma^2}{M}.\n\\end{aligned}\n\\]\nThus, under sampling with replacement, if the single-sample gradient noise satisfies \\[\n\\mathbb{E}\\bigl[\\|g(z)- \\nabla F(\\theta_t)\\|^2\\bigr] \\le \\sigma^2,\n\\] then the corresponding mini-batch gradient estimator satisfies \\[\n\\boxed{\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla F(\\theta_t)\\|^2 \\mid \\theta_t\\bigr]\n\\le \\frac{\\sigma^2}{M}.\n}\n\\]\nSince \\(M \\ge 1\\), clearly \\(\\frac{\\sigma^2}{M} \\le \\sigma^2\\). This shows that Mini-batch SGD not only satisfies the bounded variance assumption but also reduces the variance of the gradient estimate by a factor of \\(M\\). This means that for the same number of iterations, the Mini-batch algorithm can provide a more stable gradient direction, thereby allowing the use of larger step sizes \\(\\eta_t\\) and accelerating convergence."
   },
   {
-    "objectID": "content/en/index.html#recent-posts-recent-posts",
-    "href": "content/en/index.html#recent-posts-recent-posts",
-    "title": "Perry",
-    "section": "Recent Posts / Recent Posts",
-    "text": "Recent Posts / Recent Posts\nHere are my most recently published articles. For more content, please visit the Blog List Page.\n\n\n\n\n\n\nHello, World\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\n\n\nHow to Configure This Website Template (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\nA detailed guide on how to configure your own personal academic website based on this project template.\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "content/en/index.html#notes-notes",
-    "href": "content/en/index.html#notes-notes",
-    "title": "Perry",
-    "section": "Notes / Notes",
-    "text": "Notes / Notes\nHere are some of my notes. For more content, please visit the Notes List Page.\n\n\n\n\n\n\n\n\n\n\nIntroduction to Stochastic Gradient Descent\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\nPerry\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Perry",
-    "section": "",
-    "text": "GitHub\n  \n  \n    \n     Contact\n  \n  \n    \n     Google Scholar\n  \n\n  \n  \n\n\n欢迎来到我的个人主页！这里用于整理一些学术笔记、发布博客文章，以及一些经验分享。\n本站由 Quarto 构建，目前托管于 GitHub Pages。如果您也想搭建一个类似的网站，可以参考Setup Guide。"
-  },
-  {
-    "objectID": "index.html#最新动态-news",
-    "href": "index.html#最新动态-news",
-    "title": "Perry",
-    "section": "📰 最新动态 / News",
-    "text": "📰 最新动态 / News\n\n2025-12: 🎉 这个基于 Quarto 的个人网站正式上线了！。"
-  },
-  {
-    "objectID": "index.html#最新博客-recent-posts",
-    "href": "index.html#最新博客-recent-posts",
-    "title": "Perry",
-    "section": "最新博客 / Recent Posts",
-    "text": "最新博客 / Recent Posts\n这里列出了我最近发布的文章。更多内容请查看 博客列表页。\n\n\n\n\n\n\n你好，世界\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\n\n\n\n\n\n如何配置本网站模板 (Setup Guide)\n\n\n\nTutorial\n\nQuarto\n\n\n\n一份详细的指南，教你如何根据这个项目模板配置你自己的个人学术网站。\n\n\n\n\n\n2025年12月23日\n\n\n\n\n\n\n\nBlog\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\n\n\n\n无匹配项"
-  },
-  {
-    "objectID": "index.html#笔记notes",
-    "href": "index.html#笔记notes",
-    "title": "Perry",
-    "section": "笔记/Notes",
-    "text": "笔记/Notes\n这里是我的一些笔记。更多内容请查看 笔记列表页。\n\n\n\n\n\n\n\n\n\n\n随机梯度下降初步\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\nPerry\n\n\n\n\n\n\n\n\n\n\n\n\nNotes\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\nPerry\n\n\n\n\n\n无匹配项"
-  },
-  {
-    "objectID": "content/en/cv.html",
-    "href": "content/en/cv.html",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "1 Curriculum Vitae\nThis space is reserved for future content."
-  },
-  {
-    "objectID": "content/en/blog/life/hello.html",
-    "href": "content/en/blog/life/hello.html",
-    "title": "Hello, World",
-    "section": "",
-    "text": "Welcome to my personal blog! This is my first blog post."
-  },
-  {
-    "objectID": "content/en/publications/example.html",
-    "href": "content/en/publications/example.html",
-    "title": "Publication Entry Example",
-    "section": "",
-    "text": "1 Abstract\nThis is a placeholder example entry."
-  },
-  {
-    "objectID": "content/en/notes/index.html",
-    "href": "content/en/notes/index.html",
-    "title": "Notes",
-    "section": "",
-    "text": "This is the notes archive page.\n\n\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nCategories\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\nIntroduction to Stochastic Gradient Descent\n\n\nMath, Optimization, Machine-Learning\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "content/zh/cv.html",
-    "href": "content/zh/cv.html",
-    "title": "个人简历",
-    "section": "",
-    "text": "1 个人简历\n先占个位置，以后再来填。"
-  },
-  {
-    "objectID": "content/zh/blog/life/hello.html",
-    "href": "content/zh/blog/life/hello.html",
-    "title": "你好，世界",
-    "section": "",
-    "text": "欢迎来到我的个人博客！这是我的第一篇博客。"
-  },
-  {
-    "objectID": "content/zh/publications/example.html",
-    "href": "content/zh/publications/example.html",
-    "title": "发表条目示例",
-    "section": "",
-    "text": "1 摘要\n这里是一个用于占位的示例条目。"
-  },
-  {
-    "objectID": "content/zh/notes/index.html",
-    "href": "content/zh/notes/index.html",
-    "title": "Notes",
-    "section": "",
-    "text": "这里是笔记归档页。\n\n\n\n\n\n\n   \n    \n    \n      排序方式\n      默认\n      \n        日期 - 日期升序\n      \n      \n        日期 - 日期降序\n      \n      \n        标题\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n日期\n\n\n\n标题\n\n\n\n分类\n\n\n\n\n\n\n\n\n2025年12月23日\n\n\n随机梯度下降初步\n\n\nMath, Optimization, Machine-Learning\n\n\n\n\n\n\n无匹配项"
+    "objectID": "content/en/notes/mini-batch-SGD.html#sampling-without-replacement-and-finite-population-correction-fpc",
+    "href": "content/en/notes/mini-batch-SGD.html#sampling-without-replacement-and-finite-population-correction-fpc",
+    "title": "Introduction to Stochastic Gradient Descent",
+    "section": "2.2 Sampling Without Replacement and Finite Population Correction (FPC)",
+    "text": "2.2 Sampling Without Replacement and Finite Population Correction (FPC)\nThe variance bound \\(\\frac{\\sigma^2}{M}\\) above is widely used in theoretical analysis, but it implicitly relies on the assumption of sampling with replacement, meaning the samples drawn each time are independent of each other.\nAs mentioned earlier, in practical scenarios, data is usually given as a finite dataset \\(\\mathcal{D} = \\{z_i\\}_{i=1}^N\\) (but of large scale). In this case, we typically consider the empirical risk: \\[\nF(\\theta) \\approx \\hat{F}(\\theta) = \\frac{1}{N} \\sum_{i=1}^N \\ell(z_i; \\theta)\n\\] In the engineering implementations of mainstream deep learning frameworks (such as PyTorch, TensorFlow), a sampling without replacement strategy is usually adopted: the dataset is shuffled (shuffle) at the beginning of each epoch and then split into several non-overlapping mini-batches.\nThis leads to the following observation:\n\nIf we strictly apply the formula \\(\\frac{\\sigma^2}{M}\\), when the batch size \\(M\\) equals the dataset size \\(N\\), the variance bound for the gradient estimate becomes \\(\\frac{\\sigma^2}{N}\\). Since \\(\\sigma^2 &gt; 0\\), this implies the variance upper bound for the full batch gradient is still greater than zero. However, in fact, the full batch gradient \\[\n\\nabla \\hat F(\\theta) = \\frac{1}{N}\\sum_{i=1}^N \\nabla \\ell(z_i;\\theta)\n\\] is a deterministic vector, and its variance should be 0.\n\nThis discrepancy arises because, under sampling without replacement, the sampled points are not independent. To more accurately describe the behavior of Mini-batch SGD in practical engineering, we need to introduce the statistical concept of Finite Population Correction (FPC).\n\n2.2.1 Mathematical Setup\nConsider a finite dataset \\[\n\\mathcal{D} = \\{z_1,\\dots,z_N\\}.\n\\] For fixed parameters \\(\\theta\\), the gradients of all samples constitute a finite population: \\[\n\\mathcal{G} = \\{g_1,\\dots,g_N\\}, \\qquad g_i \\triangleq \\nabla \\ell(z_i;\\theta).\n\\]\nDefine the sample mean (i.e., the full batch gradient of the empirical risk) as \\[\n\\nabla \\hat F(\\theta) = \\frac{1}{N}\\sum_{i=1}^N g_i,\n\\] and define the sample variance as (here using the unbiased variance): \\[\n\\sigma^2(\\theta) \\triangleq \\frac{1}{N-1}\\sum_{i=1}^N \\|g_i - \\nabla \\hat F(\\theta)\\|^2.\n\\]\nWe are now interested in: from \\(\\{1,\\dots,N\\}\\), we without replacement draw a subset \\(S\\) of size \\(M\\), and define the mini-batch gradient as \\[\ng_t^{(M)} = \\frac{1}{M}\\sum_{i\\in S} g_i,\n\\] then what is the exact form of \\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n\\]\n\n\n2.2.2 Finite Population Correction in the Scalar Case\nSince sample gradients often exist in vector form (\\(d&gt;1\\)), to clarify the reasoning, we first examine the one-dimensional scalar case. Suppose we have fixed samples (scalars): \\[\nx_1,\\dots,x_N,\n\\] Define the sample mean \\[\n\\bar{x} = \\frac{1}{N}\\sum_{i=1}^N x_i,\n\\] and the sample (unbiased) variance \\[\nS^2 = \\frac{1}{N-1}\\sum_{i=1}^N (x_i - \\bar{x})^2.\n\\]\nFrom these, we draw without replacement \\(M\\) indices to form a subset \\(S\\). The sample mean is \\[\n\\bar X = \\frac{1}{M}\\sum_{i\\in S} x_i.\n\\]\nIntroduce indicator variables \\[\n\\xi_i \\triangleq\n\\begin{cases}\n1, & i\\in S,\\\\\n0, & i\\notin S,\n\\end{cases}\n\\qquad i=1,\\dots,N.\n\\] Then \\[\n\\bar X = \\frac{1}{M}\\sum_{i=1}^N \\xi_i x_i.\n\\]\nNote that \\[\n\\mathbb{E}[\\xi_i] = \\Pr(i\\in S) = \\frac{M}{N}.\n\\] A simple calculation verifies unbiasedness: \\[\n\\mathbb{E}[\\bar X]\n= \\frac{1}{M}\\sum_{i=1}^N x_i\\,\\mathbb{E}[\\xi_i]\n= \\frac{1}{M}\\cdot\\frac{M}{N}\\sum_{i=1}^N x_i\n= \\bar{x}.\n\\]\nNow we compute \\(\\mathbb{E}[(\\bar X - \\bar{x})^2]\\). Let \\[\ny_i \\triangleq x_i - \\bar{x},\\qquad \\sum_{i=1}^N y_i = 0,\n\\] then \\[\n\\bar X - \\bar{x}\n= \\frac{1}{M}\\sum_{i=1}^N \\xi_i y_i.\n\\]\nThus, \\[\n(\\bar X - \\bar{x})^2\n= \\frac{1}{M^2}\\left(\\sum_{i=1}^N \\xi_i y_i\\right)^2\n= \\frac{1}{M^2}\\left(\n  \\sum_{i=1}^N \\xi_i y_i^2\n+ 2\\sum_{1\\le i&lt;j\\le N} \\xi_i\\xi_j y_i y_j\n\\right).\n\\]\nTaking the expectation of the above: \\[\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n= \\frac{1}{M^2}\\left(\n  \\sum_{i=1}^N \\mathbb{E}[\\xi_i] y_i^2\n+ 2\\sum_{i&lt;j} \\mathbb{E}[\\xi_i\\xi_j] y_i y_j\n\\right).\n\\]\nWe already know \\(\\mathbb{E}[\\xi_i]=\\frac{M}{N}\\). For \\(i\\neq j\\), \\(\\xi_i\\xi_j=1\\) if and only if both \\(i\\) and \\(j\\) are selected. Note that under simple random sampling without replacement, the probability that any two specified elements are both selected is \\[\n\\Pr(i\\in S,\\;j\\in S)\n= \\frac{\\binom{N-2}{M-2}}{\\binom{N}{M}}\n= \\frac{M(M-1)}{N(N-1)},\n\\] Therefore, \\[\n\\mathbb{E}[\\xi_i\\xi_j]= \\mathbb{E}[\\mathbb{1}_{\\{i\\in S,j\\in S\\}}] =  \\Pr(i\\in S,\\;j\\in S) = \\frac{M(M-1)}{N(N-1)},\\qquad i\\neq j.\n\\]\nSubstituting, we get \\[\n\\begin{aligned}\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n&= \\frac{1}{M^2}\\left(\n  \\frac{M}{N}\\sum_{i=1}^N y_i^2\n+ 2\\cdot\\frac{M(M-1)}{N(N-1)}\\sum_{i&lt;j} y_i y_j\n\\right).\n\\end{aligned}\n\\]\nUsing the identity \\[\n\\left(\\sum_{i=1}^N y_i\\right)^2\n= \\sum_{i=1}^N y_i^2 + 2\\sum_{i&lt;j} y_i y_j\n= 0,\n\\] we obtain \\[\n\\sum_{i&lt;j} y_i y_j = -\\frac12\\sum_{i=1}^N y_i^2.\n\\]\nSubstituting back: \\[\n\\begin{aligned}\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n&= \\frac{1}{M^2}\\left(\n  \\frac{M}{N}\\sum_i y_i^2\n+ 2\\cdot\\frac{M(M-1)}{N(N-1)}\\cdot\\left(-\\frac12\\sum_i y_i^2\\right)\n\\right) \\\\\n&= \\frac{1}{M^2}\\left[\n  \\frac{M}{N} - \\frac{M(M-1)}{N(N-1)}\n\\right]\\sum_i y_i^2 \\\\\n&= \\frac{1}{M^2}\\cdot\\frac{M}{N}\\cdot\\frac{N-M}{N-1}\\sum_i y_i^2 \\\\\n&= \\frac{1}{M}\\cdot\\frac{N-M}{N}\\cdot\\frac{1}{N-1}\\sum_i y_i^2.\n\\end{aligned}\n\\]\nNote that\n\\[\nS^2 = \\frac{1}{N-1}\\sum_{i=1}^N (x_i - \\bar{x})^2 = \\frac{1}{N-1}\\sum_i y_i^2,\n\\] thus we obtain the well-known finite population correction formula: \\[\n\\boxed{\n\\mathbb{E}[(\\bar X - \\bar{x})^2]\n= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\,S^2.\n}\n\\]\nCompared with the \\(\\frac{S^2}{M}\\) under sampling with replacement, here there is an additional correction factor \\[\n1 - \\frac{M}{N} \\in (0,1].\n\\] When \\(M\\ll N\\), this factor is close to \\(1\\), and sampling without replacement is almost indistinguishable from sampling with replacement; when \\(M\\to N\\), the factor approaches \\(0\\), and the variance also tends to \\(0\\), which is fully consistent with the fact that “the full-batch gradient is deterministic.”\n\n\n2.2.3 Finite Population Correction for the Vector Gradient Case\nReturning to the vector gradient case. Recall that we defined \\[\ng_i \\triangleq \\nabla \\ell(z_i;\\theta),\\qquad\n\\nabla \\hat F(\\theta) = \\frac{1}{N}\\sum_{i=1}^N g_i.\n\\] Let \\(S\\) be a sample set of size \\(M\\) drawn without replacement. Then the mini-batch gradient is \\[\ng_t^{(M)} = \\frac{1}{M}\\sum_{i\\in S} g_i.\n\\]\nWe are interested in what form \\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n\\] takes.\nNote that \\[\n\\|g_t^{(M)} - \\nabla \\hat F\\|^2\n= \\sum_{k=1}^d \\bigl((g_t^{(M)})_k - \\nabla \\hat F_k\\bigr)^2,\n\\] where the subscript \\(k\\) denotes the \\(k\\)-th coordinate of the vector. Therefore, \\[\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F\\|^2\\bigr]\n= \\sum_{k=1}^d \\mathbb{E}\\bigl[((g_t^{(M)})_k - \\nabla \\hat F_k)^2\\bigr].\n\\]\nWithout loss of generality, consider the \\(k\\)-th coordinate component. Let \\[\nx_i = (g_i)_{k},\\qquad \\bar{x}_k = \\frac{1}{N}\\sum_{i=1}^N x_i = \\nabla \\hat F_k,\n\\] Applying the one-dimensional result from the previous section, we obtain \\[\n\\mathbb{E}\\bigl[((g_t^{(M)})_k - \\nabla \\hat F_k)^2\\bigr]\n= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right) S_k^2,\n\\] where \\[\nS_k^2 = \\frac{1}{N-1}\\sum_{i=1}^N (g_i^{(k)} - \\nabla \\hat F_k)^2.\n\\]\nThus, \\[\n\\begin{aligned}\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F\\|^2\\bigr]\n&= \\sum_{k=1}^d \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right) S_k^2 \\\\\n&= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\sum_{k=1}^d S_k^2.\n\\end{aligned}\n\\]\nNow, \\[\n\\sum_{k=1}^d S_k^2\n= \\sum_{k=1}^d \\frac{1}{N-1}\\sum_{i=1}^N (g_i^{(k)} - \\nabla \\hat F_k)^2\n= \\frac{1}{N-1}\\sum_{i=1}^N \\sum_{k=1}^d (g_i^{(k)} - \\nabla \\hat F_k)^2\n= \\frac{1}{N-1}\\sum_{i=1}^N \\|g_i - \\nabla \\hat F\\|^2.\n\\]\nTherefore, we obtain the vector version of the finite population correction formula: \\[\n\\boxed{\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n= \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\n   \\cdot \\frac{1}{N-1}\\sum_{i=1}^N \\|g_i - \\nabla \\hat F(\\theta)\\|^2.\n}\n\\]\nIf we assume that the variance of the sample population gradients has a uniform upper bound, i.e., there exists a constant \\(\\sigma^2\\) such that for all \\(\\theta\\), \\[\n\\frac{1}{N-1}\\sum_{i=1}^N \\|\\nabla \\ell(z_i;\\theta) - \\nabla \\hat F(\\theta)\\|^2 \\le \\sigma^2,\n\\] then the mini-batch gradient without replacement satisfies \\[\n\\boxed{\n\\mathbb{E}\\bigl[\\|g_t^{(M)} - \\nabla \\hat F(\\theta)\\|^2\\bigr]\n\\le \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\sigma^2.\n}\n\\]\nCompared with the \\(\\frac{\\sigma^2}{M}\\) under sampling with replacement, sampling without replacement has an additional finite population correction factor \\[\n\\left(1 - \\frac{M}{N}\\right).\n\\] It has three direct implications:\n\nWhen \\(M=1\\), the correction factor is \\(1\\), reducing to the variance \\(\\sigma^2\\) of single-sample SGD;\nWhen \\(M\\ll N\\), \\(\\frac{M}{N}\\) is small, the correction factor is close to \\(1\\), and sampling without replacement is almost indistinguishable from sampling with replacement, which is a common approximation in big-data scenarios;\nWhen \\(M=N\\), the correction factor is \\(0\\), so \\(\\mathbb{E}\\|g_t^{(N)} - \\nabla \\hat F(\\theta)\\|^2 = 0\\), meaning the full-batch gradient is deterministic with no randomness, which more accurately describes the behavior of Mini-batch SGD in practical engineering.\n\nIn summary, we can unify the unbiasedness and variance assumptions of mini-batch SGD in the finite sample case as follows:\n\nFor sampling with replacement: \\[\n\\mathbb{E}[g_t^{(M)}(\\theta_t)] = \\nabla \\hat F(\\theta_t), \\qquad\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla \\hat F(\\theta_t)\\|^2\\bigr] \\le \\frac{\\sigma^2}{M};\n\\]\nFor sampling without replacement: \\[\n\\mathbb{E}[g_t^{(M)}(\\theta_t)] = \\nabla \\hat F(\\theta_t), \\qquad\n\\mathbb{E}\\bigl[\\|g_t^{(M)}(\\theta_t) - \\nabla \\hat F(\\theta_t)\\|^2\\bigr]\n\\le \\frac{1}{M}\\left(1 - \\frac{M}{N}\\right)\\sigma^2.\n\\]"
   }
 ]
