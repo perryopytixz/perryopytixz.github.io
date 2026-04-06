@@ -1,8 +1,15 @@
 project:
   type: website
   output-dir: _site
+  preview:
+    watch-inputs: true
+    navigate: true
+    browser: false
    
 bibliography: references.bib
+csl: https://www.zotero.org/styles/apa
+link-citations: true
+
 
 website:
   title: "Perry's Page"
@@ -86,4 +93,4 @@ format:
 
 
 execute:
-  freeze: auto
+  freeze: false
